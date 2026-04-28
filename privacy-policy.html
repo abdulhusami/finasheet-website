@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy — Finasheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#1D4ED8;--primary-dark:#1E3A8A;--primary-deep:#172554;
+    --sky:#38BDF8;--emerald:#10B981;--bg:#F8FAFC;--surface:#FFFFFF;
+    --text:#020617;--text-soft:#0F172A;--body:#475569;--body-light:#64748B;
+    --border:#E2E8F0;--border-soft:#EEF2F6;--tint:#EFF6FF;
+    --radius-btn:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:16px;line-height:1.6;color:var(--body);background:var(--surface);-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4,h5{font-family:'Sora',sans-serif;color:var(--text);line-height:1.15;letter-spacing:-0.025em;font-weight:700}
+  a{color:inherit;text-decoration:none}
+  .container{width:100%;max-width:1280px;margin:0 auto;padding:0 24px}
+
+  /* NAV */
+  .nav{position:sticky;top:0;z-index:100;padding:14px 0;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--border)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:30px}
+  .logo{display:inline-flex;align-items:center;flex-shrink:0}
+  .logo img{display:block;height:36px;width:auto}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{font-size:14px;color:var(--body);font-weight:500;transition:color .2s ease}
+  .nav-links a:hover{color:var(--text)}
+  .btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;padding:11px 20px;border-radius:var(--radius-btn);border:1px solid transparent;cursor:pointer;transition:all .22s ease-in-out;text-decoration:none;white-space:nowrap}
+  .btn-primary{background:linear-gradient(135deg,var(--primary) 0%, var(--primary-dark) 100%);color:white;box-shadow:0 6px 16px -4px rgba(29,78,216,.45)}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 22px -4px rgba(29,78,216,.55)}
+
+  /* HERO BANNER */
+  .legal-hero{
+    padding:80px 0 60px;
+    background:linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-dark) 50%, var(--primary) 100%);
+    position:relative;overflow:hidden;
+  }
+  .legal-hero::before{
+    content:'';position:absolute;top:-150px;right:-150px;width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(56,189,248,.2) 0%, transparent 70%);pointer-events:none;
+  }
+  .legal-hero h1{color:white;font-size:clamp(36px,4vw,52px);margin-bottom:12px;position:relative;z-index:1}
+  .legal-hero p{color:#BFDBFE;font-size:17px;max-width:600px;position:relative;z-index:1}
+  .legal-hero .meta{margin-top:20px;font-size:13px;color:rgba(255,255,255,.5);position:relative;z-index:1}
+
+  /* CONTENT */
+  .legal-content{padding:60px 0 100px}
+  .legal-body{max-width:800px;margin:0 auto}
+  .legal-body h2{font-size:22px;margin:48px 0 16px;padding-top:32px;border-top:1px solid var(--border-soft);letter-spacing:-.02em}
+  .legal-body h2:first-of-type{border-top:none;margin-top:0;padding-top:0}
+  .legal-body h3{font-size:17px;margin:28px 0 10px;letter-spacing:-.01em}
+  .legal-body p{font-size:15.5px;line-height:1.7;color:var(--body);margin-bottom:16px}
+  .legal-body ul{margin:12px 0 20px 20px;display:grid;gap:8px}
+  .legal-body li{font-size:15px;line-height:1.65;color:var(--body)}
+  .legal-body a{color:var(--primary);text-decoration:underline;text-underline-offset:3px}
+
+  /* FOOTER */
+  footer{background:#FFFFFF;color:#475569;padding:40px 0;border-top:1px solid var(--border)}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;font-size:13px;flex-wrap:wrap;gap:12px}
+  .footer-bottom a{color:#64748B;margin-left:16px;transition:color .2s ease}
+  .footer-bottom a:hover{color:var(--primary-dark)}
+
+  @media (max-width:860px){
+    .nav-links{display:none}
+    .legal-hero{padding:60px 0 40px}
+  }
+  @media (max-width:620px){
+    .logo img{height:28px}
+    .legal-hero h1{font-size:32px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <img src="fina-logo-transparent.png" alt="Finasheet logo">
+    </a>
+    <div class="nav-links">
+      <a href="index.html#product">Product</a>
+      <a href="index.html#who">Who it's for</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#founder">Why Finasheet</a>
+      <a href="index.html#faq">FAQs</a>
+    </div>
+    <a href="https://book.finasheet.com/calendar" class="btn btn-primary">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      Book A Demo
+    </a>
+  </div>
+</nav>
+
+<section class="legal-hero">
+  <div class="container">
+    <h1>Privacy Policy</h1>
+    <p>How Finasheet collects, uses, and protects your information. We believe in transparency and keeping things simple.</p>
+    <div class="meta">Last updated: April 28, 2026</div>
+  </div>
+</section>
+
+<section class="legal-content">
+  <div class="container">
+    <div class="legal-body">
+
+      <h2>1. Introduction</h2>
+      <p>Finasheet ("we", "our", or "us") is committed to protecting the privacy and security of your personal information. This Privacy Policy explains how we collect, use, store, and share information when you use our accounting software platform, website, and related services (collectively, the "Services").</p>
+      <p>By using our Services, you agree to the collection and use of information in accordance with this policy. If you do not agree with any part of this policy, please discontinue use of our Services.</p>
+
+      <h2>2. Information We Collect</h2>
+      <h3>2.1 Information You Provide</h3>
+      <p>We collect information that you provide directly to us, including:</p>
+      <ul>
+        <li>Account registration details (name, email address, phone number, company name)</li>
+        <li>Business information (Trade License number, TRN, business address, industry type)</li>
+        <li>Financial data entered into the platform (invoices, expenses, transactions, bank records)</li>
+        <li>Communications with our support team via WhatsApp, email, or chat</li>
+        <li>Payment information for subscription plans (processed securely through third-party payment providers)</li>
+      </ul>
+
+      <h3>2.2 Information Collected Automatically</h3>
+      <p>When you use our Services, we automatically collect certain technical information:</p>
+      <ul>
+        <li>Device information (browser type, operating system, device identifiers)</li>
+        <li>Usage data (pages visited, features used, time spent, click patterns)</li>
+        <li>IP address and approximate geographic location</li>
+        <li>Cookies and similar tracking technologies</li>
+      </ul>
+
+      <h2>3. How We Use Your Information</h2>
+      <p>We use the information we collect to:</p>
+      <ul>
+        <li>Provide, maintain, and improve our accounting software and services</li>
+        <li>Process transactions and generate financial reports as requested</li>
+        <li>Set up your account, including chart of accounts, tax codes, and business structure</li>
+        <li>Provide customer support and respond to inquiries</li>
+        <li>Send important service updates, security alerts, and administrative messages</li>
+        <li>Analyze usage patterns to improve user experience and product features</li>
+        <li>Comply with legal obligations, including UAE Federal Tax Authority requirements</li>
+        <li>Prevent fraud and ensure the security of our platform</li>
+      </ul>
+
+      <h2>4. Data Storage and Security</h2>
+      <p>Your data is stored on secure, encrypted servers. We implement industry-standard security measures to protect your information, including:</p>
+      <ul>
+        <li>256-bit SSL/TLS encryption for all data in transit</li>
+        <li>AES-256 encryption for data at rest</li>
+        <li>Regular security audits and vulnerability assessments</li>
+        <li>Role-based access controls within the platform</li>
+        <li>Automated backup systems with disaster recovery protocols</li>
+      </ul>
+      <p>While we take extensive measures to protect your data, no method of electronic storage or transmission is 100% secure. We encourage you to use strong passwords and enable all available security features.</p>
+
+      <h2>5. Data Sharing and Disclosure</h2>
+      <p>We do not sell, rent, or trade your personal information to third parties. We may share your information only in the following circumstances:</p>
+      <ul>
+        <li><strong>Service providers:</strong> With trusted third-party vendors who assist in operating our platform (hosting, payment processing, analytics), bound by strict confidentiality agreements</li>
+        <li><strong>Legal compliance:</strong> When required by UAE law, regulation, or valid legal process</li>
+        <li><strong>Tax authority:</strong> When generating FTA-aligned reports at your direction</li>
+        <li><strong>Your accountant:</strong> When you explicitly invite team members or accountants to access your account</li>
+        <li><strong>Business transfer:</strong> In connection with a merger, acquisition, or sale of assets, with prior notice</li>
+      </ul>
+
+      <h2>6. Your Rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>Access your personal data stored on our platform</li>
+        <li>Request correction of inaccurate information</li>
+        <li>Request deletion of your account and associated data</li>
+        <li>Export your financial data in standard formats</li>
+        <li>Withdraw consent for optional data processing activities</li>
+        <li>Object to processing of your data for marketing purposes</li>
+      </ul>
+      <p>To exercise any of these rights, contact us at <a href="mailto:privacy@finasheet.com">privacy@finasheet.com</a> or reach out via WhatsApp.</p>
+
+      <h2>7. Cookies and Tracking</h2>
+      <p>We use cookies and similar technologies to enhance your experience on our platform. These include essential cookies for platform functionality, analytics cookies to understand usage patterns, and preference cookies to remember your settings. You can manage cookie preferences through your browser settings.</p>
+
+      <h2>8. Data Retention</h2>
+      <p>We retain your data for as long as your account is active or as needed to provide you services. Financial records may be retained for the minimum period required by UAE law and FTA regulations. When you delete your account, we will remove your personal data within 90 days, except where retention is legally required.</p>
+
+      <h2>9. Children's Privacy</h2>
+      <p>Our Services are not intended for individuals under the age of 18. We do not knowingly collect personal information from children. If we discover that a child has provided us with personal data, we will take steps to delete it promptly.</p>
+
+      <h2>10. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. We will notify you of any material changes by posting the updated policy on our website and sending a notification through the platform. Your continued use of our Services after changes become effective constitutes acceptance of the updated policy.</p>
+
+      <h2>11. Contact Us</h2>
+      <p>If you have any questions about this Privacy Policy or our data practices, please contact us:</p>
+      <ul>
+        <li>Email: <a href="mailto:privacy@finasheet.com">privacy@finasheet.com</a></li>
+        <li>WhatsApp: Available through our website</li>
+        <li>Website: <a href="https://finasheet.com">finasheet.com</a></li>
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 Finasheet. Built for UAE businesses.</span>
+      <span>
+        <a href="privacy-policy.html" style="font-weight:600;color:var(--primary)">Privacy</a>
+        <a href="terms-of-service.html">Terms</a>
+        <a href="#">Cookies</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

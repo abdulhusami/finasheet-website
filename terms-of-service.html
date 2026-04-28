@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terms of Service — Finasheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#1D4ED8;--primary-dark:#1E3A8A;--primary-deep:#172554;
+    --sky:#38BDF8;--emerald:#10B981;--bg:#F8FAFC;--surface:#FFFFFF;
+    --text:#020617;--text-soft:#0F172A;--body:#475569;--body-light:#64748B;
+    --border:#E2E8F0;--border-soft:#EEF2F6;--tint:#EFF6FF;
+    --radius-btn:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:16px;line-height:1.6;color:var(--body);background:var(--surface);-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4,h5{font-family:'Sora',sans-serif;color:var(--text);line-height:1.15;letter-spacing:-0.025em;font-weight:700}
+  a{color:inherit;text-decoration:none}
+  .container{width:100%;max-width:1280px;margin:0 auto;padding:0 24px}
+
+  .nav{position:sticky;top:0;z-index:100;padding:14px 0;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--border)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:30px}
+  .logo{display:inline-flex;align-items:center;flex-shrink:0}
+  .logo img{display:block;height:36px;width:auto}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{font-size:14px;color:var(--body);font-weight:500;transition:color .2s ease}
+  .nav-links a:hover{color:var(--text)}
+  .btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;padding:11px 20px;border-radius:var(--radius-btn);border:1px solid transparent;cursor:pointer;transition:all .22s ease-in-out;text-decoration:none;white-space:nowrap}
+  .btn-primary{background:linear-gradient(135deg,var(--primary) 0%, var(--primary-dark) 100%);color:white;box-shadow:0 6px 16px -4px rgba(29,78,216,.45)}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 22px -4px rgba(29,78,216,.55)}
+
+  .legal-hero{
+    padding:80px 0 60px;
+    background:linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-dark) 50%, var(--primary) 100%);
+    position:relative;overflow:hidden;
+  }
+  .legal-hero::before{
+    content:'';position:absolute;bottom:-150px;left:-150px;width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(16,185,129,.18) 0%, transparent 70%);pointer-events:none;
+  }
+  .legal-hero h1{color:white;font-size:clamp(36px,4vw,52px);margin-bottom:12px;position:relative;z-index:1}
+  .legal-hero p{color:#BFDBFE;font-size:17px;max-width:600px;position:relative;z-index:1}
+  .legal-hero .meta{margin-top:20px;font-size:13px;color:rgba(255,255,255,.5);position:relative;z-index:1}
+
+  .legal-content{padding:60px 0 100px}
+  .legal-body{max-width:800px;margin:0 auto}
+  .legal-body h2{font-size:22px;margin:48px 0 16px;padding-top:32px;border-top:1px solid var(--border-soft);letter-spacing:-.02em}
+  .legal-body h2:first-of-type{border-top:none;margin-top:0;padding-top:0}
+  .legal-body h3{font-size:17px;margin:28px 0 10px;letter-spacing:-.01em}
+  .legal-body p{font-size:15.5px;line-height:1.7;color:var(--body);margin-bottom:16px}
+  .legal-body ul{margin:12px 0 20px 20px;display:grid;gap:8px}
+  .legal-body li{font-size:15px;line-height:1.65;color:var(--body)}
+  .legal-body a{color:var(--primary);text-decoration:underline;text-underline-offset:3px}
+
+  footer{background:#FFFFFF;color:#475569;padding:40px 0;border-top:1px solid var(--border)}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;font-size:13px;flex-wrap:wrap;gap:12px}
+  .footer-bottom a{color:#64748B;margin-left:16px;transition:color .2s ease}
+  .footer-bottom a:hover{color:var(--primary-dark)}
+
+  @media (max-width:860px){.nav-links{display:none}.legal-hero{padding:60px 0 40px}}
+  @media (max-width:620px){.logo img{height:28px}.legal-hero h1{font-size:32px}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <img src="fina-logo-transparent.png" alt="Finasheet logo">
+    </a>
+    <div class="nav-links">
+      <a href="index.html#product">Product</a>
+      <a href="index.html#who">Who it's for</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#founder">Why Finasheet</a>
+      <a href="index.html#faq">FAQs</a>
+    </div>
+    <a href="https://book.finasheet.com/calendar" class="btn btn-primary">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      Book A Demo
+    </a>
+  </div>
+</nav>
+
+<section class="legal-hero">
+  <div class="container">
+    <h1>Terms of Service</h1>
+    <p>The rules and guidelines for using Finasheet's accounting platform and services. Please read carefully before using our product.</p>
+    <div class="meta">Last updated: April 28, 2026</div>
+  </div>
+</section>
+
+<section class="legal-content">
+  <div class="container">
+    <div class="legal-body">
+
+      <h2>1. Acceptance of Terms</h2>
+      <p>By accessing or using Finasheet's accounting software, website, and related services ("Services"), you agree to be bound by these Terms of Service ("Terms"). These Terms constitute a legally binding agreement between you (whether an individual or entity) and Finasheet.</p>
+      <p>If you are using the Services on behalf of a company or organization, you represent that you have the authority to bind that entity to these Terms.</p>
+
+      <h2>2. Description of Services</h2>
+      <p>Finasheet provides cloud-based accounting software specifically designed for UAE businesses. Our Services include:</p>
+      <ul>
+        <li>FTA-aligned invoicing and billing</li>
+        <li>VAT and corporate tax management and reporting</li>
+        <li>Financial reporting and dashboards</li>
+        <li>Expense tracking and bank reconciliation</li>
+        <li>Multi-user access with role-based permissions</li>
+        <li>Data migration and guided setup assistance</li>
+        <li>Customer support via WhatsApp, email, and chat</li>
+      </ul>
+
+      <h2>3. Account Registration</h2>
+      <p>To use our Services, you must create an account and provide accurate, complete, and current information. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</p>
+      <p>You agree to notify us immediately of any unauthorized use of your account. Finasheet is not liable for any loss arising from unauthorized use of your account credentials.</p>
+
+      <h2>4. Subscription Plans and Pricing</h2>
+      <h3>4.1 Plans</h3>
+      <p>Finasheet offers multiple subscription plans (Startup, Growing, Thriving) with varying features and pricing. The Startup plan is free forever with limited features. Paid plans are billed monthly or annually as selected at checkout.</p>
+
+      <h3>4.2 Payment</h3>
+      <p>Paid subscriptions require valid payment information. All fees are quoted in AED and are exclusive of applicable taxes unless stated otherwise. Payments are processed through secure third-party payment providers.</p>
+
+      <h3>4.3 Cancellation and Refunds</h3>
+      <p>You may cancel your subscription at any time. Upon cancellation, you will retain access until the end of your current billing period. We do not provide prorated refunds for unused portions of a billing period. Your data remains accessible for export for 30 days after cancellation.</p>
+
+      <h2>5. User Responsibilities</h2>
+      <p>As a user of Finasheet, you agree to:</p>
+      <ul>
+        <li>Use the Services only for lawful business purposes</li>
+        <li>Maintain the accuracy and completeness of your financial data</li>
+        <li>Not share your account credentials with unauthorized parties</li>
+        <li>Not attempt to reverse engineer, decompile, or disassemble any part of the platform</li>
+        <li>Not use the Services to store or transmit harmful code, malware, or illegal content</li>
+        <li>Not resell, sublicense, or redistribute the Services without written permission</li>
+        <li>Comply with all applicable UAE laws and regulations, including FTA requirements</li>
+      </ul>
+
+      <h2>6. Data Ownership</h2>
+      <p>You retain full ownership of all financial data, documents, and content you enter into Finasheet. We do not claim ownership of your data. You grant us a limited license to process, store, and display your data solely to provide the Services.</p>
+      <p>You may export your data at any time in standard formats. Upon account termination, we will make your data available for export for 30 days before deletion.</p>
+
+      <h2>7. Intellectual Property</h2>
+      <p>All rights, title, and interest in the Finasheet platform, including software, design, logos, trademarks, and documentation, remain the exclusive property of Finasheet. These Terms do not grant you any rights to use our intellectual property beyond what is necessary to use the Services.</p>
+
+      <h2>8. Service Availability and Support</h2>
+      <p>We strive to maintain 99.9% uptime for our platform. However, we do not guarantee uninterrupted access and may perform scheduled maintenance with reasonable advance notice. Emergency maintenance may be performed without prior notice when necessary to protect the platform's security or integrity.</p>
+      <p>Customer support is available via WhatsApp and email during business hours (Sunday through Thursday, 9 AM to 6 PM GST). Priority support is available for Thriving plan subscribers.</p>
+
+      <h2>9. Limitation of Liability</h2>
+      <p>Finasheet provides accounting tools to assist with financial management. However, the Services do not constitute professional accounting, tax, or legal advice. You are responsible for verifying the accuracy of financial reports and tax filings generated through our platform.</p>
+      <p>To the maximum extent permitted by UAE law, Finasheet shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or business opportunities, arising from your use of the Services.</p>
+      <p>Our total liability for any claim arising under these Terms shall not exceed the amount you paid to Finasheet in the twelve (12) months preceding the claim.</p>
+
+      <h2>10. Indemnification</h2>
+      <p>You agree to indemnify and hold Finasheet harmless from any claims, losses, damages, liabilities, and expenses (including legal fees) arising from your use of the Services, violation of these Terms, or infringement of any third-party rights.</p>
+
+      <h2>11. Third-Party Integrations</h2>
+      <p>Finasheet may integrate with third-party services (payment processors, banking platforms, communication tools). Your use of these third-party services is subject to their respective terms and privacy policies. Finasheet is not responsible for the practices or content of third-party services.</p>
+
+      <h2>12. Modifications to Terms</h2>
+      <p>We reserve the right to modify these Terms at any time. Material changes will be communicated via email or in-app notification at least 30 days before they take effect. Your continued use of the Services after changes become effective constitutes acceptance of the modified Terms.</p>
+
+      <h2>13. Termination</h2>
+      <p>We may suspend or terminate your access to the Services if you violate these Terms, engage in fraudulent or illegal activities, or fail to pay subscription fees. We will provide reasonable notice before termination unless immediate action is required for security or legal reasons.</p>
+      <p>Upon termination, your right to use the Services ceases immediately. Provisions that by their nature should survive termination (including data ownership, limitation of liability, and indemnification) will remain in effect.</p>
+
+      <h2>14. Governing Law</h2>
+      <p>These Terms are governed by and construed in accordance with the laws of the United Arab Emirates. Any disputes arising from these Terms or your use of the Services shall be subject to the exclusive jurisdiction of the courts of the UAE.</p>
+
+      <h2>15. Contact Us</h2>
+      <p>If you have questions about these Terms of Service, please contact us:</p>
+      <ul>
+        <li>Email: <a href="mailto:legal@finasheet.com">legal@finasheet.com</a></li>
+        <li>WhatsApp: Available through our website</li>
+        <li>Website: <a href="https://finasheet.com">finasheet.com</a></li>
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 Finasheet. Built for UAE businesses.</span>
+      <span>
+        <a href="privacy-policy.html">Privacy</a>
+        <a href="terms-of-service.html" style="font-weight:600;color:var(--primary)">Terms</a>
+        <a href="#">Cookies</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
