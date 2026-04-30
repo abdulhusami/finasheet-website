@@ -1826,13 +1826,28 @@
 
   /* Gear core */
   .sw-gear-wrap{
-    position:relative;display:flex;flex-direction:column;align-items:center;
-    gap:14px;justify-self:center;
+    position:relative;
+    display:flex;flex-direction:column;align-items:center;
+    justify-content:center;
+    gap:14px;justify-self:center;align-self:stretch;
+    padding:0 16px;
   }
-  .sw-gear-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .sw-gear-core{
+    position:relative;
+    width:64px;height:64px;
+    display:grid;place-items:center;
+  }
+  .sw-gear-rings{
+    position:absolute;
+    top:50%;left:50%;
+    width:0;height:0;
+    pointer-events:none;
+  }
   .sw-gear-ring{
     position:absolute;border-radius:50%;
     border:1.5px solid rgba(96,165,250,.3);
+    top:50%;left:50%;
+    transform:translate(-50%, -50%);
   }
   .sw-gear-ring.r1{
     width:100px;height:100px;
@@ -1843,8 +1858,8 @@
     animation:ringExpand 3s ease-in-out infinite .8s;
   }
   @keyframes ringExpand{
-    0%,100%{transform:scale(.85);opacity:.6}
-    50%{transform:scale(1);opacity:.2}
+    0%,100%{transform:translate(-50%, -50%) scale(.85);opacity:.6}
+    50%{transform:translate(-50%, -50%) scale(1);opacity:.2}
   }
   .sw-gear{
     width:64px;height:64px;border-radius:50%;
@@ -1864,7 +1879,7 @@
   }
   .sw-gear-label{
     text-align:center;position:relative;z-index:2;
-    margin-top:14px;
+    margin-top:8px;
   }
   .sw-gear-label strong{
     display:block;font-family:'Sora';font-size:13px;font-weight:600;color:white;
@@ -2586,68 +2601,6 @@
   </div>
 </section>
 
-<!-- WHO IT'S FOR -->
-<section id="who" class="for-who">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="section-eyebrow">Who it's for</span>
-      <h2 class="section-title">Built for three kinds of people</h2>
-      <p class="section-sub">Whether you run the business, keep the books, or manage a portfolio of clients, Finasheet has the view you need.</p>
-    </div>
-
-    <div class="who-grid reveal-stagger">
-      <div class="who-card">
-        <div class="who-visual">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/>
-            <path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/>
-          </svg>
-        </div>
-        <h3>Business owners</h3>
-        <p>Stop guessing your numbers. See revenue, profit, and tax due at a glance, without needing an accounting degree.</p>
-        <ul class="who-benefits">
-          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Plain-language dashboards</li>
-          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Tax deadlines without surprises</li>
-          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Invite your accountant or ours</li>
-        </ul>
-      </div>
-
-      <div class="who-card">
-        <div class="who-visual emerald">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <path d="M14 2v6h6M9 13h6M9 17h6"/>
-          </svg>
-        </div>
-        <h3>Accountants & freelancers</h3>
-        <p>Accountant-speed workflows. Voucher numbering, period locking, keyboard shortcuts, and imports that actually converts.</p>
-        <ul class="who-benefits">
-          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Full journal, ledger, trial balance</li>
-          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Data import and migration tools</li>
-          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Role based access only</li>
-        </ul>
-      </div>
-
-      <div class="who-card">
-        <div class="who-visual amber">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
-        </div>
-        <h3>Accounting firms</h3>
-        <p>Manage multiple clients from one workspace. Clean books, period locks, and audit trails that stand up to scrutiny.</p>
-        <ul class="who-benefits">
-          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Multi-client workspace</li>
-          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Audit trail and period locking</li>
-          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Consolidated reporting</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FOUNDER / WHY FINASHEET -->
 <section id="founder" class="founder">
   <div class="container">
@@ -2947,6 +2900,68 @@
   </div>
 </section>
 
+<!-- WHO IT'S FOR -->
+<section id="who" class="for-who">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Who it's for</span>
+      <h2 class="section-title">Built for three kinds of people</h2>
+      <p class="section-sub">Whether you run the business, keep the books, or manage a portfolio of clients, Finasheet has the view you need.</p>
+    </div>
+
+    <div class="who-grid reveal-stagger">
+      <div class="who-card">
+        <div class="who-visual">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/>
+            <path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/>
+          </svg>
+        </div>
+        <h3>Business owners</h3>
+        <p>Stop guessing your numbers. See revenue, profit, and tax due at a glance, without needing an accounting degree.</p>
+        <ul class="who-benefits">
+          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Plain-language dashboards</li>
+          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Tax deadlines without surprises</li>
+          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Invite your accountant or ours</li>
+        </ul>
+      </div>
+
+      <div class="who-card">
+        <div class="who-visual emerald">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6M9 13h6M9 17h6"/>
+          </svg>
+        </div>
+        <h3>Accountants & freelancers</h3>
+        <p>Accountant-speed workflows. Voucher numbering, period locking, keyboard shortcuts, and imports that actually converts.</p>
+        <ul class="who-benefits">
+          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Full journal, ledger, trial balance</li>
+          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Data import and migration tools</li>
+          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Role based access only</li>
+        </ul>
+      </div>
+
+      <div class="who-card">
+        <div class="who-visual amber">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3>Accounting firms</h3>
+        <p>Manage multiple clients from one workspace. Clean books, period locks, and audit trails that stand up to scrutiny.</p>
+        <ul class="who-benefits">
+          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Multi-client workspace</li>
+          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Audit trail and period locking</li>
+          <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 7"/></svg></span>Consolidated reporting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- MIGRATION / SWITCHING IS SIMPLE -->
 <section class="migration">
   <div class="container">
@@ -3087,15 +3102,17 @@
 
             <!-- Gear processing core -->
             <div class="sw-gear-wrap">
-              <div class="sw-gear-rings">
-                <div class="sw-gear-ring r1"></div>
-                <div class="sw-gear-ring r2"></div>
-              </div>
-              <div class="sw-gear">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                  <circle cx="12" cy="12" r="3"/>
-                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.31.16.61.34.91.51"/>
-                </svg>
+              <div class="sw-gear-core">
+                <div class="sw-gear-rings">
+                  <div class="sw-gear-ring r1"></div>
+                  <div class="sw-gear-ring r2"></div>
+                </div>
+                <div class="sw-gear">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.31.16.61.34.91.51"/>
+                  </svg>
+                </div>
               </div>
               <div class="sw-gear-label">
                 <strong>Processing</strong>
