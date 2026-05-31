@@ -3762,6 +3762,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
 
+// Track Cal.com demo button clicks
+document.querySelectorAll('a[href*="cal.com/finasheet/demo"]').forEach(link => {
+  link.addEventListener('click', () => {
+    if (typeof fbq === 'function') {
+      fbq('trackCustom', 'BookDemoClick', {
+        content_name: 'Book Demo CTA',
+        source: 'website'
+      });
+    }
+  });
+});
+
   // Pricing toggle
   const toggleBtn = document.getElementById('toggle-btn');
   const tlMonthly = document.getElementById('tl-monthly');
