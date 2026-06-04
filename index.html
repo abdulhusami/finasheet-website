@@ -335,7 +335,91 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   .mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px}
   .mobile-toggle svg{width:24px;height:24px;stroke:var(--text)}
+/* Homepage Mobile Menu */
+.homepage-mobile-menu{
+  display:none;
+}
 
+@media (max-width:860px){
+  .homepage-mobile-menu{
+    position:fixed;
+    top:76px;
+    left:16px;
+    right:16px;
+    background:rgba(255,255,255,.98);
+    border:1px solid var(--border);
+    border-radius:18px;
+    box-shadow:0 24px 60px rgba(15,23,42,.16);
+    padding:12px;
+    z-index:999;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-8px);
+    transition:.22s ease;
+    backdrop-filter:blur(14px);
+    display:block;
+  }
+
+  .homepage-mobile-menu.open{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+
+  .homepage-mobile-menu a{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 14px;
+    border-radius:12px;
+    color:var(--text);
+    font-weight:600;
+    font-size:15px;
+  }
+
+  .homepage-mobile-menu a:hover{
+    background:var(--bg);
+    color:var(--primary);
+  }
+
+  .homepage-mobile-menu .mobile-menu-label{
+    padding:10px 14px 6px;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--body-light);
+  }
+
+  .homepage-mobile-menu .mobile-service-links{
+    background:linear-gradient(135deg, rgba(239,246,255,.9), rgba(248,250,252,.9));
+    border:1px solid rgba(29,78,216,.10);
+    border-radius:14px;
+    margin:6px 0 10px;
+    padding:6px;
+  }
+
+  .homepage-mobile-menu .mobile-service-links a{
+    padding:11px 12px;
+    font-size:14px;
+  }
+
+  .homepage-mobile-menu .mobile-cta{
+    margin-top:8px;
+    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    color:white;
+    justify-content:center;
+  }
+
+  .homepage-mobile-menu .mobile-cta:hover{
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary-deep));
+    color:white;
+  }
+
+  .mobile-toggle.active svg{
+    transform:rotate(90deg);
+  }
+}
   /* ============ HERO ============ */
   .hero{
     padding:90px 0 100px;position:relative;overflow:hidden;
@@ -2338,6 +2422,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </nav>
 
+<div class="homepage-mobile-menu" id="homepage-mobile-menu">
+  <a href="#product">Product <span>→</span></a>
+
+  <div class="mobile-menu-label">Services</div>
+  <div class="mobile-service-links">
+    <a href="services.html">All Services</a>
+    <a href="accounting-bookkeeping-uae.html">Accounting & Bookkeeping</a>
+    <a href="vat-registration-uae.html">VAT Registration</a>
+    <a href="vat-filing-uae.html">VAT Filing</a>
+    <a href="corporate-tax-registration-uae.html">Corporate Tax Registration</a>
+    <a href="corporate-tax-filing-uae.html">Corporate Tax Filing</a>
+  </div>
+
+  <a href="#pricing">Pricing <span>→</span></a>
+  <a href="#founder">Why Finasheet <span>→</span></a>
+  <a href="#faq">FAQs <span>→</span></a>
+  <a href="https://wa.me/message/ATD3LTBDZBEND1" class="mobile-cta">Talk to our team</a>
+</div>
+
+<!-- HERO -->
+
 <!-- HERO -->
 <header class="hero">
   <div class="container hero-grid">
@@ -3897,6 +4002,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   // Sticky nav border + sticky announcement
   const nav = document.getElementById('nav');
   const announceSticky = document.getElementById('announce-sticky');
+  // Homepage mobile menu
+const mobileToggle = document.querySelector('.mobile-toggle');
+const homepageMobileMenu = document.getElementById('homepage-mobile-menu');
+
+if (mobileToggle && homepageMobileMenu) {
+  mobileToggle.setAttribute('aria-expanded', 'false');
+
+  mobileToggle.addEventListener('click', () => {
+    const isOpen = homepageMobileMenu.classList.toggle('open');
+    mobileToggle.classList.toggle('active', isOpen);
+    mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  homepageMobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      homepageMobileMenu.classList.remove('open');
+      mobileToggle.classList.remove('active');
+      mobileToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) nav.classList.add('scrolled');
     else nav.classList.remove('scrolled');
