@@ -93,10 +93,19 @@ header.site{
   backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line);
 }
 .nav{display:flex;align-items:center;justify-content:space-between;height:70px;gap:18px}
-.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;color:var(--navy);font-size:1.18rem;letter-spacing:-.02em}
-.brand .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--blue),var(--teal));display:grid;place-items:center;box-shadow:var(--shadow-sm)}
-.brand .mark svg{width:20px;height:20px}
-.brand span b{color:var(--blue)}
+.brand{
+  display:flex;
+  align-items:center;
+  width:142px;
+  height:42px;
+  background:url("fina-logo-transparent.png") left center / contain no-repeat;
+  flex-shrink:0;
+}
+
+.brand .mark,
+.brand > span{
+  display:none;
+}
 
 .nav-links{display:flex;align-items:center;gap:4px}
 .nav-links>a,.nav-item>button{
