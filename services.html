@@ -82,11 +82,18 @@ img{max-width:100%;display:block}
 .header{position:sticky;top:0;z-index:90;background:rgba(250,250,247,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--border-soft);transition:box-shadow .3s}
 .header.scrolled{box-shadow:0 6px 24px rgba(7,27,51,.06)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
-.logo{display:flex;align-items:center;gap:12px}
-..logo-img{
-  height:42px;
+.logo{
+  display:flex;
+  align-items:center;
+  height:44px;
+  overflow:hidden;
+}
+.logo-img{
+  height:38px;
   width:auto;
+  max-width:170px;
   display:block;
+  object-fit:contain;
 }
 .logo-div{width:1px;height:20px;background:var(--border)}
 .logo-tag{font-family:var(--body);font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
