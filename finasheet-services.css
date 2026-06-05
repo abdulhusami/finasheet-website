@@ -4,46 +4,46 @@
    Used by the services hub + all 7 individual service pages.
    ===================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
 
 :root{
   /* brand */
-  --navy:#0E2A47;
-  --navy-2:#143655;
-  --ink:#1B2A3A;
-  --muted:#5A6B7E;
-  --line:#E4EBF3;
+  --navy:#071B33;
+  --navy-2:#0C2745;
+  --ink:#1F2933;
+  --muted:#5B6573;
+  --line:#E5E7EB;
   --bg:#FFFFFF;
-  --bg-soft:#F4F8FC;
-  --bg-soft-2:#EEF4FB;
+  --bg-soft:#FAFAF7;
+  --bg-soft-2:#F4F1E9;
 
-  --blue:#1A66D6;
-  --blue-dark:#114FAC;
-  --blue-soft:#E7F0FE;
-  --teal:#0E9E8E;            /* clarity accent */
-  --teal-soft:#E1F5F1;
+  --blue:#C8A45D;            /* gold accent (primary) */
+  --blue-dark:#B8944D;
+  --blue-soft:#E7D6AE;
+  --teal:#C8A45D;            /* gold accent */
+  --teal-soft:#E7D6AE;
 
-  --green:#16A34A;           /* positive / "ready" */
+  --green:#1F9D6B;           /* positive / "ready" */
   --green-soft:#E4F7EC;
   --amber:#C9871A;           /* "review" */
   --amber-soft:#FBF1DD;
   --slate:#7C8A99;           /* "pending" */
   --slate-soft:#EEF1F5;
 
-  --wa:#25D366;              /* WhatsApp brand */
-  --wa-dark:#1EB458;
+  --wa:#1FA855;              /* WhatsApp brand */
+  --wa-dark:#17904A;
 
   /* type */
-  --display:'Sora',system-ui,sans-serif;
-  --body:'IBM Plex Sans',system-ui,sans-serif;
+  --display:'Bricolage Grotesque',system-ui,sans-serif;
+  --body:'Hanken Grotesk',system-ui,sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,monospace;
 
   --radius:18px;
   --radius-sm:12px;
   --radius-lg:26px;
-  --shadow-sm:0 1px 2px rgba(14,42,71,.06),0 4px 14px rgba(14,42,71,.05);
-  --shadow:0 10px 30px rgba(14,42,71,.10);
-  --shadow-lg:0 26px 60px rgba(14,42,71,.16);
+  --shadow-sm:0 1px 2px rgba(7,27,51,.06),0 4px 14px rgba(7,27,51,.05);
+  --shadow:0 10px 30px rgba(7,27,51,.10);
+  --shadow-lg:0 26px 60px rgba(7,27,51,.16);
   --maxw:1160px;
 }
 
