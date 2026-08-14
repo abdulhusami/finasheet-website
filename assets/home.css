@@ -2263,7 +2263,10 @@
     .why-flow{grid-template-columns:1fr;gap:24px}
     .why-feat-stack{width:100%;flex-direction:row;flex-wrap:wrap}
     .why-feat-card{flex:1 1 calc(50% - 5px);min-width:140px}
-    .why-connector{height:60px;transform:rotate(90deg)}
+    /* The rotate here was meant to lay the connecting lines out horizontally,
+       but .why-lines is hidden at this breakpoint, so its only remaining effect
+       was tipping the F badge on its side. */
+    .why-connector{height:60px}
     .why-lines{display:none}
     .why-metrics{grid-template-columns:repeat(3,1fr);gap:10px;padding:18px}
     .why-metric strong{font-size:26px}
