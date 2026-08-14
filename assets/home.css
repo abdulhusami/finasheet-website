@@ -2275,7 +2275,22 @@
   @media (max-width:860px){
     .nav-links{display:none}
     .nav-login{display:none}
-    .mobile-toggle{display:block}
+    /* Primary mobile control: the button box is ~36x36, under the 44px touch
+       guideline. The nav row is already at capacity below 375px (the CTA button
+       shrinks to fit), so anything that changes this button's footprint pushes
+       the row into overflow - min-width blocks flex-shrink, and negative margins
+       still alter what the flex algorithm sees.
+       An absolutely positioned pseudo-element takes no layout space at all but
+       still hit-tests as part of the button, so the tap area becomes 44x44 with
+       the rendered layout completely unchanged. */
+    .mobile-toggle{display:block;position:relative}
+    .mobile-toggle::after{
+      content:'';
+      position:absolute;
+      top:50%;left:50%;
+      transform:translate(-50%,-50%);
+      width:44px;height:44px;
+    }
     .problem-list,.who-grid,.pricing-grid{grid-template-columns:1fr 1fr}
     .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
     .proof-stats{gap:24px}
