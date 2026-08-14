@@ -1448,6 +1448,15 @@
   .footer-bottom a{color:#64748B;margin-left:16px;transition:color .2s ease}
   .footer-bottom a:hover{color:var(--primary-dark)}
 
+  /* Touch targets. These are inline text links with no vertical padding, so on
+     a phone they were 15-17px tall against a 44px guideline. Padding replaces
+     most of the list gap, so the visual rhythm stays close to what it was. */
+  @media (max-width:860px){
+    .footer-col ul{gap:0}
+    .footer-col a{display:block;padding:14px 0}
+    .footer-bottom a{display:inline-block;padding:15px 0}
+  }
+
   /* Reveal on scroll */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease-out,transform .6s ease-out}
   .reveal.is-visible{opacity:1;transform:translateY(0)}
@@ -2123,6 +2132,19 @@
   .sw-gear-label{
     text-align:center;position:relative;z-index:2;
     margin-top:8px;
+  }
+  /* The connecting lines converge on the wrap's exact vertical centre. With the
+     label in flow, centring the gear+label pair pushes the gear ~47px above that
+     point, so the lines aim at empty space. Above 860px (where the lines are
+     visible) take the label out of flow so the gear itself sits on the centre.
+     Below 860px the lines are display:none and the stacked layout is correct. */
+  @media (min-width:861px){
+    .sw-gear-label{
+      position:absolute;
+      top:calc(50% + 54px);
+      left:0;right:0;
+      margin-top:0;
+    }
   }
   .sw-gear-label strong{
     display:block;font-family:'Sora';font-size:13px;font-weight:600;color:white;
