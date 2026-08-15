@@ -424,25 +424,23 @@ img{max-width:100%;display:block}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
 
 /* ===== Footer ===== */
-.footer{background:#040F1F;color:rgba(255,255,255,.7);padding:64px 0 0}
-.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:44px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.09)}
+.footer{background:#FFFFFF;color:#475569;border-top:1px solid var(--border);padding:64px 0 0}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:44px;padding-bottom:44px;border-bottom:1px solid var(--border)}
 .footer .logo{margin-bottom:16px}
 .footer .logo-img{height:34px}
-.footer .logo-div{background:rgba(255,255,255,.22)}
-.footer .logo-tag{color:var(--gold-soft)}
 .foot-desc{font-size:14.5px;line-height:1.7;max-width:42ch;margin-bottom:20px}
-.foot-tagline{font-size:13px;color:var(--gold-soft);font-weight:600;letter-spacing:.02em;margin-bottom:18px}
-.footer h5{font-family:var(--display);color:#fff;font-size:15px;margin-bottom:18px;font-weight:600}
+.foot-tagline{font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.02em;margin-bottom:18px}
+.footer h5{font-family:var(--display);color:var(--charcoal);font-size:15px;margin-bottom:18px;font-weight:600}
 .foot-links{list-style:none;display:grid;gap:11px}
-.foot-links a{font-size:14.5px;color:rgba(255,255,255,.7);transition:.2s}
-.foot-links a:hover{color:var(--gold-soft);padding-left:4px}
+.foot-links a{font-size:14.5px;color:#64748B;transition:.2s}
+.foot-links a:hover{color:var(--navy);padding-left:4px}
 .foot-contact{list-style:none;display:grid;gap:13px}
 .foot-contact li{font-size:14.5px;display:flex;align-items:center;gap:11px}
 .foot-contact svg{width:17px;height:17px;stroke:var(--gold);fill:none;stroke-width:1.7;flex:none}
-.foot-contact a:hover{color:var(--gold-soft)}
+.foot-contact a:hover{color:var(--navy)}
 .foot-bottom{padding:26px 0;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.disclaimer{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6;max-width:80%}
-.copyright{font-size:12.5px;color:rgba(255,255,255,.5)}
+.disclaimer{font-size:12px;color:var(--muted);line-height:1.6;max-width:80%}
+.copyright{font-size:12.5px;color:var(--muted)}
 
 /* ===== Sticky CTAs ===== */
 .wa-float{position:fixed;right:22px;bottom:26px;z-index:80;width:58px;height:58px;border-radius:50%;background:#1FA855;display:grid;place-items:center;box-shadow:0 8px 26px rgba(31,168,85,.45);transition:transform .2s;animation:pulse 2.6s infinite}
