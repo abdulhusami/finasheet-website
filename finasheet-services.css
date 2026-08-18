@@ -329,7 +329,10 @@ footer.site .bottom{border-top:1px solid var(--line);padding-top:20px;display:fl
   .mobile-acc .m-sub a:hover{background:var(--bg-soft);color:var(--blue)}
   .mobile-acc .m-sub h6{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);padding:8px 14px 2px}
   .mobile-nav .btn{width:100%;margin-top:16px}
-  .deliver,.why,.pkgs,.docs,.steps,.steps.four{grid-template-columns:1fr}
+  /* minmax(0,1fr), not 1fr: a 1fr track has an automatic min-content floor, so
+     the pricing cards forced their track to 324px inside a 276px container and
+     pushed the document to 347px wide on a 320px screen. */
+  .deliver,.why,.pkgs,.docs,.steps,.steps.four{grid-template-columns:minmax(0,1fr)}
   section{padding:46px 0}
   .final{padding:32px 22px}
   .lead-card{padding:22px}
@@ -344,4 +347,12 @@ footer.site .bottom{border-top:1px solid var(--line);padding-top:20px;display:fl
 @media(max-width:440px){
   .hero h1{font-size:1.95rem}
   footer.site .cols{grid-template-columns:1fr}
+}
+
+/* .btn is nowrap by design. The longest label, "Talk to an Accounting Expert",
+   needs 323px of room including the container's margins, so below that it is the
+   last thing forcing a horizontal scroll. Only there is wrapping allowed - at
+   340px and above the buttons are untouched and stay on one line. */
+@media(max-width:340px){
+  .btn{white-space:normal;text-align:center}
 }
