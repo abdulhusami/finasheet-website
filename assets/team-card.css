@@ -85,10 +85,12 @@ body{
 }
 .brand img{
   height:20px;width:auto;display:block;
-  /* the wordmark measures 5.6:1 on the darkest of these backdrops, so this is
-     only insurance for a future portrait with something dark behind it */
   filter:drop-shadow(0 0 5px rgba(255,255,255,.9));
 }
+/* build-team-cards.py measures the portrait behind the lockup and swaps to the
+   white wordmark when the navy one would not read - a dark studio backdrop puts
+   navy at about 1:1. The glow has to invert with it or it does nothing. */
+.brand.on-dark img{filter:drop-shadow(0 1px 6px rgba(0,0,0,.6))}
 .brand:focus-visible{outline:2px solid var(--navy-lift);outline-offset:4px;border-radius:8px}
 
 /* ---- identity ------------------------------------------------------------ */

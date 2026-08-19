@@ -30,6 +30,7 @@ OUT_W = 800
 FACE = {
     "buhari-anshif": (555, 271),
     "sradha-santhosh": (575, 277),
+    "moiz-fakhruddin": (576, 522),
 }
 
 # Link preview. 1200x630 is what WhatsApp, iMessage, Slack and LinkedIn expect,
@@ -128,12 +129,17 @@ def main():
         im = Image.open(src).convert("RGB")
         w, h = im.size
 
-        # tallest crop that still puts the eye line at EYE_LINE, then trimmed to
-        # whatever the frame can actually give
-        ch = min(round(eye_y / EYE_LINE), h)
+        # Tallest crop satisfying (eye_y - top)/ch == EYE_LINE while staying
+        # inside the frame. Bounded three ways: the headroom above the eyes,
+        # the frame remaining below them, and the width a 4:5 crop needs.
+        # The middle bound matters - a portrait shot tight under the chin has
+        # plenty of headroom but nothing below, and without it the eye line
+        # silently lands wherever it happens to fall.
+        ch = round(min(eye_y / EYE_LINE,
+                       (h - eye_y) / (1 - EYE_LINE),
+                       w / RATIO,
+                       h))
         cw = round(ch * RATIO)
-        if cw > w:
-            cw, ch = w, round(w / RATIO)
         top = max(0, min(h - ch, round(eye_y - EYE_LINE * ch)))
         left = max(0, min(w - cw, face_x - cw // 2))
 
@@ -141,6 +147,12 @@ def main():
                  .resize((OUT_W, round(OUT_W / RATIO)), Image.LANCZOS))
         dest = f"assets/team/{slug}-hero.webp"
         out.save(dest, "WEBP", quality=84, method=6)
+
+        # square avatar for schema.org image, cut from the same anchored crop so
+        # it frames the face the same way the card does
+        sq_dest = f"assets/team/{slug}.webp"
+        out.crop((0, 0, OUT_W, OUT_W)).resize((400, 400), Image.LANCZOS) \
+           .save(sq_dest, "WEBP", quality=86, method=6)
 
         landed = (eye_y - top) / ch
         print(f"  {slug:18s} {w}x{h} -> crop {cw}x{ch} at ({left},{top}) "
