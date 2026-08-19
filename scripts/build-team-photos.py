@@ -30,7 +30,7 @@ OUT_W = 800
 FACE = {
     "buhari-anshif": (555, 271),
     "sradha-santhosh": (575, 277),
-    "moiz-fakhruddin": (576, 522),
+    "moiz-fakhruddin": (398, 292),
 }
 
 # Link preview. 1200x630 is what WhatsApp, iMessage, Slack and LinkedIn expect,
