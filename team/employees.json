@@ -4,35 +4,39 @@
     "slug": "URL segment, becomes https://finasheet.com/team/<slug>",
     "name": "Full name as it should appear",
     "title": "Job title",
-    "company": "Defaults to Finasheet if omitted",
+    "company": "Defaults to Finasheet LLC if omitted",
     "phone": "E.164, e.g. +971522015270. Used for tap-to-call and the vCard",
     "whatsapp": "Digits only, e.g. 971522015270. Omit to hide the WhatsApp button",
     "email": "Work email",
     "photo": "Path relative to site root, e.g. assets/team/name.webp. Omit to fall back to initials",
-    "tagline": "Optional one line under the title"
+    "tagline": "Optional one line under the title",
+    "hero": "Full-bleed portrait for the card hero, e.g. assets/team/name-hero.webp. Falls back to photo, then initials",
+    "location": "Optional line under the contact rows, e.g. 'United Arab Emirates'"
   },
   "employees": [
     {
       "slug": "buhari-anshif",
       "name": "Buhari Anshif",
       "title": "Business Development Manager",
-      "company": "Finasheet",
+      "company": "Finasheet LLC",
       "phone": "+971542922850",
       "whatsapp": "971542922850",
       "email": "buhari@finasheet.com",
       "photo": "assets/team/buhari-anshif.webp",
-      "tagline": ""
+      "hero": "assets/team/buhari-anshif-hero.webp",
+      "location": "United Arab Emirates"
     },
     {
       "slug": "sradha-santhosh",
       "name": "Sradha Santhosh",
       "title": "Sr. Business Development Executive",
-      "company": "Finasheet",
+      "company": "Finasheet LLC",
       "phone": "+971542922851",
       "whatsapp": "971542922851",
       "email": "Sradha@finasheet.com",
       "photo": "assets/team/sradha-santhosh.webp",
-      "tagline": ""
+      "hero": "assets/team/sradha-santhosh-hero.webp",
+      "location": "United Arab Emirates"
     }
   ]
 }
