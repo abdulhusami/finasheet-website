@@ -54,6 +54,46 @@ def esc(s):
             .replace(">", "&gt;").replace('"', "&quot;"))
 
 
+def _lum(p):
+    def lin(c):
+        c /= 255.0
+        return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+    return 0.2126 * lin(p[0]) + 0.7152 * lin(p[1]) + 0.0722 * lin(p[2])
+
+
+def _contrast(a, b):
+    la, lb = _lum(a), _lum(b)
+    return (max(la, lb) + 0.05) / (min(la, lb) + 0.05)
+
+
+def logo_for(hero_rel):
+    """Pick the wordmark that actually reads on this particular portrait.
+
+    The lockup sits over the photo, so the navy wordmark vanishes on a dark
+    studio backdrop (measured 1.07:1 on one of these) and the white one would
+    vanish on a light one. Measuring per person means a new headshot needs no
+    manual flag - and it is the photo, not the person, that decides.
+
+    Returns (src, extra class, chosen contrast).
+    """
+    navy = ("/assets/fina-logo.webp", "")
+    white = ("/assets/fina-logo-wordmark-white.webp", " on-dark")
+    path = os.path.join(ROOT, hero_rel or "")
+    if not hero_rel or not os.path.exists(path):
+        return navy + (None,)
+
+    from PIL import Image
+    im = Image.open(path).convert("RGB")
+    w, h = im.size
+    # the strip the lockup lands in once the panel crops the portrait
+    box = im.crop((round(.02 * w), round(.09 * h), round(.30 * w), round(.25 * h)))
+    avg = box.resize((1, 1), Image.BOX).getpixel((0, 0))
+
+    c_navy = _contrast((15, 54, 93), avg)
+    c_white = _contrast((255, 255, 255), avg)
+    return (navy + (c_navy,)) if c_navy >= c_white else (white + (c_white,))
+
+
 def initials(name):
     parts = [p for p in re.split(r"\s+", name.strip()) if p]
     if not parts:
@@ -151,6 +191,8 @@ def card_html(e, url):
     og_img = (f"{SITE}/{og_rel}" if os.path.exists(os.path.join(ROOT, og_rel))
               else f"{SITE}/assets/og-image.png")
     og_alt = f"{name}{' - ' + title if title else ''}, {company}"
+    logo_src, logo_cls, logo_contrast = logo_for(hero)
+    e["_logo_contrast"] = logo_contrast          # reported by main()
 
     ld = {
         "@context": "https://schema.org", "@type": "Person",
@@ -203,8 +245,8 @@ def card_html(e, url):
 <main class="card">
   <div class="portrait">
     {portrait}
-    <a class="brand" href="/" aria-label="{esc(company)}">
-      <img src="/assets/fina-logo.webp" alt="{esc(company)}" width="320" height="96">
+    <a class="brand{logo_cls}" href="/" aria-label="{esc(company)}">
+      <img src="{logo_src}" alt="{esc(company)}" width="320" height="96">
     </a>
   </div>
 
@@ -299,7 +341,9 @@ def main():
             f.write(card_html(e, url))
         with open(vcf_path, "w", encoding="utf-8", newline="") as f:
             f.write(vcard(e, url))
-        print(f"  OK    {slug:20s} -> team/{slug}.html + team/{slug}.vcf   ({url})")
+        c = e.get("_logo_contrast")
+        note = f"   wordmark {c:.1f}:1 on the photo" if c else ""
+        print(f"  OK    {slug:20s} -> team/{slug}.html + team/{slug}.vcf{note}")
 
     print(f"\n{len(seen)} card(s) generated")
     return 0
