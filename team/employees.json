@@ -8,7 +8,6 @@
     "phone": "E.164, e.g. +971522015270. Used for tap-to-call and the vCard",
     "whatsapp": "Digits only, e.g. 971522015270. Omit to hide the WhatsApp button",
     "email": "Work email",
-    "linkedin": "Full profile URL. Omit to hide the LinkedIn button",
     "photo": "Path relative to site root, e.g. assets/team/name.jpg. Omit to fall back to initials",
     "tagline": "Optional one line under the title"
   },
@@ -21,7 +20,6 @@
       "phone": "+971500000000",
       "whatsapp": "971500000000",
       "email": "sample@finasheet.com",
-      "linkedin": "https://www.linkedin.com/in/sample",
       "photo": "",
       "tagline": "Placeholder card - replace with real details before publishing"
     }

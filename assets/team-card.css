@@ -209,19 +209,6 @@ h1{
   .quick .act.is-wa:hover{color:var(--wa)}
 }
 
-.linkedin{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  min-height:48px;margin-top:10px;
-  border:1px solid var(--border);border-radius:var(--r);
-  background:var(--surface-2);
-  font-size:13.5px;font-weight:600;color:var(--fg);
-  text-decoration:none;
-  transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease);
-}
-.linkedin svg{width:17px;height:17px;color:#0A66C2}
-.linkedin:hover{border-color:var(--border-strong);box-shadow:var(--e2)}
-.linkedin:focus-visible{outline:3px solid var(--navy-3);outline-offset:3px}
-
 /* ---- qr ----------------------------------------------------------------- */
 .scan{
   margin:22px 24px 0;padding:18px;
