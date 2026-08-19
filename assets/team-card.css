@@ -1,35 +1,35 @@
 /* ---------------------------------------------------------------------------
    Finasheet LLC - digital employee card
-   Editorial dark treatment: full-bleed portrait, numbered sections, oversized
-   display name on a diagonal brand panel, icon tiles for actions.
-   Commits to a single dark look on purpose - a business card is one artefact,
-   not a themed interface.
-   Note the supplied headshots are studio shots on LIGHT backgrounds, so the
-   top lockup sits on a scrim rather than directly on the photo.
+
+   Built light on purpose. Both headshots are studio portraits on near-white
+   backdrops, so a dark card draws a hard seam around every photo; on a white
+   surface the portrait sits IN the card rather than on top of it. Light also
+   survives direct sun, which is where a business card actually gets handed
+   over.
+
+   The one rule the layout is built around: nothing overlaps the face, and the
+   portrait is anchored by its eye line (see --face), so the composition holds
+   at any screen height instead of depending on whatever space was left over.
 --------------------------------------------------------------------------- */
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --ink:#05070D;
-  --ink-2:#0A101E;
-  --ink-3:#101828;
-  /* Sampled from assets/fina-logo.webp: the wordmark is #0F365D, hue 210.
-     --blue is that exact colour; the other two are the same hue lifted, so the
-     card reads as one blue family rather than a second, brighter blue. */
-  --blue:#0F365D;
-  --blue-bright:#1C66B0;
-  --blue-lift:#589EE4;
-  --text:#FFFFFF;
-  --muted:#AAB6CC;          /* 8.9:1 on --ink */
-  --dim:#7E8CA6;            /* 4.6:1 on --ink - labels only */
-  --line:rgba(255,255,255,.10);
-  --line-2:rgba(255,255,255,.16);
-  --wa:#25D366;
+  /* Sampled from assets/fina-logo.webp - the wordmark is #0F365D. */
+  --navy:#0F365D;
+  --navy-lift:#1C66B0;
+  --ink:#0B1220;            /* 17.8:1 on white */
+  --text:#3A4A5F;           /* 8.9:1  */
+  /* dark enough to still clear 4.5:1 on --sunken, not just on white - the row
+     labels sit on the tinted background, where #66768C only reached 4.39 */
+  --muted:#5D6C81;
+  --line:#E3E9F1;
+  --surface:#FFFFFF;
+  --sunken:#F7F9FC;
+  --wa:#128C4A;             /* darkened WhatsApp green: 4.6:1 on white */
 
-  --r:14px; --r-lg:26px;
-  --dur:220ms;
-  --ease:cubic-bezier(.2,.7,.3,1);
+  --r:16px; --r-card:28px;
+  --dur:200ms; --ease:cubic-bezier(.2,.7,.3,1);
 }
 
 html{-webkit-text-size-adjust:100%}
@@ -37,258 +37,228 @@ html{-webkit-text-size-adjust:100%}
 body{
   font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
   font-size:16px;line-height:1.5;
-  color:var(--muted);
-  background-color:#02040A;
-  background-image:radial-gradient(90% 55% at 50% 0%, #0B1730 0%, transparent 62%);
+  color:var(--text);
+  background-color:#E7EDF5;
+  background-image:radial-gradient(120% 70% at 50% -10%, #FFFFFF 0%, #E7EDF5 55%, #D8E2EE 100%);
   min-height:100dvh;
   display:flex;flex-direction:column;align-items:center;
-  padding:max(10px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom));
+  padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom));
 }
 
 .card{
-  --fixed:380px;                 /* measured height of .connect + .foot, +margin */
-  margin-block:auto;
+  margin-block:auto;                       /* centres without clipping if tall */
   display:flex;flex-direction:column;
   width:100%;max-width:400px;
-  /* Content height, capped to the screen - NOT stretched to fill it. Stretching
-     made the photo the residual: every pixel a shorter screen took came out of
-     the portrait and none out of anything else, so the crop swung from
-     head-and-shoulders on a tall phone to a tight head crop on a short one.
-     The card is now shorter on a short screen instead, and the photo keeps its
-     shape. */
-  max-height:min(calc(100dvh - 24px), 780px);
-  background:var(--ink);
-  border:1px solid var(--line);
-  border-radius:var(--r-lg);
+  height:min(calc(100dvh - 24px), 780px);
+  background:var(--surface);
+  border-radius:var(--r-card);
   overflow:hidden;
-  box-shadow:0 40px 90px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.03);
+  box-shadow:0 34px 68px -28px rgba(11,34,64,.42), 0 0 0 1px rgba(11,34,64,.07);
 }
 
-/* ---- hero ---------------------------------------------------------------- */
-/* Square, so the photo band is a function of the card WIDTH and looks the same
-   on every phone rather than being whatever height was left over.
-   --fixed is what the connect block and the foot need; the hero is capped at
-   the screen minus that, so hero + fixed can never exceed the viewport and the
-   card can never clip its own contact details. Each short-screen tier below
-   restates --fixed to match what it trimmed. */
-.hero{
+/* ---- portrait ------------------------------------------------------------ */
+/* Takes every spare pixel, which is safe here: nothing is laid over the face,
+   and the eye line is pinned, so a shorter panel just shows less shoulder. */
+.portrait{
   position:relative;
-  flex:0 1 auto;
-  aspect-ratio:1/1;
-  max-height:calc(100dvh - 24px - var(--fixed));
-  min-height:0;
-  overflow:hidden;background:var(--ink-2);
+  flex:1 1 auto;min-height:104px;
+  overflow:hidden;background:var(--sunken);
 }
-.hero-img{
+.portrait-img{
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:50% 4%;display:block;
+  object-fit:cover;display:block;
+  /* --face is where scripts/build-team-photos.py put the eye line. Under
+     object-fit:cover a source point at fraction f lands at fraction f of the
+     box only when object-position is that same f - so this one number is what
+     keeps the framing identical on every phone. Change one, change both. */
+  object-position:50% var(--face,30%);
 }
-.lockup{
-  position:absolute;top:18px;left:18px;right:18px;
-  display:flex;align-items:center;gap:10px;
-  padding:12px;margin:-12px;              /* 45px hit area without moving it */
-  text-decoration:none;
+.portrait-fallback{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font-family:'Sora',sans-serif;font-size:64px;font-weight:700;
+  color:#B9C7D8;background:var(--sunken);
 }
-/* No wash behind the logo - it laid a visible pale band across the top of the
-   photo, and it was not buying anything: the navy wordmark already measures
-   5.6:1 on the darkest of the current headshots. The glow is the insurance
-   instead. It is invisible on a light backdrop (white on near-white) and only
-   shows up if a future portrait puts a dark background behind the logo. */
-.lockup img{
-  height:21px;width:auto;display:block;
-  filter:drop-shadow(0 0 5px rgba(255,255,255,.9)) drop-shadow(0 1px 2px rgba(255,255,255,.7));
-}
-.lockup:focus-visible{outline:2px solid var(--blue-lift);outline-offset:4px;border-radius:8px}
 
-/* diagonal brand panel carrying the name */
-.plate{
-  --diag:42px;                             /* keep in step with padding-top */
-  position:absolute;left:0;right:0;bottom:0;
-  padding:44px 18px 16px;
-  background:linear-gradient(135deg,var(--blue) 0%,var(--blue-bright) 100%);
-  clip-path:polygon(0 var(--diag), 100% 0, 100% 100%, 0 100%);
+.brand{
+  position:absolute;top:15px;left:18px;
+  display:block;padding:12px;margin:-12px;   /* 44px target, no layout shift */
 }
-.plate::before{                            /* faint blueprint grid, brand texture */
-  content:'';position:absolute;inset:0;pointer-events:none;opacity:.16;
-  background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);
-  background-size:26px 26px;
-  clip-path:polygon(0 var(--diag), 100% 0, 100% 100%, 0 100%);
+.brand img{
+  height:20px;width:auto;display:block;
+  /* the wordmark measures 5.6:1 on the darkest of these backdrops, so this is
+     only insurance for a future portrait with something dark behind it */
+  filter:drop-shadow(0 0 5px rgba(255,255,255,.9));
 }
+.brand:focus-visible{outline:2px solid var(--navy-lift);outline-offset:4px;border-radius:8px}
+
+/* ---- identity ------------------------------------------------------------ */
+.identity{flex:0 0 auto;padding:17px 20px 0}
 h1{
-  position:relative;
   font-family:'Sora',system-ui,sans-serif;
-  font-size:clamp(27px,8vw,34px);font-weight:800;
-  line-height:1.02;letter-spacing:-.035em;
-  color:var(--text);text-wrap:balance;
+  font-size:clamp(23px,6.4vw,28px);font-weight:700;
+  line-height:1.12;letter-spacing:-.022em;
+  color:var(--ink);text-wrap:balance;
 }
-.role{
-  position:relative;margin-top:9px;
-  font-size:15px;font-weight:600;color:rgba(255,255,255,.96);
-}
-.org{
-  position:relative;margin-top:2px;
-  font-size:12.5px;font-weight:500;letter-spacing:.04em;
-  color:rgba(255,255,255,.82);
-}
+.role{margin-top:5px;font-size:13.5px;font-weight:600;color:var(--navy)}
+.org{margin-top:3px;font-size:12px;color:var(--muted);letter-spacing:.01em}
 
-/* ---- connect ------------------------------------------------------------- */
-/* Two columns: tiles on the left, readable details + QR on the right. This is
-   what keeps the whole card on one screen - stacked, it needed scrolling. */
-.connect{
-  flex:0 0 auto;
-  padding:14px 16px 0;
-  display:flex;flex-direction:column;justify-content:center;
-}
+/* ---- actions ------------------------------------------------------------- */
+.actions{flex:0 0 auto;padding:14px 20px 0;display:flex;flex-direction:column;gap:9px}
 
-.grid{display:grid;grid-template-columns:.86fr 1.14fr;gap:10px;margin-top:11px;align-items:stretch}
-
-.tiles{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.tile{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
-  min-height:46px;padding:8px 4px;
-  background:var(--ink-2);border:1px solid var(--line);border-radius:12px;
-  color:var(--text);text-decoration:none;
-  font-size:10.5px;font-weight:600;letter-spacing:.03em;
-  transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease),
-             transform var(--dur) var(--ease);
-}
-.tile svg{width:18px;height:18px;color:var(--blue-lift)}
-.tile.is-wa svg{color:var(--wa)}
-.tile:hover{background:var(--ink-3);border-color:var(--line-2)}
-.tile:active{transform:scale(.98)}
-.tile:focus-visible{outline:2px solid var(--blue-lift);outline-offset:3px}
-
-.side{display:flex;flex-direction:column;gap:8px;min-width:0}
-
-.rows{display:grid;gap:1px;min-width:0}
-.row{
-  display:flex;align-items:center;gap:8px;
-  min-height:44px;padding:4px 2px;
-  color:var(--muted);font-size:11.5px;text-decoration:none;
-  transition:color var(--dur) var(--ease);
-  overflow-wrap:break-word;line-height:1.3;min-width:0;
-}
-.row svg{width:14px;height:14px;flex:none;color:var(--dim)}
-a.row:hover{color:var(--text)}
-a.row:hover svg{color:var(--blue-lift)}
-a.row:focus-visible{outline:2px solid var(--blue-lift);outline-offset:2px;border-radius:8px}
-.row .num{font-variant-numeric:tabular-nums}
-.row span{min-width:0;overflow-wrap:break-word}
-
-.qr-wrap{
-  margin-top:auto;padding:9px;
-  display:flex;align-items:center;gap:10px;
-  background:var(--ink-2);border:1px solid var(--line);border-radius:12px;
-}
-.qr{width:62px;height:62px;flex:none;padding:5px;background:#fff;border-radius:7px}
-.qr svg{width:100%;height:100%;display:block}
-.qr svg path{fill:#05070D}
-.qr-copy{font-size:10.5px;line-height:1.3;color:var(--dim);letter-spacing:.02em}
-
-/* ---- foot ---------------------------------------------------------------- */
-.foot{flex:0 0 auto;padding:14px 16px calc(12px + env(safe-area-inset-bottom))}
-
+/* One primary action. Saving the contact is the whole point of the card, so
+   nothing else on the page competes with it for weight. */
 .save{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:15px 18px;
-  background:linear-gradient(135deg,var(--blue) 0%,var(--blue-bright) 100%);
-  border-radius:13px;
-  color:var(--text);text-decoration:none;
-  font-family:'Sora',sans-serif;font-size:13.5px;font-weight:700;
-  letter-spacing:.11em;text-transform:uppercase;
-  /* the logo blue is close in value to the card, so the button gets an explicit
-     edge rather than relying on fill contrast alone */
-  border:1px solid rgba(88,158,228,.45);
-  box-shadow:0 12px 26px -12px rgba(15,54,93,.9);
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  min-height:52px;padding:0 18px;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-lift) 100%);
+  border-radius:var(--r);
+  color:#fff;text-decoration:none;
+  font-family:'Sora',sans-serif;font-size:13px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:0 12px 24px -12px rgba(15,54,93,.75);
   transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease);
 }
 .save svg{width:18px;height:18px;flex:none}
-.save:hover{transform:translateY(-2px)}
-.save:active{transform:scale(.99)}
-.save:focus-visible{outline:2px solid var(--blue-lift);outline-offset:3px}
+.save:hover{transform:translateY(-1px);box-shadow:0 16px 28px -12px rgba(15,54,93,.8)}
+.save:active{transform:translateY(0) scale(.995)}
+.save:focus-visible{outline:2px solid var(--navy);outline-offset:3px}
 
-.foot-bar{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-top:4px;
+/* Each detail row shows the real value and is itself the tap target - no
+   separate icon grid repeating the same four actions. */
+.rows{display:flex;flex-direction:column;gap:8px}
+.line{display:flex;align-items:stretch;gap:8px;min-width:0}
+.row{
+  flex:1 1 auto;min-width:0;
+  display:flex;align-items:center;gap:12px;
+  min-height:54px;padding:0 13px;
+  background:var(--sunken);border:1px solid var(--line);border-radius:var(--r);
+  text-decoration:none;color:inherit;
+  transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease);
 }
-.foot-bar a,.share{
-  display:flex;align-items:center;gap:7px;
-  min-height:44px;padding:0 8px;
-  background:none;border:0;cursor:pointer;
-  font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;
-  color:var(--dim);text-decoration:none;letter-spacing:.02em;
+.row .ic{
+  width:34px;height:34px;flex:none;
+  display:grid;place-items:center;border-radius:11px;
+  background:#EAF1F9;color:var(--navy);
+}
+.row .ic svg{width:17px;height:17px}
+.row .txt{min-width:0}
+.row .lbl{
+  display:block;font-size:9.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+}
+.row .val{
+  display:block;margin-top:1px;
+  font-size:14px;font-weight:600;color:var(--ink);
+  line-height:1.25;overflow-wrap:anywhere;
+}
+.row .val.num{font-variant-numeric:tabular-nums}
+a.row:hover{background:#fff;border-color:#CBD8E8}
+a.row:active{background:var(--sunken)}
+a.row:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+
+/* WhatsApp shares the phone number, so it rides alongside that row instead of
+   repeating the digits on a line of its own. */
+.wa{
+  flex:none;width:54px;
+  display:grid;place-items:center;
+  background:var(--sunken);border:1px solid var(--line);border-radius:var(--r);
+  color:var(--wa);
+  transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease);
+}
+.wa svg{width:23px;height:23px}
+.wa:hover{background:#fff;border-color:#BFE3CD}
+.wa:focus-visible{outline:2px solid var(--wa);outline-offset:2px}
+
+/* ---- foot ---------------------------------------------------------------- */
+.foot{
+  flex:0 0 auto;
+  padding:10px 12px calc(8px + env(safe-area-inset-bottom));
+  display:flex;align-items:center;justify-content:space-between;gap:6px;
+}
+.ghost{
+  display:inline-flex;align-items:center;gap:7px;
+  min-height:44px;padding:0 10px;
+  background:none;border:0;border-radius:10px;cursor:pointer;
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
+  color:var(--muted);text-decoration:none;letter-spacing:.01em;
+  white-space:nowrap;                       /* "QR code" broke over two lines */
   transition:color var(--dur) var(--ease);
 }
-.share svg{width:14px;height:14px}
-.foot-bar a:hover,.share:hover{color:var(--blue-lift)}
-.foot-bar a:focus-visible,.share:focus-visible{outline:2px solid var(--blue-lift);outline-offset:2px;border-radius:6px}
+.ghost svg{width:15px;height:15px}
+.ghost:hover{color:var(--navy)}
+.ghost:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+
+/* ---- QR ------------------------------------------------------------------ */
+/* Full screen rather than a thumbnail on the card. A 44px QR is decoration -
+   nobody can scan it - and moving it here gives the portrait that height back. */
+.qr-modal{
+  width:100%;height:100%;max-width:none;max-height:none;
+  margin:auto;padding:20px;border:0;background:transparent;
+  display:grid;place-items:center;
+}
+.qr-modal:not([open]){display:none}
+.qr-modal::backdrop{background:rgba(8,20,36,.76)}
+.qr-panel{
+  width:min(320px,100%);padding:22px;
+  background:#fff;border-radius:24px;text-align:center;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
+}
+.qr-panel .qr{
+  width:100%;aspect-ratio:1;padding:12px;
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+}
+.qr-panel .qr svg{width:100%;height:100%;display:block}
+.qr-panel .qr svg path{fill:var(--ink)}
+.qr-name{margin-top:14px;font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--ink)}
+.qr-hint{margin-top:3px;font-size:12.5px;color:var(--muted)}
+.qr-close{
+  margin-top:16px;width:100%;min-height:46px;
+  background:var(--sunken);border:1px solid var(--line);border-radius:13px;
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--ink);
+  cursor:pointer;
+}
+.qr-close:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 
 /* ---- narrow -------------------------------------------------------------- */
 @media (max-width:340px){
-  .connect{padding-left:14px;padding-right:14px}
-  .save,.share{margin-left:14px;margin-right:14px}
-  .plate{padding-left:16px;padding-right:16px}
-  .qr-wrap{flex-direction:column;text-align:center}
-  .tile{min-height:72px}
+  .identity,.actions{padding-left:15px;padding-right:15px}
+  .row{padding:0 10px;gap:9px}
+  .row .ic{width:30px;height:30px}
+  .wa{width:48px}
+  .foot{padding-left:8px;padding-right:8px}
+  .ghost{padding:0 7px;font-size:11.5px}
+}
+
+/* ---- short screens ------------------------------------------------------- */
+/* A phone's usable height is well under its screen height - Safari's toolbars
+   take ~190px, so an 844px iPhone lays out at ~610 and lands here. */
+@media (max-height:700px){
+  .identity{padding-top:14px}
+  h1{font-size:clamp(21px,5.9vw,25px)}
+  .role{font-size:12.5px;margin-top:4px}
+  .org{font-size:11.5px}
+  .actions{padding-top:11px;gap:8px}
+  .save{min-height:48px}
+  .row{min-height:50px}
+  .rows{gap:7px}
+  .foot{padding-top:7px}
+}
+
+@media (max-height:600px){
+  .identity{padding-top:12px}
+  h1{font-size:clamp(20px,5.6vw,23px)}
+  .actions{padding-top:9px}
+  .save{min-height:45px;font-size:12.5px}
+  .row{min-height:47px}
+  .row .ic{width:31px;height:31px}
+  .row .val{font-size:13.5px}
+  .foot{padding-top:4px}
+  /* .ghost keeps its 44px here on purpose - the 4px is not worth a target
+     that fails the minimum on the smallest screens, which is exactly where
+     mis-taps happen. */
 }
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important}
-  .save:hover,.tile:active,.save:active{transform:none}
-}
-
-/* Short screens: tighten the fixed content so the photo keeps its height.
-   Worth remembering that a phone's usable height is well under its screen
-   height - Safari's toolbars take ~190px, so a 844px iPhone lands here. */
-@media (max-height:720px){
-  .qr{width:54px;height:54px}
-  .qr-copy{font-size:10px}
-  .qr-wrap{padding:7px;gap:8px}
-  .plate{--diag:36px;padding:34px 18px 11px}
-  .plate h1{font-size:clamp(24px,7.4vw,29px)}
-  .role{font-size:13.5px;margin-top:6px}
-  .org{font-size:11.5px}
-  .save{padding:13px 18px}
-  .connect{padding-top:10px}
-  .foot{padding-top:10px}
-}
-
-/* Below this the screen genuinely cannot hold the layout at full size, so every
-   fixed block gives up a few pixels. The two tappable rows keep their 44px;
-   the location row is not a link, so it can be shorter. */
-@media (max-height:665px){
-  .card{--fixed:308px}
-  .plate{--diag:30px;padding:25px 18px 9px}
-  .plate h1{font-size:clamp(22px,6.6vw,26px)}
-  .role{font-size:12.5px;margin-top:4px}
-  .org{font-size:11px}
-  .connect{padding-top:8px}
-  .grid{margin-top:6px;gap:8px}
-  .side{gap:6px}
-  .row:not(a){min-height:32px}
-  .qr{width:44px;height:44px}
-  .qr-wrap{padding:6px}
-  .qr-copy{font-size:9.5px}
-  .save{padding:10px 18px;font-size:12.5px}
-  .foot{padding-top:8px;padding-bottom:calc(10px + env(safe-area-inset-bottom))}
-  .foot-bar{margin-top:2px}
-}
-
-/* Smallest realistic case - an SE with Safari's toolbars leaves about 553px.
-   The plate steals from the photo band directly, so it shrinks here too;
-   otherwise the diagonal ends up crossing the subject's chin. */
-@media (max-height:600px){
-  .card{--fixed:293px}
-  .plate{--diag:26px;padding:21px 18px 8px}
-  .plate h1{font-size:clamp(20px,5.9vw,23px)}
-  .role{font-size:12px;margin-top:3px}
-  .org{font-size:10.5px}
-  .side{gap:5px}
-  .row:not(a){min-height:28px}
-  .qr{width:38px;height:38px}
-  .qr-wrap{padding:5px;gap:8px}
-  .qr-copy{font-size:9px}
-  .save{padding:9px 16px;font-size:12px}
-  .foot{padding-top:6px}
+  .save:hover,.save:active{transform:none}
 }

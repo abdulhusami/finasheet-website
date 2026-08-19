@@ -35,7 +35,18 @@ ICON = {
     "pin": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
     "share": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>',
     "arrow": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+    "qr": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14h1M14 20h3M20 17v4"/></svg>',
+    "download": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>',
 }
+
+
+def pretty_phone(raw):
+    """+971542922850 -> +971 54 292 2850. Anything unrecognised is left alone."""
+    digits = re.sub(r"\D", "", raw or "")
+    if raw.startswith("+971") and len(digits) == 12:
+        d = digits[3:]
+        return f"+971 {d[:2]} {d[2:5]} {d[5:]}"
+    return raw
 
 
 def esc(s):
@@ -91,44 +102,47 @@ def card_html(e, url):
     title = (e.get("title") or "").strip()
     desc = f"{name}{' - ' + title if title else ''}, {company}. Save contact, call, email or message on WhatsApp."
 
-    # hero portrait: full-bleed. Falls back to the square crop, then to initials.
+    # Full-bleed portrait. "face" is where build-team-photos.py put the eye line;
+    # the CSS anchors object-position on the same number so the framing holds at
+    # any panel height. Falls back to the square crop, then to initials.
     hero = e.get("hero") or e.get("photo")
+    face = e.get("face", 30)
     if hero:
-        portrait = (f'<img class="hero-img" src="/{esc(hero)}" alt="{esc(name)}, '
-                    f'{esc(title) if title else esc(company)}" width="860" height="1075">')
+        portrait = (f'<img class="portrait-img" style="--face:{face}%" src="/{esc(hero)}" '
+                    f'alt="{esc(name)}, {esc(title) if title else esc(company)}" '
+                    f'width="800" height="1000">')
     else:
-        portrait = (f'<div class="hero-img hero-fallback" aria-hidden="true">'
+        portrait = (f'<div class="portrait-fallback" aria-hidden="true">'
                     f'{esc(initials(name))}</div>')
 
-    tiles = []
+    # One row per real value. The row itself is the action - no separate icon
+    # grid duplicating call/email a second time.
+    lines = []
     if e.get("phone"):
-        tiles.append(f'<a class="tile" href="tel:{esc(e["phone"])}" '
-                     f'aria-label="Call {esc(name)}">{ICON["call"]}Call</a>')
+        wa_btn = ""
+        if e.get("whatsapp"):
+            wa = re.sub(r"\D", "", e["whatsapp"])
+            wa_btn = (f'<a class="wa" href="https://wa.me/{wa}" target="_blank" rel="noopener" '
+                      f'aria-label="Message {esc(name)} on WhatsApp">{ICON["wa"]}</a>')
+        lines.append(
+            f'<div class="line">'
+            f'<a class="row" href="tel:{esc(e["phone"])}" aria-label="Call {esc(name)}">'
+            f'<span class="ic">{ICON["call"]}</span>'
+            f'<span class="txt"><span class="lbl">Mobile</span>'
+            f'<span class="val num">{esc(pretty_phone(e["phone"]))}</span></span></a>'
+            f'{wa_btn}</div>')
     if e.get("email"):
-        tiles.append(f'<a class="tile" href="mailto:{esc(e["email"])}" '
-                     f'aria-label="Email {esc(name)}">{ICON["mail"]}Email</a>')
-    if e.get("whatsapp"):
-        wa = re.sub(r"\D", "", e["whatsapp"])
-        tiles.append(f'<a class="tile is-wa" href="https://wa.me/{wa}" target="_blank" '
-                     f'rel="noopener" aria-label="Message {esc(name)} on WhatsApp">'
-                     f'{ICON["wa"]}WhatsApp</a>')
-    tiles.append(f'<a class="tile" href="{SITE}/" aria-label="Visit {esc(company)}">'
-                 f'{ICON["web"]}Website</a>')
-    tiles_html = f'<div class="tiles">{"".join(tiles)}</div>'
-
-    rows = []
-    if e.get("phone"):
-        pretty = e["phone"]
-        rows.append(f'<a class="row" href="tel:{esc(e["phone"])}">{ICON["call"]}'
-                    f'<span class="num">{esc(pretty)}</span></a>')
-    if e.get("email"):
-        rows.append(f'<a class="row" href="mailto:{esc(e["email"])}">{ICON["mail"]}'
-                    f'<span>{esc(e["email"])}</span></a>')
-    if e.get("location"):
-        rows.append(f'<div class="row">{ICON["pin"]}<span>{esc(e["location"])}</span></div>')
-    rows_html = f'<div class="rows">{"".join(rows)}</div>' if rows else ""
+        lines.append(
+            f'<div class="line">'
+            f'<a class="row" href="mailto:{esc(e["email"])}" aria-label="Email {esc(name)}">'
+            f'<span class="ic">{ICON["mail"]}</span>'
+            f'<span class="txt"><span class="lbl">Email</span>'
+            f'<span class="val">{esc(e["email"])}</span></span></a></div>')
+    lines_html = f'<div class="rows">{"".join(lines)}</div>' if lines else ""
 
     role = f'<p class="role">{esc(title)}</p>' if title else ""
+    # already-escaped fragment: interpolated raw so the separator entity survives
+    org = esc(company) + (f' &middot; {esc(e["location"])}' if e.get("location") else "")
 
     ld = {
         "@context": "https://schema.org", "@type": "Person",
@@ -173,47 +187,58 @@ def card_html(e, url):
 </script>
 
 <main class="card">
-  <header class="hero">
+  <div class="portrait">
     {portrait}
-    <a class="lockup" href="/" aria-label="{esc(company)}">
+    <a class="brand" href="/" aria-label="{esc(company)}">
       <img src="/assets/fina-logo.webp" alt="{esc(company)}" width="320" height="96">
     </a>
-    <div class="plate">
-      <h1>{esc(name)}</h1>
-      {role}
-      <p class="org">{esc(company)}</p>
-    </div>
-  </header>
+  </div>
 
-  <div class="connect">
-    <div class="grid">
-      {tiles_html}
-      <div class="side">
-        {rows_html}
-        <div class="qr-wrap">
-          <div class="qr">{qr_svg(url)}</div>
-          <p class="qr-copy">Scan to<br>open card</p>
-        </div>
-      </div>
-    </div>
+  <div class="identity">
+    <h1>{esc(name)}</h1>
+    {role}
+    <p class="org">{org}</p>
+  </div>
+
+  <div class="actions">
+    <a class="save" href="{esc(slug)}.vcf" download="{esc(name)}.vcf">
+      {ICON["download"]}<span>Save contact</span>
+    </a>
+    {lines_html}
   </div>
 
   <div class="foot">
-    <a class="save" href="{esc(slug)}.vcf" download="{esc(name)}.vcf">
-      <span>Save contact</span>{ICON["arrow"]}
-    </a>
-    <div class="foot-bar">
-      <a href="/">finasheet.com</a>
-      <button class="share" type="button" data-share-url="{url}" data-share-title="{esc(name)} - {esc(company)}">
-        {ICON["share"]}<span>Share</span>
-      </button>
-    </div>
+    <a class="ghost" href="/">{ICON["web"]}<span>finasheet.com</span></a>
+    <button class="ghost" type="button" data-qr aria-haspopup="dialog">{ICON["qr"]}<span>QR code</span></button>
+    <button class="ghost" type="button" data-share data-share-url="{url}" data-share-title="{esc(name)} - {esc(company)}">
+      {ICON["share"]}<span>Share</span>
+    </button>
   </div>
 </main>
 
+<dialog class="qr-modal" aria-label="QR code for this card">
+  <div class="qr-panel">
+    <div class="qr">{qr_svg(url)}</div>
+    <p class="qr-name">{esc(name)}</p>
+    <p class="qr-hint">Point a camera here to open this card</p>
+    <button class="qr-close" type="button">Done</button>
+  </div>
+</dialog>
+
 <script>
 (function(){{
-  var b=document.querySelector('.share');
+  var dlg=document.querySelector('.qr-modal');
+  var qrBtn=document.querySelector('[data-qr]');
+  if(dlg&&qrBtn&&typeof dlg.showModal==='function'){{
+    qrBtn.addEventListener('click',function(){{dlg.showModal();}});
+    dlg.querySelector('.qr-close').addEventListener('click',function(){{dlg.close();}});
+    /* clicking the backdrop closes it - the panel stops the event */
+    dlg.addEventListener('click',function(ev){{if(ev.target===dlg)dlg.close();}});
+  }} else if(qrBtn){{
+    qrBtn.hidden=true;              /* no dialog support: do not offer a dead button */
+  }}
+
+  var b=document.querySelector('[data-share]');
   if(!b) return;
   var label=b.querySelector('span');
   b.addEventListener('click',function(){{
@@ -221,7 +246,7 @@ def card_html(e, url):
     if(navigator.share){{ navigator.share({{title:title,url:url}}).catch(function(){{}}); return; }}
     if(navigator.clipboard){{
       navigator.clipboard.writeText(url).then(function(){{
-        var was=label.textContent; label.textContent='Link copied';
+        var was=label.textContent; label.textContent='Copied';
         setTimeout(function(){{label.textContent=was;}},2000);
       }});
     }}
