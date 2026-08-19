@@ -144,6 +144,14 @@ def card_html(e, url):
     # already-escaped fragment: interpolated raw so the separator entity survives
     org = esc(company) + (f' &middot; {esc(e["location"])}' if e.get("location") else "")
 
+    # Per-person link preview from scripts/build-team-photos.py. Falls back to
+    # the site banner, which is what every card used to share - so a card sent
+    # on WhatsApp previewed as an advert for the product rather than the person.
+    og_rel = f"assets/team/{slug}-og.jpg"
+    og_img = (f"{SITE}/{og_rel}" if os.path.exists(os.path.join(ROOT, og_rel))
+              else f"{SITE}/assets/og-image.png")
+    og_alt = f"{name}{' - ' + title if title else ''}, {company}"
+
     ld = {
         "@context": "https://schema.org", "@type": "Person",
         "name": name, "url": url,
@@ -167,11 +175,17 @@ def card_html(e, url):
 <link rel="canonical" href="{url}">
 
 <meta property="og:type" content="profile">
+<meta property="og:site_name" content="{esc(company)}">
 <meta property="og:title" content="{esc(name)}{' - ' + esc(title) if title else ''}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{SITE}/assets/og-image.png">
+<meta property="og:image" content="{og_img}">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{esc(og_alt)}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{og_img}">
 
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
