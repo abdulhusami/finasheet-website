@@ -91,28 +91,37 @@ def card_html(e, url):
     desc = f"{name}{' - ' + title if title else ''}, {company}. Save contact, call, email or message on WhatsApp."
 
     if e.get("photo"):
-        avatar = f'<img class="avatar" src="/{esc(e["photo"])}" alt="{esc(name)}" width="112" height="112">'
+        inner = f'<img src="/{esc(e["photo"])}" alt="{esc(name)}" width="104" height="104">'
     else:
-        avatar = f'<div class="avatar avatar-initials" aria-hidden="true">{esc(initials(name))}</div>'
+        inner = f'<div class="initials" aria-hidden="true">{esc(initials(name))}</div>'
+    avatar = f'<div class="portrait">{inner}</div>'
 
-    acts = [f'<a class="btn btn-save" href="{esc(slug)}.vcf" download="{esc(name)}.vcf">{ICON["save"]}Save contact</a>']
+    # One primary action. Everything else is deliberately subordinate - the
+    # Trust & Authority pattern calls for a single unmistakable CTA.
+    primary = (f'<a class="act act-primary" href="{esc(slug)}.vcf" download="{esc(name)}.vcf">'
+               f'{ICON["save"]}Save contact<span class="hint">vCard</span></a>')
+
+    quick = []
     if e.get("whatsapp"):
         wa = re.sub(r"\D", "", e["whatsapp"])
-        acts.append(f'<a class="btn btn-wa" href="https://wa.me/{wa}" target="_blank" rel="noopener">{ICON["wa"]}WhatsApp</a>')
-    pair = []
+        quick.append(f'<a class="act is-wa" href="https://wa.me/{wa}" target="_blank" rel="noopener" '
+                     f'aria-label="Message {esc(name)} on WhatsApp">{ICON["wa"]}WhatsApp</a>')
     if e.get("phone"):
-        pair.append(f'<a class="btn btn-ghost" href="tel:{esc(e["phone"])}">{ICON["call"]}Call</a>')
+        quick.append(f'<a class="act" href="tel:{esc(e["phone"])}" '
+                     f'aria-label="Call {esc(name)}">{ICON["call"]}Call</a>')
     if e.get("email"):
-        pair.append(f'<a class="btn btn-ghost" href="mailto:{esc(e["email"])}">{ICON["mail"]}Email</a>')
-    if len(pair) == 2:
-        acts.append('<div class="row">' + "".join(pair) + "</div>")
-    else:
-        acts += pair
+        quick.append(f'<a class="act" href="mailto:{esc(e["email"])}" '
+                     f'aria-label="Email {esc(name)}">{ICON["mail"]}Email</a>')
+    quick_html = f'<div class="quick">{"".join(quick)}</div>' if quick else ""
+
+    linkedin = ""
     if e.get("linkedin"):
-        acts.append(f'<a class="btn btn-ghost" href="{esc(e["linkedin"])}" target="_blank" rel="noopener">{ICON["in"]}LinkedIn</a>')
+        linkedin = (f'<a class="linkedin" href="{esc(e["linkedin"])}" target="_blank" rel="noopener">'
+                    f'{ICON["in"]}View LinkedIn profile</a>')
 
     tagline = f'<p class="tagline">{esc(e["tagline"])}</p>' if e.get("tagline") else ""
     role = f'<p class="role">{esc(title)}</p>' if title else ""
+    org = f'<p class="org">{esc(company)}</p>'
 
     ld = {
         "@context": "https://schema.org", "@type": "Person",
@@ -159,30 +168,32 @@ def card_html(e, url):
 </script>
 
 <main class="card">
-  <div class="card-top">
-    <a class="brand" href="/" aria-label="{esc(company)}">
+  <header class="crest">
+    <a class="brand" href="/" aria-label="{esc(company)} home">
       <img src="/assets/fina-logo-wordmark-white.webp" alt="{esc(company)}" width="320" height="96">
     </a>
     {avatar}
-  </div>
+  </header>
 
-  <div class="card-body">
+  <div class="identity">
     <h1>{esc(name)}</h1>
     {role}
-    <p class="company">{esc(company)}</p>
+    {org}
     {tagline}
-
-    <div class="actions">
-      {"".join(acts)}
-    </div>
-
-    <div class="qr">
-      <p class="qr-label">Scan to open this card</p>
-      <div class="qr-frame">{qr_svg(url)}</div>
-    </div>
-
-    <a class="site-link" href="/">finasheet.com</a>
   </div>
+
+  <div class="actions">
+    {primary}
+    {quick_html}
+    {linkedin}
+  </div>
+
+  <section class="scan" aria-label="QR code for this card">
+    <p class="scan-label">Scan to save</p>
+    <div class="scan-frame">{qr_svg(url)}</div>
+  </section>
+
+  <footer class="foot"><a href="/">finasheet.com</a></footer>
 </main>
 """
 

@@ -6,5 +6,6 @@ ORG:Finasheet
 TITLE:Job Title
 TEL;TYPE=CELL,VOICE:+971500000000
 EMAIL;TYPE=INTERNET,WORK:sample@finasheet.com
+X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/sample
 URL:https://finasheet.com/team/sample
 END:VCARD
