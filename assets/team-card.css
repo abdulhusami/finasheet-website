@@ -1,0 +1,261 @@
+/* ---------------------------------------------------------------------------
+   Digital employee card
+   Style: Trust & Authority (ui-ux-pro-max) - the pattern for financial and
+   professional services. Navy authority base, restrained gold for credential
+   accents, one unmistakable primary action, everything else subordinate.
+   Gold is already part of Finasheet's language on the services side, so this
+   reads as the same brand rather than a new one.
+   Typeface stays Sora + Inter (the site's) rather than the generic Poppins /
+   Open Sans pairing - same personality role, but on-brand.
+   Mobile-first: these are opened on a phone straight after a scan or a tap.
+--------------------------------------------------------------------------- */
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  /* semantic tokens, not raw hex at point of use */
+  --navy:#0F172A;
+  --navy-2:#172554;
+  --navy-3:#1E3A8A;
+  --gold:#A16207;          /* AA-safe gold for text/icons on light */
+  --gold-soft:#C8A45D;     /* decorative only - hairlines, rings */
+  --gold-tint:#FDF6E7;
+
+  --bg:#F1F5F9;
+  --surface:#FFFFFF;
+  --surface-2:#F8FAFC;
+  --fg:#020617;
+  --fg-muted:#475569;
+  --fg-subtle:#64748B;
+  --border:#E2E8F0;
+  --border-strong:#CBD5E1;
+
+  --wa:#25D366;
+  --wa-ink:#052E16;
+
+  /* elevation scale - one ramp, used consistently */
+  --e1:0 1px 2px rgba(2,6,23,.05);
+  --e2:0 4px 10px -2px rgba(2,6,23,.08), 0 2px 4px rgba(2,6,23,.04);
+  --e3:0 12px 28px -8px rgba(2,6,23,.14), 0 4px 10px -4px rgba(2,6,23,.06);
+  --e4:0 28px 60px -22px rgba(15,23,42,.38), 0 10px 24px -12px rgba(2,6,23,.14);
+
+  --r-sm:10px; --r:14px; --r-lg:22px;
+
+  /* one motion rhythm for the whole card */
+  --dur:220ms;
+  --ease:cubic-bezier(.2,.7,.3,1);
+}
+
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#020617;
+    --surface:#0B1220;
+    --surface-2:#111C31;
+    --fg:#F8FAFC;
+    --fg-muted:#CBD5E1;        /* >=4.5:1 on --surface */
+    --fg-subtle:#94A3B8;       /* >=4.5:1 on --surface */
+    --border:#1E293B;
+    --border-strong:#334155;
+    --gold:#E7C77B;            /* lightened for dark, not the light-mode value */
+    --gold-tint:#1C1710;
+    --e1:0 1px 2px rgba(0,0,0,.4);
+    --e2:0 4px 10px -2px rgba(0,0,0,.5);
+    --e3:0 12px 28px -8px rgba(0,0,0,.55);
+    --e4:0 28px 60px -22px rgba(0,0,0,.7);
+  }
+}
+
+html{-webkit-text-size-adjust:100%}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  color:var(--fg-muted);
+  background:var(--bg);
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:max(20px,env(safe-area-inset-top)) 16px max(28px,env(safe-area-inset-bottom));
+}
+
+.card{
+  /* margin-block:auto centres when there is room but, unlike align-items:center,
+     does not clip the top of the card once it is taller than the viewport */
+  margin-block:auto;
+  width:100%;
+  max-width:400px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  box-shadow:var(--e4);
+  overflow:hidden;
+}
+
+/* ---- crest -------------------------------------------------------------- */
+.crest{
+  background:
+    radial-gradient(120% 130% at 78% -10%, rgba(56,189,248,.22) 0%, transparent 58%),
+    linear-gradient(140deg,var(--navy) 0%,var(--navy-2) 52%,var(--navy-3) 100%);
+  padding:26px 24px 0;
+  text-align:center;
+  position:relative;
+}
+/* gold hairline: the credential cue from Trust & Authority, used once */
+.crest::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold-soft) 22%,var(--gold-soft) 78%,transparent);
+  opacity:.85;
+}
+/* padding + matching negative margin: 44px hit area, identical layout */
+.brand{display:inline-block;line-height:0;padding:10px 14px;margin:-10px -14px}
+.brand img{height:24px;width:auto;opacity:.96}
+.brand:focus-visible{outline:3px solid var(--gold-soft);outline-offset:2px;border-radius:6px}
+
+.portrait{
+  width:104px;height:104px;
+  margin:22px auto -52px;
+  border-radius:50%;
+  position:relative;
+  padding:3px;
+  background:linear-gradient(140deg,var(--gold-soft),rgba(200,164,93,.25));
+  box-shadow:var(--e3);
+}
+.portrait > *{
+  width:100%;height:100%;
+  border-radius:50%;
+  border:3px solid var(--surface);
+  background:var(--surface-2);
+  object-fit:cover;
+  display:block;
+}
+.portrait .initials{
+  display:grid;place-items:center;
+  font-family:'Sora',system-ui,sans-serif;
+  font-weight:700;font-size:32px;letter-spacing:.01em;
+  color:var(--navy-3);
+}
+
+/* ---- identity ----------------------------------------------------------- */
+.identity{padding:66px 24px 0;text-align:center}
+
+h1{
+  font-family:'Sora',system-ui,sans-serif;
+  font-size:23px;font-weight:700;line-height:1.22;letter-spacing:-.02em;
+  color:var(--fg);
+  text-wrap:balance;
+}
+.role{
+  display:inline-block;margin-top:9px;
+  font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--gold);
+}
+.org{margin-top:5px;font-size:14px;color:var(--fg-subtle)}
+.tagline{
+  margin:14px auto 0;max-width:34ch;
+  font-size:14px;line-height:1.6;color:var(--fg-muted);
+}
+
+/* ---- actions ------------------------------------------------------------ */
+.actions{padding:22px 24px 0}
+
+.act{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  min-height:52px;padding:14px 18px;
+  border-radius:var(--r);
+  border:1px solid transparent;
+  font-family:'Sora',system-ui,sans-serif;
+  font-size:15px;font-weight:600;
+  text-decoration:none;cursor:pointer;
+  transition:transform var(--dur) var(--ease),
+             box-shadow var(--dur) var(--ease),
+             background var(--dur) var(--ease),
+             border-color var(--dur) var(--ease),
+             color var(--dur) var(--ease);
+}
+.act svg{width:18px;height:18px;flex:none}
+.act:focus-visible{outline:3px solid var(--navy-3);outline-offset:3px}
+.act:active{transform:scale(.985)}
+
+/* the one primary action */
+.act-primary{
+  width:100%;
+  background:linear-gradient(140deg,var(--navy-2),var(--navy));
+  color:#fff;
+  box-shadow:var(--e3);
+}
+.act-primary:hover{box-shadow:var(--e4);transform:translateY(-2px)}
+.act-primary .hint{
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:500;
+  opacity:.72;letter-spacing:0;
+}
+
+/* subordinate row - icon-led, still 44px+ */
+/* auto-fit so a person with no WhatsApp or no email still gets an even row */
+.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:9px;margin-top:10px}
+.quick .act{
+  flex-direction:column;gap:5px;min-height:66px;padding:11px 6px;
+  font-size:11.5px;font-weight:600;letter-spacing:.02em;
+  background:var(--surface-2);
+  border-color:var(--border);
+  color:var(--fg);
+}
+.quick .act svg{width:20px;height:20px}
+.quick .act:hover{border-color:var(--border-strong);background:var(--surface);box-shadow:var(--e2)}
+.quick .act.is-wa:hover{border-color:var(--wa);color:var(--wa-ink)}
+.quick .act.is-wa svg{color:var(--wa)}
+@media (prefers-color-scheme:dark){
+  .quick .act.is-wa:hover{color:var(--wa)}
+}
+
+/* ---- qr ----------------------------------------------------------------- */
+.scan{
+  margin:22px 24px 0;padding:18px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  text-align:center;
+}
+.scan-label{
+  font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--fg-subtle);margin-bottom:13px;
+}
+.scan-frame{
+  width:140px;height:140px;margin:0 auto;padding:10px;
+  background:#fff;border-radius:var(--r-sm);box-shadow:var(--e1);
+}
+.scan-frame svg{width:100%;height:100%;display:block}
+.scan-frame svg path{fill:var(--navy)}
+
+/* ---- foot --------------------------------------------------------------- */
+.foot{
+  margin-top:20px;padding:15px 24px calc(18px + env(safe-area-inset-bottom));
+  border-top:1px solid var(--border);
+  text-align:center;
+}
+.foot a{
+  display:inline-block;
+  font-size:12.5px;font-weight:500;color:var(--fg-subtle);text-decoration:none;
+  padding:15px 18px;margin:-15px -18px;      /* 45px hit area, layout unchanged */
+  transition:color var(--dur) var(--ease);
+}
+.foot a:hover{color:var(--gold)}
+.foot a:focus-visible{outline:3px solid var(--navy-3);outline-offset:3px;border-radius:4px}
+
+/* ---- responsive + motion ------------------------------------------------ */
+@media (max-width:360px){
+  .identity,.actions{padding-left:18px;padding-right:18px}
+  .scan{margin-left:18px;margin-right:18px}
+  h1{font-size:21px}
+  .quick .act{font-size:11px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    transition-duration:.01ms !important;
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+  }
+  .act-primary:hover,.act:active{transform:none}
+}
