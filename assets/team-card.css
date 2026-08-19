@@ -14,9 +14,12 @@
   --ink:#05070D;
   --ink-2:#0A101E;
   --ink-3:#101828;
-  --blue:#1D4ED8;
-  --blue-bright:#2C5CF0;
-  --blue-lift:#4F7DFF;
+  /* Sampled from assets/fina-logo.webp: the wordmark is #0F365D, hue 210.
+     --blue is that exact colour; the other two are the same hue lifted, so the
+     card reads as one blue family rather than a second, brighter blue. */
+  --blue:#0F365D;
+  --blue-bright:#1C66B0;
+  --blue-lift:#589EE4;
   --text:#FFFFFF;
   --muted:#AAB6CC;          /* 8.9:1 on --ink */
   --dim:#7E8CA6;            /* 4.6:1 on --ink - labels only */
@@ -178,7 +181,10 @@ a.row:focus-visible{outline:2px solid var(--blue-lift);outline-offset:2px;border
   color:var(--text);text-decoration:none;
   font-family:'Sora',sans-serif;font-size:13.5px;font-weight:700;
   letter-spacing:.11em;text-transform:uppercase;
-  box-shadow:0 12px 26px -12px rgba(44,92,240,.8);
+  /* the logo blue is close in value to the card, so the button gets an explicit
+     edge rather than relying on fill contrast alone */
+  border:1px solid rgba(88,158,228,.45);
+  box-shadow:0 12px 26px -12px rgba(15,54,93,.9);
   transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease);
 }
 .save svg{width:18px;height:18px;flex:none}
