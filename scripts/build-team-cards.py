@@ -176,11 +176,9 @@ def card_html(e, url):
   <header class="hero">
     {portrait}
     <div class="hero-scrim"></div>
-    <a class="lockup" href="/">
-      <img src="/assets/fina-logo-wordmark-white.webp" alt="" width="320" height="96">
-      <span>{esc(company)}</span>
+    <a class="lockup" href="/" aria-label="{esc(company)}">
+      <img src="/assets/fina-logo.webp" alt="{esc(company)}" width="320" height="96">
     </a>
-    <p class="sec"><b>01</b> Profile</p>
     <div class="plate">
       <h1>{esc(name)}</h1>
       {role}
@@ -189,7 +187,6 @@ def card_html(e, url):
   </header>
 
   <div class="connect">
-    <p class="sec"><b>02</b> Connect</p>
     <div class="grid">
       {tiles_html}
       <div class="side">
