@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Employee;Sample;;;
+FN:Sample Employee
+ORG:Finasheet
+TITLE:Job Title
+TEL;TYPE=CELL,VOICE:+971500000000
+EMAIL;TYPE=INTERNET,WORK:sample@finasheet.com
+URL:https://finasheet.com/team/sample
+END:VCARD

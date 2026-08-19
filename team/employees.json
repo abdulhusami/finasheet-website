@@ -1,0 +1,29 @@
+{
+  "_comment": "One entry per employee. Run scripts/build-team-cards.py to regenerate team/<slug>.html and team/<slug>.vcf. Fields left empty or null are omitted from the card and the vCard - nothing is invented.",
+  "_fields": {
+    "slug": "URL segment, becomes https://finasheet.com/team/<slug>",
+    "name": "Full name as it should appear",
+    "title": "Job title",
+    "company": "Defaults to Finasheet if omitted",
+    "phone": "E.164, e.g. +971522015270. Used for tap-to-call and the vCard",
+    "whatsapp": "Digits only, e.g. 971522015270. Omit to hide the WhatsApp button",
+    "email": "Work email",
+    "linkedin": "Full profile URL. Omit to hide the LinkedIn button",
+    "photo": "Path relative to site root, e.g. assets/team/name.jpg. Omit to fall back to initials",
+    "tagline": "Optional one line under the title"
+  },
+  "employees": [
+    {
+      "slug": "sample",
+      "name": "Sample Employee",
+      "title": "Job Title",
+      "company": "Finasheet",
+      "phone": "+971500000000",
+      "whatsapp": "971500000000",
+      "email": "sample@finasheet.com",
+      "linkedin": "",
+      "photo": "",
+      "tagline": "Placeholder card - replace with real details before publishing"
+    }
+  ]
+}

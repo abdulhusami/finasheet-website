@@ -1,0 +1,153 @@
+/* Digital employee card. Tokens mirror assets/home.css so the card reads as
+   part of the same brand. Mobile-first: these are opened on a phone after a
+   scan or a tap, so the phone layout is the real one. */
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --primary:#1D4ED8;
+  --primary-dark:#1E3A8A;
+  --primary-deep:#172554;
+  --text:#020617;
+  --body:#475569;
+  --body-light:#64748B;
+  --surface:#FFFFFF;
+  --bg:#F8FAFC;
+  --border:#E2E8F0;
+  --tint:#EFF6FF;
+  --wa:#25D366;
+  --wa-dark:#128C7E;
+  --radius:20px;
+  --shadow-md:0 8px 24px -8px rgba(2,6,23,.12), 0 2px 6px rgba(2,6,23,.04);
+  --shadow-lg:0 24px 56px -20px rgba(29,78,216,.22), 0 8px 24px -12px rgba(2,6,23,.08);
+}
+
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  color:var(--body);
+  background:var(--bg);
+  line-height:1.55;
+  min-height:100dvh;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:24px 16px 40px;
+}
+
+.card{
+  width:100%;
+  max-width:420px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+}
+
+/* header band */
+.card-top{
+  background:linear-gradient(135deg,var(--primary-deep) 0%,var(--primary-dark) 50%,var(--primary) 100%);
+  padding:28px 24px 0;
+  text-align:center;
+  position:relative;
+}
+.card-top::after{
+  content:'';position:absolute;top:-90px;right:-90px;width:260px;height:260px;
+  border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.25) 0%,transparent 70%);
+  pointer-events:none;
+}
+.brand{
+  display:inline-flex;align-items:center;justify-content:center;
+  margin-bottom:22px;position:relative;z-index:1;
+}
+.brand img{height:26px;width:auto;display:block}
+
+.avatar{
+  width:112px;height:112px;border-radius:50%;
+  border:4px solid var(--surface);
+  background:var(--tint);
+  object-fit:cover;display:block;margin:0 auto -56px;
+  position:relative;z-index:1;
+  box-shadow:var(--shadow-md);
+}
+.avatar-initials{
+  display:grid;place-items:center;
+  font-family:'Sora',system-ui,sans-serif;
+  font-weight:700;font-size:38px;letter-spacing:-.02em;
+  color:var(--primary-dark);
+}
+
+.card-body{padding:70px 24px 24px;text-align:center}
+
+h1{
+  font-family:'Sora',system-ui,sans-serif;
+  font-size:24px;font-weight:700;letter-spacing:-.02em;
+  color:var(--text);line-height:1.25;
+}
+.role{
+  font-size:15px;font-weight:600;color:var(--primary);
+  margin-top:6px;
+}
+.company{font-size:14px;color:var(--body-light);margin-top:2px}
+.tagline{
+  font-size:14px;color:var(--body);margin-top:14px;
+  padding-top:14px;border-top:1px solid var(--border);
+}
+
+/* actions */
+.actions{display:grid;gap:10px;margin-top:22px}
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  min-height:52px;padding:14px 18px;
+  border-radius:14px;border:1px solid transparent;
+  font-family:'Sora',system-ui,sans-serif;
+  font-size:15px;font-weight:600;
+  text-decoration:none;cursor:pointer;
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease,border-color .15s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn svg{width:19px;height:19px;flex:none}
+
+.btn-save{
+  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);
+  color:#fff;box-shadow:0 10px 22px -8px rgba(29,78,216,.5);
+}
+.btn-wa{background:var(--wa);color:#052e16}
+.btn-wa:hover{background:var(--wa-dark);color:#fff}
+.btn-ghost{
+  background:var(--surface);color:var(--text);border-color:var(--border);
+}
+.btn-ghost:hover{border-color:var(--primary);color:var(--primary);background:var(--tint)}
+
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* qr */
+.qr{
+  margin-top:22px;padding-top:22px;border-top:1px solid var(--border);
+}
+.qr-label{
+  font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--body-light);margin-bottom:14px;
+}
+.qr-frame{
+  width:168px;height:168px;margin:0 auto;padding:12px;
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+}
+.qr-frame svg{width:100%;height:100%;display:block}
+.qr-frame svg path{fill:var(--primary-deep)}
+
+.site-link{
+  display:inline-block;margin-top:20px;
+  font-size:13px;color:var(--body-light);text-decoration:none;
+}
+.site-link:hover{color:var(--primary)}
+
+@media (prefers-reduced-motion:reduce){
+  .btn{transition:none}
+}
+
+@media (max-width:360px){
+  .card-body{padding:70px 18px 20px}
+  .row{grid-template-columns:1fr}
+  h1{font-size:22px}
+}
