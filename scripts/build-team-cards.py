@@ -175,7 +175,6 @@ def card_html(e, url):
 <main class="card">
   <header class="hero">
     {portrait}
-    <div class="hero-scrim"></div>
     <a class="lockup" href="/" aria-label="{esc(company)}">
       <img src="/assets/fina-logo.webp" alt="{esc(company)}" width="320" height="96">
     </a>

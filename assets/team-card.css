@@ -68,21 +68,21 @@ body{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;object-position:50% 4%;display:block;
 }
-/* The lockup is the navy wordmark now, so the top is LIGHTENED rather than
-   darkened. This also guarantees contrast if a future headshot has a dark
-   background, where a navy logo would otherwise disappear. */
-.hero-scrim{
-  position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(244,248,255,.94) 0%,rgba(244,248,255,.72) 16%,transparent 34%);
-}
-
 .lockup{
   position:absolute;top:18px;left:18px;right:18px;
   display:flex;align-items:center;gap:10px;
   padding:12px;margin:-12px;              /* 45px hit area without moving it */
   text-decoration:none;
 }
-.lockup img{height:21px;width:auto;display:block}
+/* No wash behind the logo - it laid a visible pale band across the top of the
+   photo, and it was not buying anything: the navy wordmark already measures
+   5.6:1 on the darkest of the current headshots. The glow is the insurance
+   instead. It is invisible on a light backdrop (white on near-white) and only
+   shows up if a future portrait puts a dark background behind the logo. */
+.lockup img{
+  height:21px;width:auto;display:block;
+  filter:drop-shadow(0 0 5px rgba(255,255,255,.9)) drop-shadow(0 1px 2px rgba(255,255,255,.7));
+}
 .lockup:focus-visible{outline:2px solid var(--blue-lift);outline-offset:4px;border-radius:8px}
 
 /* diagonal brand panel carrying the name */
