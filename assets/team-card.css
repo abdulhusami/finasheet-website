@@ -39,12 +39,19 @@ body{
   background-image:radial-gradient(90% 55% at 50% 0%, #0B1730 0%, transparent 62%);
   min-height:100dvh;
   display:flex;flex-direction:column;align-items:center;
-  padding:max(18px,env(safe-area-inset-top)) 14px max(26px,env(safe-area-inset-bottom));
+  padding:max(10px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom));
 }
 
 .card{
+  /* the whole card is budgeted to one screen; it only scrolls if a device is
+     too short to honour that, rather than clipping */
   margin-block:auto;
+  display:flex;flex-direction:column;
   width:100%;max-width:400px;
+  /* Fill the screen exactly, capped so it does not sprawl on a tablet. The
+     hero absorbs whatever height is left after the fixed content, so the card
+     fits one screen at any phone height instead of clamping the photo. */
+  height:min(calc(100dvh - 24px), 780px);
   background:var(--ink);
   border:1px solid var(--line);
   border-radius:var(--r-lg);
@@ -53,10 +60,10 @@ body{
 }
 
 /* ---- hero ---------------------------------------------------------------- */
-.hero{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--ink-2)}
+.hero{position:relative;flex:1 1 auto;min-height:210px;overflow:hidden;background:var(--ink-2)}
 .hero-img{
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:50% 12%;display:block;
+  object-fit:cover;object-position:50% 4%;display:block;
 }
 /* the headshots are on pale backgrounds - this keeps the white lockup legible */
 .hero-scrim{
@@ -88,14 +95,14 @@ body{
 
 /* over the photo the label needs more weight than it does on the dark body,
    since the scrim has largely faded by this point */
-.hero .sec{position:absolute;left:18px;right:18px;top:62px;color:rgba(255,255,255,.8)}
+.hero .sec{position:absolute;left:18px;right:18px;top:58px;color:rgba(255,255,255,.8)}
 .hero .sec b{color:#8FB0FF}
 .hero .sec::after{background:rgba(255,255,255,.35)}
 
 /* diagonal brand panel carrying the name */
 .plate{
   position:absolute;left:0;right:0;bottom:0;
-  padding:52px 20px 20px;
+  padding:44px 18px 16px;
   background:linear-gradient(135deg,var(--blue) 0%,var(--blue-bright) 100%);
   clip-path:polygon(0 42px, 100% 0, 100% 100%, 0 100%);
 }
@@ -109,7 +116,7 @@ body{
 h1{
   position:relative;
   font-family:'Sora',system-ui,sans-serif;
-  font-size:clamp(30px,9vw,38px);font-weight:800;
+  font-size:clamp(27px,8vw,34px);font-weight:800;
   line-height:1.02;letter-spacing:-.035em;
   color:var(--text);text-wrap:balance;
 }
@@ -124,100 +131,93 @@ h1{
 }
 
 /* ---- connect ------------------------------------------------------------- */
-.connect{padding:20px 18px 0}
+/* Two columns: tiles on the left, readable details + QR on the right. This is
+   what keeps the whole card on one screen - stacked, it needed scrolling. */
+.connect{
+  flex:0 0 auto;
+  padding:14px 16px 0;
+  display:flex;flex-direction:column;justify-content:center;
+}
 
-.tiles{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}
+.grid{display:grid;grid-template-columns:.86fr 1.14fr;gap:10px;margin-top:11px;align-items:stretch}
+
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:7px}
 .tile{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
-  min-height:78px;padding:12px 8px;
-  background:var(--ink-2);
-  border:1px solid var(--line);
-  border-radius:var(--r);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  min-height:46px;padding:8px 4px;
+  background:var(--ink-2);border:1px solid var(--line);border-radius:12px;
   color:var(--text);text-decoration:none;
-  font-size:12px;font-weight:600;letter-spacing:.03em;
+  font-size:10.5px;font-weight:600;letter-spacing:.03em;
   transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease),
              transform var(--dur) var(--ease);
 }
-.tile svg{width:21px;height:21px;color:var(--blue-lift)}
+.tile svg{width:18px;height:18px;color:var(--blue-lift)}
 .tile.is-wa svg{color:var(--wa)}
 .tile:hover{background:var(--ink-3);border-color:var(--line-2)}
 .tile:active{transform:scale(.98)}
 .tile:focus-visible{outline:2px solid var(--blue-lift);outline-offset:3px}
 
-.rows{margin-top:14px;display:grid;gap:2px}
+.side{display:flex;flex-direction:column;gap:8px;min-width:0}
+
+.rows{display:grid;gap:1px;min-width:0}
 .row{
-  display:flex;align-items:center;gap:11px;
-  min-height:46px;padding:6px 2px;
-  color:var(--muted);font-size:13.5px;text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+  min-height:44px;padding:4px 2px;
+  color:var(--muted);font-size:11.5px;text-decoration:none;
   transition:color var(--dur) var(--ease);
-  overflow-wrap:anywhere;
+  overflow-wrap:break-word;line-height:1.3;min-width:0;
 }
-.row svg{width:17px;height:17px;flex:none;color:var(--dim)}
+.row svg{width:14px;height:14px;flex:none;color:var(--dim)}
 a.row:hover{color:var(--text)}
 a.row:hover svg{color:var(--blue-lift)}
 a.row:focus-visible{outline:2px solid var(--blue-lift);outline-offset:2px;border-radius:8px}
-.row .num{font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.row .num{font-variant-numeric:tabular-nums}
+.row span{min-width:0;overflow-wrap:break-word}
 
 .qr-wrap{
-  margin-top:14px;padding:14px;
-  display:flex;align-items:center;gap:14px;
-  background:var(--ink-2);border:1px solid var(--line);border-radius:var(--r);
+  margin-top:auto;padding:9px;
+  display:flex;align-items:center;gap:10px;
+  background:var(--ink-2);border:1px solid var(--line);border-radius:12px;
 }
-.qr{
-  width:88px;height:88px;flex:none;padding:7px;
-  background:#fff;border-radius:9px;
-}
+.qr{width:62px;height:62px;flex:none;padding:5px;background:#fff;border-radius:7px}
 .qr svg{width:100%;height:100%;display:block}
 .qr svg path{fill:#05070D}
-.qr-copy strong{
-  display:block;font-family:'Sora',sans-serif;font-size:13px;font-weight:600;
-  color:var(--text);margin-bottom:3px;
-}
-.qr-copy span{font-size:12px;line-height:1.45;color:var(--dim)}
+.qr-copy{font-size:10.5px;line-height:1.3;color:var(--dim);letter-spacing:.02em}
 
-/* ---- save + share -------------------------------------------------------- */
+/* ---- foot ---------------------------------------------------------------- */
+.foot{flex:0 0 auto;padding:14px 16px calc(12px + env(safe-area-inset-bottom))}
+
 .save{
   display:flex;align-items:center;justify-content:space-between;gap:12px;
-  margin:18px 18px 0;padding:17px 20px;
+  padding:15px 18px;
   background:linear-gradient(135deg,var(--blue) 0%,var(--blue-bright) 100%);
-  border-radius:var(--r);
+  border-radius:13px;
   color:var(--text);text-decoration:none;
-  font-family:'Sora',sans-serif;font-size:14px;font-weight:700;
+  font-family:'Sora',sans-serif;font-size:13.5px;font-weight:700;
   letter-spacing:.11em;text-transform:uppercase;
-  box-shadow:0 14px 30px -12px rgba(44,92,240,.75);
+  box-shadow:0 12px 26px -12px rgba(44,92,240,.8);
   transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease);
 }
-.save svg{width:19px;height:19px;flex:none}
-.save:hover{transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(44,92,240,.85)}
+.save svg{width:18px;height:18px;flex:none}
+.save:hover{transform:translateY(-2px)}
 .save:active{transform:scale(.99)}
 .save:focus-visible{outline:2px solid var(--blue-lift);outline-offset:3px}
 
-.share{
-  display:flex;align-items:center;justify-content:center;gap:9px;
-  width:calc(100% - 36px);          /* a button shrink-to-fits even as a flex box */
-  margin:9px 18px 0;min-height:48px;padding:13px;
-  background:transparent;border:1px solid var(--line-2);border-radius:var(--r);
-  color:var(--muted);font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;
-  cursor:pointer;
-  transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease);
+.foot-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:4px;
 }
-.share svg{width:16px;height:16px}
-.share:hover{color:var(--text);border-color:var(--blue-lift)}
-.share:focus-visible{outline:2px solid var(--blue-lift);outline-offset:3px}
-
-.foot{
-  margin-top:18px;padding:14px 18px calc(16px + env(safe-area-inset-bottom));
-  border-top:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-}
-.foot a{
-  font-size:12px;font-weight:500;color:var(--dim);text-decoration:none;
-  padding:13px 10px;margin:-13px -10px;      /* 44px hit area */
+.foot-bar a,.share{
+  display:flex;align-items:center;gap:7px;
+  min-height:44px;padding:0 8px;
+  background:none;border:0;cursor:pointer;
+  font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;
+  color:var(--dim);text-decoration:none;letter-spacing:.02em;
   transition:color var(--dur) var(--ease);
 }
-.foot a:hover{color:var(--blue-lift)}
-.foot a:focus-visible{outline:2px solid var(--blue-lift);outline-offset:2px;border-radius:6px}
-.foot .mark{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+.share svg{width:14px;height:14px}
+.foot-bar a:hover,.share:hover{color:var(--blue-lift)}
+.foot-bar a:focus-visible,.share:focus-visible{outline:2px solid var(--blue-lift);outline-offset:2px;border-radius:6px}
 
 /* ---- narrow -------------------------------------------------------------- */
 @media (max-width:340px){
@@ -231,4 +231,19 @@ a.row:focus-visible{outline:2px solid var(--blue-lift);outline-offset:2px;border
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important}
   .save:hover,.tile:active,.save:active{transform:none}
+}
+
+/* Short screens (iPhone SE and similar): tighten the fixed content so the
+   flexible hero still gets enough height to show a face. */
+@media (max-height:720px){
+  .qr{width:54px;height:54px}
+  .qr-copy{font-size:10px}
+  .qr-wrap{padding:7px;gap:8px}
+  .plate{padding:34px 18px 11px}
+  .plate h1{font-size:clamp(24px,7.4vw,29px)}
+  .role{font-size:13.5px;margin-top:6px}
+  .org{font-size:11.5px}
+  .save{padding:13px 18px}
+  .connect{padding-top:10px}
+  .foot{padding-top:10px}
 }

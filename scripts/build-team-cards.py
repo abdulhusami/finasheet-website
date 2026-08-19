@@ -190,29 +190,29 @@ def card_html(e, url):
 
   <div class="connect">
     <p class="sec"><b>02</b> Connect</p>
-    {tiles_html}
-    {rows_html}
-
-    <div class="qr-wrap">
-      <div class="qr">{qr_svg(url)}</div>
-      <div class="qr-copy">
-        <strong>Scan to open</strong>
-        <span>Point a camera here to pull up this card and save the contact.</span>
+    <div class="grid">
+      {tiles_html}
+      <div class="side">
+        {rows_html}
+        <div class="qr-wrap">
+          <div class="qr">{qr_svg(url)}</div>
+          <p class="qr-copy">Scan to<br>open card</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <a class="save" href="{esc(slug)}.vcf" download="{esc(name)}.vcf">
-    <span>Save contact</span>{ICON["arrow"]}
-  </a>
-  <button class="share" type="button" data-share-url="{url}" data-share-title="{esc(name)} - {esc(company)}">
-    {ICON["share"]}<span>Share this card</span>
-  </button>
-
-  <footer class="foot">
-    <a href="/">finasheet.com</a>
-    <span class="mark">Digital card</span>
-  </footer>
+  <div class="foot">
+    <a class="save" href="{esc(slug)}.vcf" download="{esc(name)}.vcf">
+      <span>Save contact</span>{ICON["arrow"]}
+    </a>
+    <div class="foot-bar">
+      <a href="/">finasheet.com</a>
+      <button class="share" type="button" data-share-url="{url}" data-share-title="{esc(name)} - {esc(company)}">
+        {ICON["share"]}<span>Share</span>
+      </button>
+    </div>
+  </div>
 </main>
 
 <script>
