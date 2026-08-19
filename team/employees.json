@@ -8,20 +8,31 @@
     "phone": "E.164, e.g. +971522015270. Used for tap-to-call and the vCard",
     "whatsapp": "Digits only, e.g. 971522015270. Omit to hide the WhatsApp button",
     "email": "Work email",
-    "photo": "Path relative to site root, e.g. assets/team/name.jpg. Omit to fall back to initials",
+    "photo": "Path relative to site root, e.g. assets/team/name.webp. Omit to fall back to initials",
     "tagline": "Optional one line under the title"
   },
   "employees": [
     {
-      "slug": "sample",
-      "name": "Sample Employee",
-      "title": "Job Title",
+      "slug": "buhari-anshif",
+      "name": "Buhari Anshif",
+      "title": "Business Development Manager",
       "company": "Finasheet",
-      "phone": "+971500000000",
-      "whatsapp": "971500000000",
-      "email": "sample@finasheet.com",
-      "photo": "",
-      "tagline": "Placeholder card - replace with real details before publishing"
+      "phone": "+971542922850",
+      "whatsapp": "971542922850",
+      "email": "buhari@finasheet.com",
+      "photo": "assets/team/buhari-anshif.webp",
+      "tagline": ""
+    },
+    {
+      "slug": "sradha-santhosh",
+      "name": "Sradha Santhosh",
+      "title": "Sr. Business Development Executive",
+      "company": "Finasheet",
+      "phone": "+971542922851",
+      "whatsapp": "971542922851",
+      "email": "Sradha@finasheet.com",
+      "photo": "assets/team/sradha-santhosh.webp",
+      "tagline": ""
     }
   ]
 }
