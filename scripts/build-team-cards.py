@@ -31,6 +31,10 @@ ICON = {
     "wa": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.8 11.8 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.17 1.6 5.98L0 24l6.2-1.62A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22c-1.88 0-3.72-.5-5.33-1.46l-.38-.22-3.67.96.98-3.58-.25-.37A9.98 9.98 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm5.49-7.45c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01s-.52.07-.8.37c-.27.3-1.05 1.02-1.05 2.5s1.07 2.9 1.22 3.1c.15.2 2.11 3.22 5.12 4.52.72.31 1.28.5 1.72.63.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg>',
     "call": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
     "mail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>',
+    "web": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+    "pin": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    "share": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>',
+    "arrow": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
 }
 
 
@@ -83,37 +87,48 @@ def vcard(e, url):
 
 def card_html(e, url):
     name, slug = e["name"].strip(), e["slug"]
-    company = (e.get("company") or "Finasheet").strip()
+    company = (e.get("company") or "Finasheet LLC").strip()
     title = (e.get("title") or "").strip()
     desc = f"{name}{' - ' + title if title else ''}, {company}. Save contact, call, email or message on WhatsApp."
 
-    if e.get("photo"):
-        inner = f'<img src="/{esc(e["photo"])}" alt="{esc(name)}" width="104" height="104">'
+    # hero portrait: full-bleed. Falls back to the square crop, then to initials.
+    hero = e.get("hero") or e.get("photo")
+    if hero:
+        portrait = (f'<img class="hero-img" src="/{esc(hero)}" alt="{esc(name)}, '
+                    f'{esc(title) if title else esc(company)}" width="860" height="1075">')
     else:
-        inner = f'<div class="initials" aria-hidden="true">{esc(initials(name))}</div>'
-    avatar = f'<div class="portrait">{inner}</div>'
+        portrait = (f'<div class="hero-img hero-fallback" aria-hidden="true">'
+                    f'{esc(initials(name))}</div>')
 
-    # One primary action. Everything else is deliberately subordinate - the
-    # Trust & Authority pattern calls for a single unmistakable CTA.
-    primary = (f'<a class="act act-primary" href="{esc(slug)}.vcf" download="{esc(name)}.vcf">'
-               f'{ICON["save"]}Save contact<span class="hint">vCard</span></a>')
-
-    quick = []
-    if e.get("whatsapp"):
-        wa = re.sub(r"\D", "", e["whatsapp"])
-        quick.append(f'<a class="act is-wa" href="https://wa.me/{wa}" target="_blank" rel="noopener" '
-                     f'aria-label="Message {esc(name)} on WhatsApp">{ICON["wa"]}WhatsApp</a>')
+    tiles = []
     if e.get("phone"):
-        quick.append(f'<a class="act" href="tel:{esc(e["phone"])}" '
+        tiles.append(f'<a class="tile" href="tel:{esc(e["phone"])}" '
                      f'aria-label="Call {esc(name)}">{ICON["call"]}Call</a>')
     if e.get("email"):
-        quick.append(f'<a class="act" href="mailto:{esc(e["email"])}" '
+        tiles.append(f'<a class="tile" href="mailto:{esc(e["email"])}" '
                      f'aria-label="Email {esc(name)}">{ICON["mail"]}Email</a>')
-    quick_html = f'<div class="quick">{"".join(quick)}</div>' if quick else ""
+    if e.get("whatsapp"):
+        wa = re.sub(r"\D", "", e["whatsapp"])
+        tiles.append(f'<a class="tile is-wa" href="https://wa.me/{wa}" target="_blank" '
+                     f'rel="noopener" aria-label="Message {esc(name)} on WhatsApp">'
+                     f'{ICON["wa"]}WhatsApp</a>')
+    tiles.append(f'<a class="tile" href="{SITE}/" aria-label="Visit {esc(company)}">'
+                 f'{ICON["web"]}Website</a>')
+    tiles_html = f'<div class="tiles">{"".join(tiles)}</div>'
 
-    tagline = f'<p class="tagline">{esc(e["tagline"])}</p>' if e.get("tagline") else ""
+    rows = []
+    if e.get("phone"):
+        pretty = e["phone"]
+        rows.append(f'<a class="row" href="tel:{esc(e["phone"])}">{ICON["call"]}'
+                    f'<span class="num">{esc(pretty)}</span></a>')
+    if e.get("email"):
+        rows.append(f'<a class="row" href="mailto:{esc(e["email"])}">{ICON["mail"]}'
+                    f'<span>{esc(e["email"])}</span></a>')
+    if e.get("location"):
+        rows.append(f'<div class="row">{ICON["pin"]}<span>{esc(e["location"])}</span></div>')
+    rows_html = f'<div class="rows">{"".join(rows)}</div>' if rows else ""
+
     role = f'<p class="role">{esc(title)}</p>' if title else ""
-    org = f'<p class="org">{esc(company)}</p>'
 
     ld = {
         "@context": "https://schema.org", "@type": "Person",
@@ -158,32 +173,65 @@ def card_html(e, url):
 </script>
 
 <main class="card">
-  <header class="crest">
-    <a class="brand" href="/" aria-label="{esc(company)} home">
-      <img src="/assets/fina-logo-wordmark-white.webp" alt="{esc(company)}" width="320" height="96">
+  <header class="hero">
+    {portrait}
+    <div class="hero-scrim"></div>
+    <a class="lockup" href="/">
+      <img src="/assets/fina-logo-wordmark-white.webp" alt="" width="320" height="96">
+      <span>{esc(company)}</span>
     </a>
-    {avatar}
+    <p class="sec"><b>01</b> Profile</p>
+    <div class="plate">
+      <h1>{esc(name)}</h1>
+      {role}
+      <p class="org">{esc(company)}</p>
+    </div>
   </header>
 
-  <div class="identity">
-    <h1>{esc(name)}</h1>
-    {role}
-    {org}
-    {tagline}
+  <div class="connect">
+    <p class="sec"><b>02</b> Connect</p>
+    {tiles_html}
+    {rows_html}
+
+    <div class="qr-wrap">
+      <div class="qr">{qr_svg(url)}</div>
+      <div class="qr-copy">
+        <strong>Scan to open</strong>
+        <span>Point a camera here to pull up this card and save the contact.</span>
+      </div>
+    </div>
   </div>
 
-  <div class="actions">
-    {primary}
-    {quick_html}
-  </div>
+  <a class="save" href="{esc(slug)}.vcf" download="{esc(name)}.vcf">
+    <span>Save contact</span>{ICON["arrow"]}
+  </a>
+  <button class="share" type="button" data-share-url="{url}" data-share-title="{esc(name)} - {esc(company)}">
+    {ICON["share"]}<span>Share this card</span>
+  </button>
 
-  <section class="scan" aria-label="QR code for this card">
-    <p class="scan-label">Scan to save</p>
-    <div class="scan-frame">{qr_svg(url)}</div>
-  </section>
-
-  <footer class="foot"><a href="/">finasheet.com</a></footer>
+  <footer class="foot">
+    <a href="/">finasheet.com</a>
+    <span class="mark">Digital card</span>
+  </footer>
 </main>
+
+<script>
+(function(){{
+  var b=document.querySelector('.share');
+  if(!b) return;
+  var label=b.querySelector('span');
+  b.addEventListener('click',function(){{
+    var url=b.dataset.shareUrl, title=b.dataset.shareTitle;
+    if(navigator.share){{ navigator.share({{title:title,url:url}}).catch(function(){{}}); return; }}
+    if(navigator.clipboard){{
+      navigator.clipboard.writeText(url).then(function(){{
+        var was=label.textContent; label.textContent='Link copied';
+        setTimeout(function(){{label.textContent=was;}},2000);
+      }});
+    }}
+  }});
+}})();
+</script>
 """
 
 
