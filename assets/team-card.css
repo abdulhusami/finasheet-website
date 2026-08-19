@@ -46,15 +46,17 @@ body{
 }
 
 .card{
-  /* the whole card is budgeted to one screen; it only scrolls if a device is
-     too short to honour that, rather than clipping */
+  --fixed:380px;                 /* measured height of .connect + .foot, +margin */
   margin-block:auto;
   display:flex;flex-direction:column;
   width:100%;max-width:400px;
-  /* Fill the screen exactly, capped so it does not sprawl on a tablet. The
-     hero absorbs whatever height is left after the fixed content, so the card
-     fits one screen at any phone height instead of clamping the photo. */
-  height:min(calc(100dvh - 24px), 780px);
+  /* Content height, capped to the screen - NOT stretched to fill it. Stretching
+     made the photo the residual: every pixel a shorter screen took came out of
+     the portrait and none out of anything else, so the crop swung from
+     head-and-shoulders on a tall phone to a tight head crop on a short one.
+     The card is now shorter on a short screen instead, and the photo keeps its
+     shape. */
+  max-height:min(calc(100dvh - 24px), 780px);
   background:var(--ink);
   border:1px solid var(--line);
   border-radius:var(--r-lg);
@@ -63,7 +65,20 @@ body{
 }
 
 /* ---- hero ---------------------------------------------------------------- */
-.hero{position:relative;flex:1 1 auto;min-height:210px;overflow:hidden;background:var(--ink-2)}
+/* Square, so the photo band is a function of the card WIDTH and looks the same
+   on every phone rather than being whatever height was left over.
+   --fixed is what the connect block and the foot need; the hero is capped at
+   the screen minus that, so hero + fixed can never exceed the viewport and the
+   card can never clip its own contact details. Each short-screen tier below
+   restates --fixed to match what it trimmed. */
+.hero{
+  position:relative;
+  flex:0 1 auto;
+  aspect-ratio:1/1;
+  max-height:calc(100dvh - 24px - var(--fixed));
+  min-height:0;
+  overflow:hidden;background:var(--ink-2);
+}
 .hero-img{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;object-position:50% 4%;display:block;
@@ -87,17 +102,18 @@ body{
 
 /* diagonal brand panel carrying the name */
 .plate{
+  --diag:42px;                             /* keep in step with padding-top */
   position:absolute;left:0;right:0;bottom:0;
   padding:44px 18px 16px;
   background:linear-gradient(135deg,var(--blue) 0%,var(--blue-bright) 100%);
-  clip-path:polygon(0 42px, 100% 0, 100% 100%, 0 100%);
+  clip-path:polygon(0 var(--diag), 100% 0, 100% 100%, 0 100%);
 }
 .plate::before{                            /* faint blueprint grid, brand texture */
   content:'';position:absolute;inset:0;pointer-events:none;opacity:.16;
   background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),
                    linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);
   background-size:26px 26px;
-  clip-path:polygon(0 42px, 100% 0, 100% 100%, 0 100%);
+  clip-path:polygon(0 var(--diag), 100% 0, 100% 100%, 0 100%);
 }
 h1{
   position:relative;
@@ -222,17 +238,57 @@ a.row:focus-visible{outline:2px solid var(--blue-lift);outline-offset:2px;border
   .save:hover,.tile:active,.save:active{transform:none}
 }
 
-/* Short screens (iPhone SE and similar): tighten the fixed content so the
-   flexible hero still gets enough height to show a face. */
+/* Short screens: tighten the fixed content so the photo keeps its height.
+   Worth remembering that a phone's usable height is well under its screen
+   height - Safari's toolbars take ~190px, so a 844px iPhone lands here. */
 @media (max-height:720px){
   .qr{width:54px;height:54px}
   .qr-copy{font-size:10px}
   .qr-wrap{padding:7px;gap:8px}
-  .plate{padding:34px 18px 11px}
+  .plate{--diag:36px;padding:34px 18px 11px}
   .plate h1{font-size:clamp(24px,7.4vw,29px)}
   .role{font-size:13.5px;margin-top:6px}
   .org{font-size:11.5px}
   .save{padding:13px 18px}
   .connect{padding-top:10px}
   .foot{padding-top:10px}
+}
+
+/* Below this the screen genuinely cannot hold the layout at full size, so every
+   fixed block gives up a few pixels. The two tappable rows keep their 44px;
+   the location row is not a link, so it can be shorter. */
+@media (max-height:665px){
+  .card{--fixed:308px}
+  .plate{--diag:30px;padding:25px 18px 9px}
+  .plate h1{font-size:clamp(22px,6.6vw,26px)}
+  .role{font-size:12.5px;margin-top:4px}
+  .org{font-size:11px}
+  .connect{padding-top:8px}
+  .grid{margin-top:6px;gap:8px}
+  .side{gap:6px}
+  .row:not(a){min-height:32px}
+  .qr{width:44px;height:44px}
+  .qr-wrap{padding:6px}
+  .qr-copy{font-size:9.5px}
+  .save{padding:10px 18px;font-size:12.5px}
+  .foot{padding-top:8px;padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+  .foot-bar{margin-top:2px}
+}
+
+/* Smallest realistic case - an SE with Safari's toolbars leaves about 553px.
+   The plate steals from the photo band directly, so it shrinks here too;
+   otherwise the diagonal ends up crossing the subject's chin. */
+@media (max-height:600px){
+  .card{--fixed:293px}
+  .plate{--diag:26px;padding:21px 18px 8px}
+  .plate h1{font-size:clamp(20px,5.9vw,23px)}
+  .role{font-size:12px;margin-top:3px}
+  .org{font-size:10.5px}
+  .side{gap:5px}
+  .row:not(a){min-height:28px}
+  .qr{width:38px;height:38px}
+  .qr-wrap{padding:5px;gap:8px}
+  .qr-copy{font-size:9px}
+  .save{padding:9px 16px;font-size:12px}
+  .foot{padding-top:6px}
 }
