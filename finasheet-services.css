@@ -222,7 +222,7 @@ section{padding:62px 0}
 .docs-note{margin-top:18px;background:var(--teal-soft);border:1px solid #c4ebe4;border-radius:14px;padding:14px 18px;font-size:.92rem;color:#0a6157}
 
 /* packages */
-.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pkgs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .pkg{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:26px 24px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:.2s;position:relative}
 .pkg:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
 .pkg.featured{border:1.8px solid var(--blue);box-shadow:var(--shadow)}
@@ -310,25 +310,12 @@ footer.site .bottom{border-top:1px solid var(--line);padding-top:20px;display:fl
      the lead form's content forced the track to 386px inside a 331px container
      and pushed the document to 408px wide on a 375px screen. */
   .hero-grid,.problem-grid,.lead-wrap{grid-template-columns:minmax(0,1fr);gap:30px}
-  .deliver,.why,.pkgs,.docs{grid-template-columns:repeat(2,1fr)}
+  .deliver,.why,.pkgs,.docs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .steps,.steps.four{grid-template-columns:repeat(2,1fr)}
   .snapshot{max-width:460px}
 }
 @media(max-width:760px){
   body{font-size:16px}
-  .nav-links{display:none}
-  .nav-cta .btn-ghost,.nav-cta .btn-primary{display:none}
-  .burger{display:block}
-  .mobile-nav{display:block;position:fixed;inset:70px 0 0;background:#fff;z-index:55;padding:18px 22px;overflow-y:auto;transform:translateX(100%);transition:transform .3s ease;border-top:1px solid var(--line)}
-  .mobile-nav.open{transform:none}
-  .mobile-nav a.m-link{display:block;padding:14px 4px;border-bottom:1px solid var(--line);font-family:var(--display);font-weight:600;color:var(--navy);font-size:1.05rem}
-  .mobile-acc summary{list-style:none;padding:14px 4px;border-bottom:1px solid var(--line);font-family:var(--display);font-weight:600;color:var(--navy);font-size:1.05rem;cursor:pointer;display:flex;justify-content:space-between}
-  .mobile-acc summary::-webkit-details-marker{display:none}
-  .mobile-acc .m-sub{padding:6px 0 10px}
-  .mobile-acc .m-sub a{display:block;padding:10px 14px;color:var(--muted);font-size:.95rem;border-radius:10px}
-  .mobile-acc .m-sub a:hover{background:var(--bg-soft);color:var(--blue)}
-  .mobile-acc .m-sub h6{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);padding:8px 14px 2px}
-  .mobile-nav .btn{width:100%;margin-top:16px}
   /* minmax(0,1fr), not 1fr: a 1fr track has an automatic min-content floor, so
      the pricing cards forced their track to 324px inside a 276px container and
      pushed the document to 347px wide on a 320px screen. */
@@ -342,17 +329,44 @@ footer.site .bottom{border-top:1px solid var(--line);padding-top:20px;display:fl
   .mobile-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:65;gap:10px;padding:10px 14px;
     background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
   .mobile-cta .btn{flex:1;padding:13px}
-  footer.site .cols{grid-template-columns:1fr 1fr}
-}
+  footer.site .cols{grid-template-columns:1fr 1fr}}
+
+/* The desktop nav needs about 1126px to lay out: brand + links + CTA,
+   plus gaps and wrap padding. The burger used to take over only at 760px,
+   so between those two widths the nav row overflowed the viewport and put a
+   horizontal scrollbar on the page. These rules used to live in the 760px
+   block, which also carries genuine phone layout and so could not simply be
+   widened. */
+@media(max-width:1080px){
+  .nav-links{display:none}
+  .nav-cta .btn-ghost,.nav-cta .btn-primary{display:none}
+  .burger{display:block}
+  .mobile-nav{display:block;position:fixed;inset:70px 0 0;background:#fff;z-index:55;padding:18px 22px;overflow-y:auto;transform:translateX(100%);transition:transform .3s ease;border-top:1px solid var(--line)}
+  .mobile-nav.open{transform:none}
+  .mobile-nav a.m-link{display:block;padding:14px 4px;border-bottom:1px solid var(--line);font-family:var(--display);font-weight:600;color:var(--navy);font-size:1.05rem}
+  .mobile-acc summary{list-style:none;padding:14px 4px;border-bottom:1px solid var(--line);font-family:var(--display);font-weight:600;color:var(--navy);font-size:1.05rem;cursor:pointer;display:flex;justify-content:space-between}
+  .mobile-acc summary::-webkit-details-marker{display:none}
+  .mobile-acc .m-sub{padding:6px 0 10px}
+  .mobile-acc .m-sub a{display:block;padding:10px 14px;color:var(--muted);font-size:.95rem;border-radius:10px}
+  .mobile-acc .m-sub a:hover{background:var(--bg-soft);color:var(--blue)}
+  .mobile-acc .m-sub h6{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);padding:8px 14px 2px}
+  .mobile-nav .btn{width:100%;margin-top:16px}}
+
+/* Dropped before the nav gets tight - it duplicates the Services mega menu,
+   and the ~157px it frees is what lets the full nav survive down to 1081. */
+@media(max-width:1200px){.nav-cta .btn-ghost{display:none}}
 @media(max-width:440px){
   .hero h1{font-size:1.95rem}
   footer.site .cols{grid-template-columns:1fr}
+  /* Long CTA labels do not fit one line on a phone - "Review My Corporate Tax
+     Registration Status" measures 359px inside a 360px viewport. Wrapping was
+     only allowed below 340px, which left a few pixels of horizontal scroll on
+     a 375px handset. */
+  .btn{white-space:normal;text-align:center}
 }
 
 /* .btn is nowrap by design. The longest label, "Talk to an Accounting Expert",
    needs 323px of room including the container's margins, so below that it is the
    last thing forcing a horizontal scroll. Only there is wrapping allowed - at
    340px and above the buttons are untouched and stay on one line. */
-@media(max-width:340px){
-  .btn{white-space:normal;text-align:center}
-}
+
