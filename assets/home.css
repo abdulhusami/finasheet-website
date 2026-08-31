@@ -2290,8 +2290,12 @@
     .mobile-toggle::after{
       content:'';
       position:absolute;
-      top:50%;left:50%;
-      transform:translate(-50%,-50%);
+      /* 44px tap target. Anchored to the right rather than centred: centred on
+         a 30px button it hung 7px past its right edge. Anchoring to the
+         right edge keeps the full 44px and cannot extend past the button, which
+         is what pushed the nav 6px wider than the viewport at 320px. */
+      top:50%;right:0;left:auto;
+      transform:translateY(-50%);
       width:44px;height:44px;
     }
     .problem-list,.who-grid,.pricing-grid{grid-template-columns:1fr 1fr}
