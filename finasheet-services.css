@@ -232,7 +232,6 @@ section{padding:62px 0}
 .pkg{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:26px 24px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:.2s;position:relative}
 .pkg:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
 .pkg.featured{border:1.8px solid var(--blue);box-shadow:var(--shadow)}
-.pkg.featured::before{content:"Most chosen";position:absolute;top:-12px;left:24px;background:var(--blue);color:#fff;font-family:var(--display);font-size:.72rem;font-weight:600;padding:4px 12px;border-radius:999px}
 .pkg h3{font-size:1.15rem;margin-bottom:6px}
 .pkg .best{font-size:.85rem;color:var(--muted);min-height:38px}
 .pkg ul{list-style:none;margin:16px 0;display:grid;gap:9px}
