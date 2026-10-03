@@ -21,6 +21,8 @@ import os
 import re
 import sys
 
+from site_tracking import snippets
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://finasheet.com"
 DATA = os.path.join(ROOT, "team", "employees.json")
@@ -156,12 +158,35 @@ def main():
     mnav = mnav.replace('<a class="m-link" href="/pricing">Pricing</a>',
                         '<a class="m-link" href="/pricing">Pricing</a>')
 
-    # this page has no lead form of its own - the sticky CTA bar and the
-    # floating action button in the tail point at it too, not just the navs
-    header = header.replace('href="#lead-form"', 'href="/services#lead-form"')
-    mnav = mnav.replace('href="#lead-form"', 'href="/services#lead-form"')
-    footer = footer.replace('href="#lead-form"', 'href="/services#lead-form"')
-    tail = tail.replace('href="#lead-form"', 'href="/services#lead-form"')
+    # This page has no lead form of its own. Its review CTAs book a call.
+    for name, fragment in (("header", header), ("mnav", mnav),
+                           ("footer", footer), ("tail", tail)):
+        fragment = fragment.replace('href="#lead-form"',
+                                    'href="https://cal.com/finasheet/demo"')
+        fragment = fragment.replace('>Book Free Finance Clarity Review</a>',
+                                    '>Book a Call</a>')
+        fragment = fragment.replace('>Book Review</a>', '>Book a Call</a>')
+        if name == "header":
+            header = fragment
+        elif name == "mnav":
+            mnav = fragment
+        elif name == "footer":
+            footer = fragment
+        else:
+            tail = fragment
+
+    # The donor is VAT Filing; none of its WhatsApp links should keep VAT copy.
+    generic_wa = ("https://wa.me/971522015270?text=Hello%2C%20I%27d%20like%20to%20discuss%20"
+                  "Finasheet%20services%20for%20my%20UAE%20business.")
+    header, mnav, footer, tail = [
+        re.sub(r'href="https://wa\.me/971522015270\?text=[^"]+"',
+               f'href="{generic_wa}"', fragment)
+        for fragment in (header, mnav, footer, tail)
+    ]
+    # The cloned page has no service form; keep the other menu/reveal script.
+    form_js_start = tail.index('  // lead form -> whatsapp')
+    form_js_end = tail.index('\n})();', form_js_start)
+    tail = tail[:form_js_start] + tail[form_js_end:]
 
     for frag, label in ((header, "header"), (mnav, "mobile nav"),
                         (footer, "footer"), (tail, "tail")):
@@ -207,9 +232,11 @@ def main():
 
     cards = "".join(person_card(e) for e in people)
 
+    tracking_head, tracking_body = snippets()
     page = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
+{tracking_head}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{TITLE} | Finasheet</title>
@@ -256,6 +283,7 @@ def main():
 </style>
 </head>
 <body>
+{tracking_body}
 {header}
 
 {mnav}
@@ -286,7 +314,7 @@ def main():
 </html>
 """
 
-    with open(OUT, "w", encoding="utf-8", newline="\r\n") as f:
+    with open(OUT, "w", encoding="utf-8", newline="\n") as f:
         f.write(page)
 
     written = open(OUT, encoding="utf-8", newline="").read()
