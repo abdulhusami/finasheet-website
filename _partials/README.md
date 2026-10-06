@@ -39,9 +39,9 @@ script preserves them; otherwise it inserts the exact snippets from
 `scripts/site_tracking.py`. An incomplete set is an error. The head partial
 contains font `<link>` tags and shared CSS/JS, with no SEO metadata.
 
-Navigation currently points Software to `/`, where the software homepage
-already lives; About to `/our-team`; and Contact to the existing homepage
-`#contact` section. Update those destinations when their future pages exist.
+Navigation points Services to `/`, Software to `/software`, About to
+`/our-team`, and Contact to the preserved software page's `/software#contact`
+section. No current page adopts the shared header or footer yet.
 The shared CTA hooks push `finasheet_cta_click` into `dataLayer` for elements
 with `data-fs-cta`. Before migrating a current page, audit its existing CTA
 events and GTM configuration to avoid duplicate conversion events.
