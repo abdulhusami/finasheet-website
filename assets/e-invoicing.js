@@ -36,11 +36,11 @@
   const leadTypeInput = form ? form.querySelector('[name="lead_type"]') : null;
   const submitLabel = form ? form.querySelector('.ei-btn-label') : null;
   const LABELS = {
-    readiness_check: 'Get My Free Readiness Check',
-    annual_plan: 'Get My Free Readiness Check',
-    monthly_plan: 'Ask About Monthly Billing',
-    erp_integration: 'Request My Integration Quote',
-    demo: 'Request My Product Demo',
+    readiness_check: 'Get my free readiness check',
+    annual_plan: 'Get my free readiness check',
+    monthly_plan: 'Ask about monthly billing',
+    erp_integration: 'Request my integration quote',
+    demo: 'Request my product demo',
   };
 
   document.addEventListener('click', (e) => {
@@ -78,6 +78,98 @@
     }, { threshold: 0.35 });
     io.observe(pricing);
   }
+
+  /* ---------- Motion helpers ---------- */
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const whenVisible = (el, cb, threshold = 0.25) => {
+    if (!el) return;
+    if (!('IntersectionObserver' in window)) { cb(true); return; }
+    new IntersectionObserver((en) => en.forEach((e) => cb(e.isIntersecting)), { threshold }).observe(el);
+  };
+
+  /* ---------- Hero: invoice travels Finasheet -> ASP -> customer -> FTA (loops while on screen) ---------- */
+  (() => {
+    const st = document.getElementById('ei-stage');
+    if (!st) return;
+    st.querySelectorAll('.ei-lnon').forEach((p) => { try { p.style.setProperty('--len', Math.ceil(p.getTotalLength())); } catch (e) { /* ignore */ } });
+    const label = document.getElementById('ei-st'), cnt = document.getElementById('ei-cnt');
+    const ids = ['ei-n-asp', 'ei-n-cus', 'ei-n-fta'];
+    const on = (id, v) => document.getElementById(id).classList.toggle('on', v);
+    const set = (n) => { st.classList.remove('s0', 's1', 's2', 's3', 's4', 's5'); st.classList.add('s' + n); };
+    const final = () => { set(5); ids.forEach((i) => on(i, true)); label.textContent = 'Delivered'; cnt.textContent = '313'; };
+    if (reduced) { final(); return; }
+    const steps = [
+      [0, () => { set(0); label.textContent = 'Draft'; ids.forEach((i) => on(i, false)); cnt.textContent = '312'; }],
+      [900, () => { set(1); label.textContent = 'Converting'; }],
+      [1700, () => { set(2); label.textContent = 'Sending'; }],
+      [2500, () => { on(ids[0], true); set(3); }],
+      [3300, () => { on(ids[1], true); set(4); }],
+      [4100, final],
+    ];
+    let timers = [], loop = null;
+    const run = () => { timers.forEach(clearTimeout); timers = steps.map(([t, f]) => setTimeout(f, t)); };
+    whenVisible(st, (vis) => {
+      if (vis && !loop) { run(); loop = setInterval(run, 8400); }
+      else if (!vis && loop) { clearInterval(loop); loop = null; timers.forEach(clearTimeout); final(); }
+    }, 0.2);
+  })();
+
+  /* ---------- Dark section: strike the jargon, then run the 4-station track ---------- */
+  (() => {
+    const track = document.getElementById('ei-track');
+    if (!track) return;
+    const jar = [...document.querySelectorAll('#ei-jar span')];
+    const stns = [...track.querySelectorAll('.ei-stn')];
+    const fill = document.getElementById('ei-fill'), chip = document.getElementById('ei-chip');
+    const narrow = () => matchMedia('(max-width: 760px)').matches;
+    const pos = (i) => {
+      const pct = (i / 3) * 100;
+      if (narrow()) { fill.style.width = ''; fill.style.setProperty('--h', pct + '%'); }
+      else { fill.style.width = pct + '%'; chip.style.left = `calc(28px + 12.5% + (100% - 56px - 25%) * ${i / 3})`; }
+    };
+    const step = (i) => { stns.forEach((s, k) => { s.classList.toggle('on', k < i); s.classList.toggle('cur', k === i); }); pos(i); };
+    const done = () => { stns.forEach((s) => { s.classList.add('on'); s.classList.remove('cur'); }); pos(3); };
+    if (reduced) { jar.forEach((j) => j.classList.add('x')); done(); return; }
+    let struck = false, loop = null, timers = [];
+    const run = () => { timers.forEach(clearTimeout); step(0); timers = [1000, 2000, 3000].map((t, k) => setTimeout(() => step(k + 1), t)); timers.push(setTimeout(done, 3700)); };
+    whenVisible(track.closest('section'), (vis) => {
+      if (vis && !struck) { struck = true; jar.forEach((j, k) => setTimeout(() => j.classList.add('x'), 200 + k * 200)); }
+      if (vis && !loop) { setTimeout(run, struck ? 600 : 0); loop = setInterval(run, 7000); }
+      else if (!vis && loop) { clearInterval(loop); loop = null; timers.forEach(clearTimeout); done(); }
+    }, 0.3);
+  })();
+
+  /* ---------- Tabs (setup switch + deadline picker), with arrow-key support ---------- */
+  function tabs(listSel, attr) {
+    const list = document.querySelector(listSel);
+    if (!list) return null;
+    const btns = [...list.querySelectorAll('[role="tab"]')];
+    const select = (btn, focus) => {
+      btns.forEach((b) => {
+        const on = b === btn;
+        b.setAttribute('aria-selected', String(on));
+        b.tabIndex = on ? 0 : -1;
+        document.getElementById(b.getAttribute('aria-controls')).hidden = !on;
+      });
+      if (focus) btn.focus();
+    };
+    btns.forEach((b, i) => {
+      b.addEventListener('click', () => select(b));
+      b.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (d) { e.preventDefault(); select(btns[(i + d + btns.length) % btns.length], true); }
+      });
+    });
+    return (val) => { const b = btns.find((x) => x.dataset[attr] === val); if (b) select(b); };
+  }
+  const setSetup = tabs('.ei-switch', 'eiTab');
+  tabs('.ei-dl__pick', 'eiDl');
+  document.querySelectorAll('[data-ei-switch]').forEach((a) => a.addEventListener('click', () => {
+    if (setSetup) setSetup(a.dataset.eiSwitch);
+    if (a.dataset.eiSwitch === 'erp') push('erp_integration_enquiry', { cta_location: a.dataset.eiLoc || '' });
+  }));
+  const erpTab = document.getElementById('ei-tab-erp');
+  if (erpTab) erpTab.addEventListener('click', () => push('erp_integration_enquiry', { cta_location: 'setup-tab' }));
 
   /* ---------- Mobile sticky bar: step aside while the form itself is on screen ---------- */
   const sticky = document.querySelector('.fs-mobile-cta');
