@@ -30,7 +30,7 @@
   "@graph": [
     { "@type": "Organization", "@id": "https://finasheet.com/#organization", "name": "Finasheet", "url": "https://finasheet.com/", "logo": "https://finasheet.com/assets/fina-logo.png", "email": "support@finasheet.com", "areaServed": "AE" },
     { "@type": "WebSite", "@id": "https://finasheet.com/#website", "url": "https://finasheet.com/", "name": "Finasheet", "publisher": { "@id": "https://finasheet.com/#organization" } },
-    { "@type": "WebPage", "@id": "https://finasheet.com/e-invoicing-uae#webpage", "url": "https://finasheet.com/e-invoicing-uae", "name": "UAE E-Invoicing Software from AED 1,500/year | Finasheet", "inLanguage": "en-AE", "isPartOf": { "@id": "https://finasheet.com/#website" }, "about": { "@id": "https://finasheet.com/e-invoicing-uae#service" }, "breadcrumb": { "@id": "https://finasheet.com/e-invoicing-uae#breadcrumb" }, "dateModified": "2026-11-06" },
+    { "@type": "WebPage", "@id": "https://finasheet.com/e-invoicing-uae#webpage", "url": "https://finasheet.com/e-invoicing-uae", "name": "UAE E-Invoicing Software from AED 1,500/year | Finasheet", "inLanguage": "en-AE", "isPartOf": { "@id": "https://finasheet.com/#website" }, "about": { "@id": "https://finasheet.com/e-invoicing-uae#service" }, "breadcrumb": { "@id": "https://finasheet.com/e-invoicing-uae#breadcrumb" }, "dateModified": "2026-11-07" },
     { "@type": "BreadcrumbList", "@id": "https://finasheet.com/e-invoicing-uae#breadcrumb", "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Finasheet", "item": "https://finasheet.com/" },
       { "@type": "ListItem", "position": 2, "name": "Software", "item": "https://finasheet.com/software" },
@@ -48,7 +48,7 @@
       { "@type": "Question", "name": "Is Finasheet an accredited service provider?", "acceptedAnswer": { "@type": "Answer", "text": "No. Finasheet is an accounting software and services company. Your e-invoices are exchanged and reported through our ASP partner, which is accredited by the UAE Ministry of Finance. We onboard you to the partner as part of your plan and share the partner's details on your readiness call." } },
       { "@type": "Question", "name": "What counts towards the 1,500 e-invoices?", "acceptedAnswer": { "@type": "Answer", "text": "Each document exchanged in the PINT-AE format counts as one: sales invoices you send, purchase invoices you receive and credit notes. A transmission that fails because of incorrect information you provided also counts." } },
       { "@type": "Question", "name": "What happens if we use all 1,500?", "acceptedAnswer": { "@type": "Answer", "text": "You can top up from your e-invoicing dashboard at any time without changing plans. We walk you through the top-up options on your readiness call." } },
-      { "@type": "Question", "name": "How much does Finasheet e-invoicing cost?", "acceptedAnswer": { "@type": "Answer", "text": "The annual plan is AED 1,500 per year. It includes Finasheet accounting software, e-invoicing, 1,500 documents a year, ASP onboarding assistance, a separate e-invoicing dashboard, portal training and technical support. Monthly billing is available at AED 150 per month. Connecting an existing ERP is quoted separately." } },
+      { "@type": "Question", "name": "How much does Finasheet e-invoicing cost?", "acceptedAnswer": { "@type": "Answer", "text": "The annual plan is AED 1,500 per year, about AED 125 a month. It includes Finasheet accounting software, e-invoicing, 1,500 documents a year, ASP onboarding assistance, a separate e-invoicing dashboard, portal training and technical support. Monthly billing is AED 150 per month, with 125 e-invoices a month. Connecting an existing ERP is quoted separately." } },
       { "@type": "Question", "name": "How long does it take to go live?", "acceptedAnswer": { "@type": "Answer", "text": "Standard setup on Finasheet typically takes one working day once we have your details. Connecting an existing system typically takes three to four working days. Finasheet customers can start exchanging e-invoices from 1 January 2027." } },
       { "@type": "Question", "name": "What are the penalties for not complying?", "acceptedAnswer": { "@type": "Answer", "text": "Under Cabinet Decision No. 173 of 2026, not implementing e-invoicing or not appointing an ASP on time can cost AED 5,000, then AED 5,000 a month, capped at AED 50,000 in any 12 months. Each e-invoice or credit note not issued on time can cost AED 100, capped at AED 5,000 a month." } },
       { "@type": "Question", "name": "How do we get support?", "acceptedAnswer": { "@type": "Answer", "text": "Technical support for the year is included. Raise service requests from your e-invoicing dashboard, or reach the team at support@finasheet.com or on WhatsApp." } } ] }
@@ -133,37 +133,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h1 id="ei-h1"><span class="ei-grad">UAE e-invoicing</span> that feels like sending a normal invoice.</h1>
       <p class="ei-lede">Raise it in Finasheet and press <strong>Send</strong>. We turn it into a compliant e-invoice, deliver it through our <strong>MoF-accredited ASP partner</strong> and report it to the FTA.</p>
       <!-- [CONFIRM BEFORE PUBLISHING: VAT — are prices inclusive or exclusive of 5% VAT? Add "+ VAT" to every price label if exclusive] -->
-      <div class="ei-pricetag"><span class="ei-pricetag__amt">AED 1,500<small> /year</small></span><p><b>Accounting software + 1,500 e-invoices</b><br>ASP onboarding and training included</p></div>
+      <div class="ei-pricetag"><span class="ei-pricetag__amt">AED 125<small> /month</small></span><p><b>Accounting software + 1,500 e-invoices a year</b><br>Billed AED 1,500 yearly · onboarding included</p></div>
       <div class="ei-btns">
         <a class="ei-btn ei-btn--p" href="#readiness-check" data-ei-event="readiness_check_click" data-ei-loc="hero">Get my free readiness check <span aria-hidden="true">→</span></a>
         <a class="ei-btn ei-btn--s" href="#pricing" data-ei-loc="hero">See pricing</a>
       </div>
-      <p class="ei-hero__alt">On QuickBooks, Odoo or SAP? <a href="#two-ways" data-ei-switch="erp" data-ei-loc="hero">Keep it. We'll connect it.</a></p>
+      <p class="ei-hero__alt">On QuickBooks, Odoo or SAP? <a href="#ei-way-erp" data-ei-switch="erp" data-ei-loc="hero">Keep it. We'll connect it.</a></p>
     </div>
 
-    <div class="ei-stage s0" id="ei-stage" role="img" aria-label="Illustration: an invoice sent from Finasheet is checked by the ASP partner, delivered to the customer and reported to the FTA">
+    <div class="ei-stage s0" id="ei-stage" role="img" aria-label="Illustration of the UAE five-corner model: your invoice goes to your ASP, then the buyer's ASP, then the buyer, while both ASPs report tax data to the FTA">
       <svg class="ei-net" viewBox="0 0 560 470" aria-hidden="true">
-        <defs><linearGradient id="ei-gr" gradientUnits="userSpaceOnUse" x1="290" y1="0" x2="560" y2="0"><stop offset="0" stop-color="#1D4ED8"/><stop offset="1" stop-color="#38BDF8"/></linearGradient></defs>
-        <path class="ei-ln" d="M292 70 C 315 60, 330 58, 347 62"/>
-        <path class="ei-ln" d="M452 110 L 452 310"/>
-        <path class="ei-ln" d="M380 112 C 330 250, 220 300, 170 376"/>
-        <path id="ei-p1" class="ei-lnon" d="M292 70 C 315 60, 330 58, 347 62"/>
-        <path id="ei-p2" class="ei-lnon" style="stroke:#3B82F6" d="M452 110 L 452 310"/>
-        <path id="ei-p3" class="ei-lnon ei-lnon--fta" d="M380 112 C 330 250, 220 300, 170 376"/>
+        <defs>
+          <linearGradient id="ei-gr" gradientUnits="userSpaceOnUse" x1="280" y1="0" x2="560" y2="0"><stop offset="0" stop-color="#1D4ED8"/><stop offset="1" stop-color="#38BDF8"/></linearGradient>
+          <filter id="ei-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+        </defs>
+        <g class="ei-base">
+          <path d="M282 44 C 302 44, 316 40, 334 40"/>
+          <path d="M448 74 L 448 160"/>
+          <path d="M448 232 L 448 318"/>
+          <path d="M350 72 C 322 92, 306 120, 306 170 L 306 380 C 306 402, 292 410, 270 410"/>
+          <path d="M336 200 C 322 204, 318 214, 318 238 L 318 388 C 318 410, 300 422, 270 422"/>
+        </g>
+        <path id="ei-p1" class="ei-lnon" d="M282 44 C 302 44, 316 40, 334 40"/>
+        <path id="ei-p2" class="ei-lnon" d="M448 74 L 448 160"/>
+        <path id="ei-p3" class="ei-lnon" d="M448 232 L 448 318"/>
+        <path id="ei-p4" class="ei-lnon ei-lnon--fta" d="M350 72 C 322 92, 306 120, 306 170 L 306 380 C 306 402, 292 410, 270 410"/>
+        <path id="ei-p5" class="ei-lnon ei-lnon--fta" d="M336 200 C 322 204, 318 214, 318 238 L 318 388 C 318 410, 300 422, 270 422"/>
+        <text class="ei-net__lbl" x="458" y="121">Peppol</text>
+        <text class="ei-net__lbl" x="458" y="279">delivers</text>
+        <text class="ei-net__lbl ei-net__lbl--fta" x="300" y="300" transform="rotate(-90 300 300)">tax data</text>
+        <g class="ei-pkts">
+          <circle id="ei-k1" r="5"/><circle id="ei-k2" r="5"/><circle id="ei-k3" r="5"/><circle id="ei-k4" r="4.5" class="g"/><circle id="ei-k5" r="4.5" class="g"/>
+        </g>
       </svg>
       <div class="ei-inv" aria-hidden="true">
+        <span class="ei-corner">1 · You, the seller</span>
         <div class="ei-inv__top"><span class="ei-inv__tag">Tax invoice · INV-0148</span><span class="ei-inv__st"><i></i><span id="ei-st">Draft</span></span></div>
         <p class="ei-inv__amt">AED 8,400.00</p>
         <p class="ei-inv__to">To: ABC Trading LLC · B2B</p>
         <div class="ei-inv__rows"><div><span>Office fit-out services</span><b>8,000.00</b></div><div><span>VAT 5%</span><b>400.00</b></div></div>
         <div class="ei-inv__send"><span class="t1">Send ▸</span><span class="t2">Sending…</span><span class="t3">✓ Delivered &amp; reported</span></div>
+        <p class="ei-inv__use">E-invoices used <b id="ei-cnt">312</b> / 1,500</p>
         <svg class="ei-cursor" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#020617" stroke="#fff" stroke-width="1.5"/></svg>
       </div>
-      <div class="ei-node" id="ei-n-asp" aria-hidden="true"><span class="ei-node__ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span><div><strong>ASP partner</strong><span class="w">Waiting…</span><span class="k">Checked · sent on Peppol</span></div></div>
-      <div class="ei-node" id="ei-n-cus" aria-hidden="true"><span class="ei-node__ic"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></span><div><strong>Your customer</strong><span class="w">Waiting…</span><span class="k">Received in their system</span></div></div>
-      <div class="ei-node" id="ei-n-fta" aria-hidden="true"><span class="ei-node__ic"><svg viewBox="0 0 24 24"><path d="M3 21h18M4 10h16M12 3l9 7H3zM6 10v11M10 10v11M14 10v11M18 10v11"/></svg></span><div><strong>FTA</strong><span class="w">Waiting…</span><span class="k">Tax data reported</span></div></div>
-      <div class="ei-usage" aria-hidden="true">E-invoices used <b id="ei-cnt">312</b><em>/ 1,500</em></div>
-      <p class="ei-stage__cap">Illustration of the flow, not a live screen</p>
+      <div class="ei-node" id="ei-n2" aria-hidden="true"><span class="ei-node__ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><i>2</i></span><div><strong>Your ASP</strong><span class="w">Waiting…</span><span class="k">Validated · sent on Peppol</span></div></div>
+      <div class="ei-node" id="ei-n3" aria-hidden="true"><span class="ei-node__ic"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/><path d="m9 12 2 2 4-4"/></svg><i>3</i></span><div><strong>Buyer's ASP</strong><span class="w">Waiting…</span><span class="k">Received · validated</span></div></div>
+      <div class="ei-node" id="ei-n4" aria-hidden="true"><span class="ei-node__ic"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg><i>4</i></span><div><strong>Your buyer</strong><span class="w">Waiting…</span><span class="k">E-invoice received</span></div></div>
+      <div class="ei-node ei-node--fta" id="ei-n5" aria-hidden="true"><span class="ei-node__ic"><svg viewBox="0 0 24 24"><path d="M3 21h18M4 10h16M12 3l9 7H3zM6 10v11M10 10v11M14 10v11M18 10v11"/></svg><i>5</i></span><div><strong>FTA</strong><span class="w">Waiting…</span><span class="k">Tax data, near real time</span></div></div>
+      <p class="ei-stage__cap">The UAE 5-corner model · illustration, not a live screen</p>
       <!-- [CONFIRM BEFORE PUBLISHING: ADD AN APPROVED REAL SCREENSHOT OF THE FINASHEET E-INVOICING DASHBOARD WHEN AVAILABLE] -->
     </div>
   </div>
@@ -173,10 +190,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="ei-ribbon" role="region" aria-label="UAE e-invoicing deadlines at a glance">
   <div class="ei-wrap ei-ribbon__in">
     <p class="ei-ribbon__lbl">Deadlines</p>
-    <p class="is-focus"><b>Under AED 50M revenue</b> ASP by 31 Mar 2027 · live 1 Jul 2027</p>
+    <p class="is-focus"><b>Revenue under AED 50M</b> appoint an ASP by 31 Mar 2027 · live 1 Jul 2027</p>
     <p><b>AED 50M+</b> live 1 Jan 2027</p>
-    <p><b>Government</b> live 1 Oct 2027</p>
-    <a href="#deadlines">Which one is you? ↓</a>
+    <a href="#deadlines">See your dates ↓</a>
   </div>
 </div>
 
@@ -184,25 +200,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="ei-dark" id="how-it-works" aria-labelledby="ei-how">
   <div class="ei-wrap">
     <div class="ei-jar" id="ei-jar" aria-hidden="true"><span>PINT-AE</span><span>Peppol</span><span>5-corner model</span><span>ASP appointment</span><span>XML</span><span>TIN</span><span>FTA reporting</span></div>
-    <p class="ei-kicker">How it works</p>
+    <p class="ei-kicker">How it works · the 5-corner model</p>
     <h2 id="ei-how">Forget the jargon.<span class="ei-grad2">Just press Send.</span></h2>
-    <p class="ei-dark__lede">The rules are technical. Using Finasheet isn't. Here's everything that happens after your one click.</p>
+    <p class="ei-dark__lede">Every UAE e-invoice passes through five corners. You handle the first. The network handles the other four for you.</p>
 
-    <div class="ei-track" id="ei-track">
-      <div class="ei-rail"><i id="ei-fill"></i></div>
+    <div class="ei-corners" id="ei-corners">
+      <div class="ei-rail" aria-hidden="true"><i id="ei-fill"></i></div>
       <div class="ei-chip" id="ei-chip" aria-hidden="true"><em>INV-0148</em>AED 8,400</div>
-      <ol class="ei-stns">
-        <li class="ei-stn"><span class="ei-dot"><svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></span><div><strong>You press Send</strong><span>in Finasheet or your ERP</span></div></li>
-        <li class="ei-stn"><span class="ei-dot"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span><div><strong>ASP partner</strong><span>checks it, sends it on Peppol</span></div></li>
-        <li class="ei-stn"><span class="ei-dot"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></span><div><strong>Your customer</strong><span>receives it in their system</span></div></li>
-        <li class="ei-stn"><span class="ei-dot"><svg viewBox="0 0 24 24"><path d="M3 21h18M4 10h16M12 3l9 7H3zM6 10v11M10 10v11M14 10v11M18 10v11"/></svg></span><div><strong>FTA</strong><span>gets the tax data</span></div></li>
-      </ol>
-      <p class="ei-track__foot"><span><b>Your part:</b> one click. <b>Our part:</b> everything after it.</span></p>
+      <div class="ei-stns" role="tablist" aria-label="The five corners">
+        <button class="ei-stn" role="tab" id="ei-c1" aria-selected="true" aria-controls="ei-cpanel" data-i="0"><span class="ei-dot"><svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg><i>1</i></span><strong>Seller</strong><small>That's you</small><span class="ei-stn__d">You raise the invoice in Finasheet, or your ERP, and press Send.</span></button>
+        <button class="ei-stn" role="tab" id="ei-c2" aria-selected="false" aria-controls="ei-cpanel" data-i="1" tabindex="-1"><span class="ei-dot"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><i>2</i></span><strong>Seller's ASP</strong><small>Our partner</small><span class="ei-stn__d">Our MoF-accredited partner validates it in the PINT-AE format and transmits it over Peppol.</span></button>
+        <button class="ei-stn" role="tab" id="ei-c3" aria-selected="false" aria-controls="ei-cpanel" data-i="2" tabindex="-1"><span class="ei-dot"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/><path d="m9 12 2 2 4-4"/></svg><i>3</i></span><strong>Buyer's ASP</strong><small>Their provider</small><span class="ei-stn__d">Your customer's ASP receives the e-invoice and validates it again.</span></button>
+        <button class="ei-stn" role="tab" id="ei-c4" aria-selected="false" aria-controls="ei-cpanel" data-i="3" tabindex="-1"><span class="ei-dot"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg><i>4</i></span><strong>Buyer</strong><small>Your customer</small><span class="ei-stn__d">Your customer gets a structured e-invoice straight into their system. No PDFs, no retyping.</span></button>
+        <button class="ei-stn" role="tab" id="ei-c5" aria-selected="false" aria-controls="ei-cpanel" data-i="4" tabindex="-1"><span class="ei-dot"><svg viewBox="0 0 24 24"><path d="M3 21h18M4 10h16M12 3l9 7H3zM6 10v11M10 10v11M14 10v11M18 10v11"/></svg><i>5</i></span><strong>FTA</strong><small>Tax authority</small><span class="ei-stn__d">The tax data reaches the FTA in near real time, reported through the ASPs.</span></button>
+      </div>
+      <div class="ei-cpanel" id="ei-cpanel" role="tabpanel" aria-live="polite">
+        <span class="ei-cpanel__n" id="ei-cp-n">1</span>
+        <div><p class="ei-cpanel__t" id="ei-cp-t">Seller · that's you</p><p class="ei-cpanel__d" id="ei-cp-d">You raise the invoice in Finasheet, or your ERP, and press Send.</p></div>
+        <p class="ei-cpanel__you"><b>Your part:</b> corner 1.<br><b>The network:</b> corners 2 to 5.</p>
+      </div>
     </div>
 
-    <ul class="ei-caps" aria-label="What you can do">
-      <li>Send e-invoices</li><li>Receive supplier e-invoices</li><li>Issue credit notes</li><li>Track delivery status</li><li>See usage on your dashboard</li><li>Top up when you need more</li>
-    </ul>
+    <div class="ei-caps">
+      <p class="ei-caps__h">What you do in Finasheet</p>
+      <ul class="ei-caps__grid">
+        <li><span class="ei-caps__ic"><svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></span><div><b>Send e-invoices</b><span>From your usual invoice screen</span></div></li>
+        <li><span class="ei-caps__ic"><svg viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></span><div><b>Receive supplier e-invoices</b><span>Purchase bills land in your books</span></div></li>
+        <li><span class="ei-caps__ic"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></span><div><b>Issue credit notes</b><span>The UAE way to fix an invoice</span></div></li>
+        <li><span class="ei-caps__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span><div><b>Track delivery status</b><span>Delivered, or needs attention</span></div></li>
+        <li><span class="ei-caps__ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span><div><b>See usage at a glance</b><span>Documents used vs your allowance</span></div></li>
+        <li><span class="ei-caps__ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><div><b>Top up any time</b><span>More documents, same plan</span></div></li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -214,29 +243,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 id="ei-ways">Love your current software? <span class="ei-nw">Keep it.</span></h2>
       <p>Switch to Finasheet for accounting and e-invoicing in one place, or keep your ERP and we'll plug it in.</p>
     </div>
-    <div class="ei-switch" role="tablist" aria-label="Choose your setup">
-      <button role="tab" id="ei-tab-fs" aria-controls="ei-pane-fs" aria-selected="true" data-ei-tab="fs">Switch to Finasheet</button>
-      <button role="tab" id="ei-tab-erp" aria-controls="ei-pane-erp" aria-selected="false" tabindex="-1" data-ei-tab="erp">Keep my ERP</button>
+    <div class="ei-ways">
+      <article class="ei-way" id="ei-way-fs" aria-labelledby="ei-way-fs-h">
+        <div class="ei-way__vis ei-app" aria-hidden="true">
+          <div class="ei-app__bar"><i></i><i></i><i></i><span>Finasheet · E-invoicing</span><em>Connected to ASP</em></div>
+          <div class="ei-app__body">
+            <ul class="ei-app__nav"><li class="on">Invoices</li><li>Bills</li><li>Banking</li><li>VAT</li><li>Reports</li></ul>
+            <ul class="ei-app__rows">
+              <li><span>INV-0148 · ABC Trading</span><b class="ok">Delivered</b></li>
+              <li><span>INV-0147 · Gulf Interiors</span><b class="ok">Delivered</b></li>
+              <li><span>BILL-2203 · Office supplier</span><b class="in">Received</b></li>
+              <li><span>CN-0012 · Credit note</span><b class="ok">Delivered</b></li>
+            </ul>
+          </div>
+        </div>
+        <div class="ei-way__body">
+          <p class="ei-way__tag">Switch to Finasheet</p>
+          <h3 id="ei-way-fs-h">Accounting and e-invoicing in one place</h3>
+          <dl class="ei-way__facts"><div><dt>Go live</dt><dd>~1 working day</dd></div><div><dt>Price</dt><dd>From AED 125/mo</dd></div></dl>
+          <a class="ei-btn ei-btn--p" href="#readiness-check" data-ei-event="readiness_check_click" data-ei-lead-type="annual_plan" data-ei-loc="two-ways-fs">Get my free readiness check <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+      <article class="ei-way" id="ei-way-erp" aria-labelledby="ei-way-erp-h">
+        <div class="ei-way__vis ei-hub" aria-hidden="true">
+          <ul class="ei-hub__sys"><li>QuickBooks</li><li>Odoo</li><li>SAP</li><li>Oracle</li><li>Excel</li><li>Custom ERP</li></ul>
+          <svg class="ei-hub__lines" viewBox="0 0 100 240" preserveAspectRatio="none"><path d="M0 20 C 50 20, 50 120, 100 120"/><path d="M0 60 C 50 60, 50 120, 100 120"/><path d="M0 100 C 50 100, 60 120, 100 120"/><path d="M0 140 C 50 140, 60 120, 100 120"/><path d="M0 180 C 50 180, 50 120, 100 120"/><path d="M0 220 C 50 220, 50 120, 100 120"/></svg>
+          <div class="ei-hub__end"><span class="ei-hub__core">Finasheet<br>connector</span><span class="ei-hub__arrow"></span><span class="ei-hub__asp">ASP ✓</span></div>
+        </div>
+        <div class="ei-way__body">
+          <p class="ei-way__tag">Keep your ERP</p>
+          <h3 id="ei-way-erp-h">Your software, now e-invoicing ready</h3>
+          <dl class="ei-way__facts"><div><dt>Connect</dt><dd>3–4 working days</dd></div><div><dt>Price</dt><dd>Quoted after review</dd></div></dl>
+          <a class="ei-btn ei-btn--s" href="#readiness-check" data-ei-event="erp_integration_enquiry" data-ei-lead-type="erp_integration" data-ei-loc="two-ways-erp">Get an integration quote <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
     </div>
-    <div class="ei-pane" role="tabpanel" id="ei-pane-fs" aria-labelledby="ei-tab-fs">
-      <div class="ei-flow" aria-hidden="true">
-        <span class="ei-flow__box ei-flow__box--fs"><b>Finasheet</b>Accounting + e-invoicing</span><span class="ei-flow__arw"></span><span class="ei-flow__box">ASP partner</span><span class="ei-flow__arw"></span><span class="ei-flow__box ei-flow__box--ok">Customer + FTA ✓</span>
-      </div>
-      <div class="ei-pane__body">
-        <ul class="ei-ticks"><li>Accounting software included in the plan</li><li>Invoices, purchase bills and credit notes in one place</li><li>Typically live in one working day</li></ul>
-        <a class="ei-btn ei-btn--p" href="#readiness-check" data-ei-event="readiness_check_click" data-ei-lead-type="annual_plan" data-ei-loc="two-ways-fs">Get my free readiness check <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-    <div class="ei-pane" role="tabpanel" id="ei-pane-erp" aria-labelledby="ei-tab-erp" hidden>
-      <div class="ei-flow" aria-hidden="true">
-        <span class="ei-flow__box"><b>Your ERP</b>Keep working as you do</span><span class="ei-flow__arw"></span><span class="ei-flow__box ei-flow__box--fs">Finasheet connection</span><span class="ei-flow__arw"></span><span class="ei-flow__box">ASP partner</span><span class="ei-flow__arw"></span><span class="ei-flow__box ei-flow__box--ok">Customer + FTA ✓</span>
-      </div>
-      <div class="ei-pane__body">
-        <ul class="ei-logos" aria-label="Systems we can connect"><li>QuickBooks</li><li>Odoo</li><li>SAP</li><li>Oracle</li><li>Excel workflows</li><li>Custom ERP</li></ul>
-        <p class="ei-pane__note">Quoted separately after we review your system. Typically 3–4 working days to connect.</p>
-        <a class="ei-btn ei-btn--p" href="#readiness-check" data-ei-event="erp_integration_enquiry" data-ei-lead-type="erp_integration" data-ei-loc="two-ways-erp">Get an integration quote <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
+    <p class="ei-fine">Typical timings once we have your details. Integration time depends on your system.</p>
   </div>
 </section>
 
@@ -248,35 +290,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 id="ei-pricing">One invoice. <span class="ei-nw">Everything in it.</span></h2>
       <p>The price is on the page, not behind a sales call.</p>
     </div>
-    <div class="ei-pricing">
+    <div class="ei-bill" role="radiogroup" aria-label="Billing period">
+      <button type="button" role="radio" aria-checked="true" data-ei-bill="yearly">Yearly <span>Save AED 300</span></button>
+      <button type="button" role="radio" aria-checked="false" data-ei-bill="monthly" tabindex="-1">Monthly</button>
+    </div>
+    <div class="ei-pricing" data-bill="yearly">
       <div class="ei-receipt-wrap">
-      <article class="ei-receipt" aria-labelledby="ei-plan-annual">
-        <div class="ei-receipt__hd"><span>Annual plan</span><span class="ei-receipt__flag">Best value</span></div>
-        <h3 id="ei-plan-annual" class="ei-vh">Annual plan, AED 1,500 per year</h3>
-        <!-- [CONFIRM BEFORE PUBLISHING: WHICH FINASHEET SOFTWARE PLAN (Growing / Thriving / other) IS INCLUDED IN THE AED 1,500 PACKAGE, AND HOW EXISTING FINASHEET SUBSCRIBERS ADD E-INVOICING] -->
-        <ul class="ei-receipt__items">
-          <li><span>Finasheet accounting software</span><b>Included</b></li>
-          <li><span>UAE e-invoicing, send &amp; receive</span><b>Included</b></li>
-          <li><span>1,500 e-invoices a year</span><b>Included</b></li>
-          <li><span>ASP onboarding assistance</span><b>Included</b></li>
-          <li><span>E-invoicing dashboard</span><b>Included</b></li>
-          <li><span>Portal training</span><b>Included</b></li>
-          <li><span>Technical support for the year</span><b>Included</b></li>
-        </ul>
-        <div class="ei-receipt__total"><span>Total</span><p>AED 1,500<small> /year</small></p></div>
-        <p class="ei-receipt__per">That's about AED 125 a month.</p>
-        <a class="ei-btn ei-btn--p ei-btn--block" href="#readiness-check" data-ei-event="readiness_check_click" data-ei-lead-type="annual_plan" data-ei-loc="pricing-annual">Get my free readiness check <span aria-hidden="true">→</span></a>
-        <a class="ei-receipt__demo" href="#readiness-check" data-ei-event="demo_request" data-ei-lead-type="demo" data-ei-loc="pricing-annual">or see a product demo first</a>
-      </article>
+        <article class="ei-receipt" aria-labelledby="ei-plan-h">
+          <div class="ei-receipt__hd"><span id="ei-plan-h">Finasheet e-invoicing</span><span class="ei-receipt__flag ei-y">Best value</span></div>
+          <!-- [CONFIRM BEFORE PUBLISHING: WHICH FINASHEET SOFTWARE PLAN (Growing / Thriving / other) IS INCLUDED, AND HOW EXISTING FINASHEET SUBSCRIBERS ADD E-INVOICING] -->
+          <ul class="ei-receipt__items">
+            <li><span>Finasheet accounting software</span><b>Included</b></li>
+            <li><span>UAE e-invoicing, send &amp; receive</span><b>Included</b></li>
+            <li><span><span class="ei-y">1,500 e-invoices a year</span><span class="ei-m">125 e-invoices a month</span></span><b>Included</b></li>
+            <li><span>ASP onboarding assistance</span><b>Included</b></li>
+            <li><span>E-invoicing dashboard</span><b>Included</b></li>
+            <li><span>Portal training</span><b>Included</b></li>
+            <li><span>Technical support</span><b>Included</b></li>
+          </ul>
+          <div class="ei-receipt__total"><span>Total</span><p>AED <span class="ei-y">125</span><span class="ei-m">150</span><small> /month</small></p></div>
+          <p class="ei-receipt__per"><span class="ei-y">Billed AED 1,500 yearly · you save AED 300</span><span class="ei-m">Billed monthly · no yearly commitment</span></p>
+          <p class="ei-receipt__unit">That's about <b><span class="ei-y">AED 1.00</span><span class="ei-m">AED 1.20</span></b> per e-invoice, with accounting software thrown in.</p>
+          <a class="ei-btn ei-btn--p ei-btn--block" id="ei-price-cta" href="#readiness-check" data-ei-event="readiness_check_click" data-ei-lead-type="annual_plan" data-ei-loc="pricing">Get my free readiness check <span aria-hidden="true">→</span></a>
+          <a class="ei-receipt__demo" href="#readiness-check" data-ei-event="demo_request" data-ei-lead-type="demo" data-ei-loc="pricing">or see a product demo first</a>
+        </article>
       </div>
       <div class="ei-side">
-        <article class="ei-mini">
-          <h3>Monthly</h3>
-          <p class="ei-mini__price">AED 150<small> /month</small></p>
-          <!-- [CONFIRM BEFORE PUBLISHING: MONTHLY DOCUMENT ALLOWANCE AND WHAT THE MONTHLY PLAN INCLUDES] -->
-          <p>No yearly commitment. We confirm your monthly allowance on the call.</p>
-          <a href="#readiness-check" data-ei-event="readiness_check_click" data-ei-lead-type="monthly_plan" data-ei-loc="pricing-monthly">Ask about monthly →</a>
-        </article>
+        <div class="ei-calc">
+          <p class="ei-calc__q">Will it be enough for you?</p>
+          <label for="ei-calc-r">Invoices you send + receive each month</label>
+          <div class="ei-calc__row"><input type="range" id="ei-calc-r" min="0" max="300" step="5" value="60" aria-describedby="ei-calc-out"><output id="ei-calc-v" for="ei-calc-r">60</output></div>
+          <p class="ei-calc__out" id="ei-calc-out" aria-live="polite"><b class="ok">Covered.</b> About 720 a year, well within your 1,500.</p>
+          <p class="ei-calc__note">Sales invoices, supplier invoices and credit notes each count as one.</p>
+        </div>
         <article class="ei-mini">
           <h3>Keep your ERP</h3>
           <p class="ei-mini__price">Custom<small> quote</small></p>
@@ -285,7 +331,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </article>
         <details class="ei-mini ei-mini--q">
           <summary>What counts as an e-invoice?</summary>
-          <p>Sales invoices you send, purchase invoices you receive and credit notes each count as one. A send that fails because of wrong details on your side counts too. Need more than 1,500? Top up from your dashboard. We explain the options on your call.</p>
+          <p>Sales invoices you send, purchase invoices you receive and credit notes each count as one. A send that fails because of wrong details on your side counts too. Need more? Top up from your dashboard. We'll walk you through the options on your call.</p>
         </details>
       </div>
     </div>
@@ -361,32 +407,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="ei-head">
       <p class="ei-kicker ei-kicker--blue">UAE e-invoicing deadlines</p>
       <h2 id="ei-dl">When does it hit your business?</h2>
+      <p>It depends on your annual revenue. Find your row.</p>
     </div>
-    <div class="ei-dl">
-      <div class="ei-dl__pick" role="tablist" aria-label="Your business type">
-        <button role="tab" id="ei-dl-t1" aria-controls="ei-dl-p1" aria-selected="true" data-ei-dl="1">Revenue under AED 50M</button>
-        <button role="tab" id="ei-dl-t2" aria-controls="ei-dl-p2" aria-selected="false" tabindex="-1" data-ei-dl="2">Revenue AED 50M+</button>
-        <button role="tab" id="ei-dl-t3" aria-controls="ei-dl-p3" aria-selected="false" tabindex="-1" data-ei-dl="3">Government entity</button>
-      </div>
-      <div class="ei-dl__p" role="tabpanel" id="ei-dl-p1" aria-labelledby="ei-dl-t1">
-        <div class="ei-dl__d"><span>Appoint an ASP by</span><b>31 March 2027</b></div>
-        <div class="ei-dl__d ei-dl__d--live"><span>E-invoicing mandatory from</span><b>1 July 2027</b></div>
-      </div>
-      <div class="ei-dl__p" role="tabpanel" id="ei-dl-p2" aria-labelledby="ei-dl-t2" hidden>
-        <div class="ei-dl__d ei-dl__d--past"><span>Appoint an ASP by</span><b>30 October 2026</b><em>Passed</em></div>
-        <div class="ei-dl__d ei-dl__d--live"><span>E-invoicing mandatory from</span><b>1 January 2027</b></div>
-      </div>
-      <div class="ei-dl__p" role="tabpanel" id="ei-dl-p3" aria-labelledby="ei-dl-t3" hidden>
-        <div class="ei-dl__d"><span>Appoint an ASP by</span><b>31 March 2027</b></div>
-        <div class="ei-dl__d ei-dl__d--live"><span>E-invoicing mandatory from</span><b>1 October 2027</b></div>
-      </div>
-      <ul class="ei-dl__facts">
-        <li><b>Applies to</b> B2B and B2G invoices, VAT registered or not. B2C is excluded.</li>
-        <li><b>PDFs don't count.</b> Only structured PINT-AE e-invoices sent through an ASP.</li>
-        <li><b>Fines</b> start at AED 5,000 for not implementing on time, and AED 100 per late e-invoice.</li>
-      </ul>
-      <p class="ei-dl__src">Revenue = gross income in your latest accounting period. Sources: <a href="https://mof.gov.ae/en/about-us/initiatives/einvoicing/0/" target="_blank" rel="noopener">UAE Ministry of Finance</a> · <a href="https://tax.gov.ae/en/content/uae.einvoicing.aspx" target="_blank" rel="noopener">Federal Tax Authority</a> · MD 244/2025 as amended by MD 66/2026 · Cabinet Decision 173/2026. Checked 6 Nov 2026. General information, not legal advice.</p>
+    <div class="ei-dlx">
+      <article class="ei-dlc ei-dlc--hi">
+        <p class="ei-dlc__who"><span>Phase 2</span>Revenue under AED 50 million</p>
+        <ol class="ei-dlc__tl">
+          <li><span>Appoint an ASP by</span><b>31 March 2027</b></li>
+          <li class="is-live"><span>E-invoicing mandatory from</span><b>1 July 2027</b></li>
+        </ol>
+      </article>
+      <article class="ei-dlc">
+        <p class="ei-dlc__who"><span>Phase 1</span>Revenue of AED 50 million or more</p>
+        <ol class="ei-dlc__tl">
+          <li class="is-past"><span>Appoint an ASP by</span><b>30 October 2026</b><em>Passed</em></li>
+          <li class="is-live"><span>E-invoicing mandatory from</span><b>1 January 2027</b></li>
+        </ol>
+      </article>
     </div>
+    <ul class="ei-rules">
+      <li><span class="ei-rules__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div><b>Every B2B invoice</b><span>VAT registered or not. B2C sales are excluded.</span></div></li>
+      <li><span class="ei-rules__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13l6 6M15 13l-6 6"/></svg></span><div><b>PDFs won't count</b><span>Only PINT-AE e-invoices sent through an ASP.</span></div></li>
+      <li><span class="ei-rules__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><b>Fines from AED 5,000</b><span>Plus AED 100 for each late e-invoice.</span></div></li>
+    </ul>
+    <p class="ei-dl__src">Revenue means gross income in your latest accounting period. Sources: <a href="https://mof.gov.ae/en/about-us/initiatives/einvoicing/0/" target="_blank" rel="noopener">UAE Ministry of Finance</a> · <a href="https://tax.gov.ae/en/content/uae.einvoicing.aspx" target="_blank" rel="noopener">Federal Tax Authority</a> · MD 244/2025 as amended by MD 66/2026 · Cabinet Decision 173/2026. Checked 7 Nov 2026. General information, not legal advice.</p>
   </div>
 </section>
 
@@ -406,7 +450,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <details><summary>Is Finasheet an accredited service provider?</summary><p>No. Finasheet is an accounting software and services company. Your e-invoices are exchanged and reported through our ASP partner, which is accredited by the UAE Ministry of Finance. We onboard you to the partner as part of your plan and share the partner's details on your readiness call.</p></details>
       <details><summary>What counts towards the 1,500 e-invoices?</summary><p>Each document exchanged in the PINT-AE format counts as one: sales invoices you send, purchase invoices you receive and credit notes. A transmission that fails because of incorrect information you provided also counts.</p></details>
       <details><summary>What happens if we use all 1,500?</summary><p>You can top up from your e-invoicing dashboard at any time without changing plans. We walk you through the top-up options on your readiness call.</p></details>
-      <details><summary>How much does Finasheet e-invoicing cost?</summary><p>The annual plan is AED 1,500 per year. It includes Finasheet accounting software, e-invoicing, 1,500 documents a year, ASP onboarding assistance, a separate e-invoicing dashboard, portal training and technical support. Monthly billing is available at AED 150 per month. Connecting an existing ERP is quoted separately.</p></details>
+      <details><summary>How much does Finasheet e-invoicing cost?</summary><p>The annual plan is AED 1,500 per year, about AED 125 a month. It includes Finasheet accounting software, e-invoicing, 1,500 documents a year, ASP onboarding assistance, a separate e-invoicing dashboard, portal training and technical support. Monthly billing is AED 150 per month, with 125 e-invoices a month. Connecting an existing ERP is quoted separately.</p></details>
       <details><summary>How long does it take to go live?</summary><p>Standard setup on Finasheet typically takes one working day once we have your details. Connecting an existing system typically takes three to four working days. Finasheet customers can start exchanging e-invoices from 1 January 2027.</p></details>
       <details><summary>What are the penalties for not complying?</summary><p>Under Cabinet Decision No. 173 of 2026, not implementing e-invoicing or not appointing an ASP on time can cost AED 5,000, then AED 5,000 a month, capped at AED 50,000 in any 12 months. Each e-invoice or credit note not issued on time can cost AED 100, capped at AED 5,000 a month.</p></details>
       <details><summary>How do we get support?</summary><p>Technical support for the year is included. Raise service requests from your e-invoicing dashboard, or reach the team at <a href="mailto:support@finasheet.com">support@finasheet.com</a> or on <a href="https://wa.me/971522015270" target="_blank" rel="noopener" data-ei-loc="faq">WhatsApp</a>.</p>

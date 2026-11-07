@@ -86,90 +86,155 @@
     if (!('IntersectionObserver' in window)) { cb(true); return; }
     new IntersectionObserver((en) => en.forEach((e) => cb(e.isIntersecting)), { threshold }).observe(el);
   };
+  const raf = window.requestAnimationFrame || ((f) => setTimeout(() => f(Date.now()), 16));
 
-  /* ---------- Hero: invoice travels Finasheet -> ASP -> customer -> FTA (loops while on screen) ---------- */
+  /* ---------- Hero: the 5-corner model, played as a live sequence ---------- */
   (() => {
     const st = document.getElementById('ei-stage');
     if (!st) return;
-    st.querySelectorAll('.ei-lnon').forEach((p) => { try { p.style.setProperty('--len', Math.ceil(p.getTotalLength())); } catch (e) { /* ignore */ } });
+    const P = [1, 2, 3, 4, 5].map((i) => document.getElementById('ei-p' + i));
+    const K = [1, 2, 3, 4, 5].map((i) => document.getElementById('ei-k' + i));
+    const N = { 2: 'ei-n2', 3: 'ei-n3', 4: 'ei-n4', 5: 'ei-n5' };
     const label = document.getElementById('ei-st'), cnt = document.getElementById('ei-cnt');
-    const ids = ['ei-n-asp', 'ei-n-cus', 'ei-n-fta'];
-    const on = (id, v) => document.getElementById(id).classList.toggle('on', v);
+    P.forEach((p) => { try { p.style.setProperty('--len', Math.ceil(p.getTotalLength())); } catch (e) { /* ignore */ } });
     const set = (n) => { st.classList.remove('s0', 's1', 's2', 's3', 's4', 's5'); st.classList.add('s' + n); };
-    const final = () => { set(5); ids.forEach((i) => on(i, true)); label.textContent = 'Delivered'; cnt.textContent = '313'; };
+    const node = (n, v) => { const el = document.getElementById(N[n]); el.classList.toggle('on', v); if (v) { el.classList.remove('ping'); void el.offsetWidth; el.classList.add('ping'); } };
+    // draw a path and move a glowing packet along it
+    const travel = (i, ms) => {
+      const p = P[i], k = K[i];
+      p.style.setProperty('--d', ms / 1000 + 's');
+      p.classList.add('on');
+      let len = 0; try { len = p.getTotalLength(); } catch (e) { return; }
+      const t0 = performance.now();
+      k.style.opacity = 1;
+      const tick = (now) => {
+        const t = Math.min(1, (now - t0) / ms), e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        const pt = p.getPointAtLength(e * len);
+        k.setAttribute('cx', pt.x); k.setAttribute('cy', pt.y);
+        if (t < 1) raf(tick); else setTimeout(() => { k.style.opacity = 0; }, 120);
+      };
+      raf(tick);
+    };
+    const reset = () => { set(0); label.textContent = 'Draft'; cnt.textContent = '312'; P.forEach((p) => p.classList.remove('on')); K.forEach((k) => { k.style.opacity = 0; }); [2, 3, 4, 5].forEach((n) => node(n, false)); };
+    const final = () => { set(5); label.textContent = 'Delivered'; cnt.textContent = '313'; P.forEach((p) => p.classList.add('on')); [2, 3, 4, 5].forEach((n) => document.getElementById(N[n]).classList.add('on')); };
     if (reduced) { final(); return; }
     const steps = [
-      [0, () => { set(0); label.textContent = 'Draft'; ids.forEach((i) => on(i, false)); cnt.textContent = '312'; }],
-      [900, () => { set(1); label.textContent = 'Converting'; }],
-      [1700, () => { set(2); label.textContent = 'Sending'; }],
-      [2500, () => { on(ids[0], true); set(3); }],
-      [3300, () => { on(ids[1], true); set(4); }],
-      [4100, final],
+      [0, reset],
+      [700, () => { set(1); label.textContent = 'Validating'; }],
+      [1000, () => { set(2); label.textContent = 'Sending'; travel(0, 550); }],
+      [1600, () => node(2, true)],
+      [1800, () => { set(3); travel(1, 750); }],
+      [2600, () => node(3, true)],
+      [2800, () => { set(4); travel(2, 750); }],
+      [3600, () => { node(4, true); label.textContent = 'Reporting'; }],
+      [3800, () => { travel(3, 1000); travel(4, 1000); }],
+      [4850, () => { node(5, true); set(5); label.textContent = 'Delivered'; cnt.textContent = '313'; }],
     ];
     let timers = [], loop = null;
     const run = () => { timers.forEach(clearTimeout); timers = steps.map(([t, f]) => setTimeout(f, t)); };
     whenVisible(st, (vis) => {
-      if (vis && !loop) { run(); loop = setInterval(run, 8400); }
+      if (vis && !loop) { run(); loop = setInterval(run, 9000); }
       else if (!vis && loop) { clearInterval(loop); loop = null; timers.forEach(clearTimeout); final(); }
     }, 0.2);
   })();
 
-  /* ---------- Dark section: strike the jargon, then run the 4-station track ---------- */
+  /* ---------- Dark section: strike the jargon, then walk the five corners (click to explore) ---------- */
   (() => {
-    const track = document.getElementById('ei-track');
-    if (!track) return;
+    const box = document.getElementById('ei-corners');
+    if (!box) return;
     const jar = [...document.querySelectorAll('#ei-jar span')];
-    const stns = [...track.querySelectorAll('.ei-stn')];
+    const btns = [...box.querySelectorAll('.ei-stn')];
     const fill = document.getElementById('ei-fill'), chip = document.getElementById('ei-chip');
-    const narrow = () => matchMedia('(max-width: 760px)').matches;
-    const pos = (i) => {
-      const pct = (i / 3) * 100;
-      if (narrow()) { fill.style.width = ''; fill.style.setProperty('--h', pct + '%'); }
-      else { fill.style.width = pct + '%'; chip.style.left = `calc(28px + 12.5% + (100% - 56px - 25%) * ${i / 3})`; }
-    };
-    const step = (i) => { stns.forEach((s, k) => { s.classList.toggle('on', k < i); s.classList.toggle('cur', k === i); }); pos(i); };
-    const done = () => { stns.forEach((s) => { s.classList.add('on'); s.classList.remove('cur'); }); pos(3); };
-    if (reduced) { jar.forEach((j) => j.classList.add('x')); done(); return; }
-    let struck = false, loop = null, timers = [];
-    const run = () => { timers.forEach(clearTimeout); step(0); timers = [1000, 2000, 3000].map((t, k) => setTimeout(() => step(k + 1), t)); timers.push(setTimeout(done, 3700)); };
-    whenVisible(track.closest('section'), (vis) => {
-      if (vis && !struck) { struck = true; jar.forEach((j, k) => setTimeout(() => j.classList.add('x'), 200 + k * 200)); }
-      if (vis && !loop) { setTimeout(run, struck ? 600 : 0); loop = setInterval(run, 7000); }
-      else if (!vis && loop) { clearInterval(loop); loop = null; timers.forEach(clearTimeout); done(); }
-    }, 0.3);
-  })();
-
-  /* ---------- Tabs (setup switch + deadline picker), with arrow-key support ---------- */
-  function tabs(listSel, attr) {
-    const list = document.querySelector(listSel);
-    if (!list) return null;
-    const btns = [...list.querySelectorAll('[role="tab"]')];
-    const select = (btn, focus) => {
-      btns.forEach((b) => {
-        const on = b === btn;
-        b.setAttribute('aria-selected', String(on));
-        b.tabIndex = on ? 0 : -1;
-        document.getElementById(b.getAttribute('aria-controls')).hidden = !on;
+    const panel = document.getElementById('ei-cpanel');
+    const pn = document.getElementById('ei-cp-n'), pt = document.getElementById('ei-cp-t'), pd = document.getElementById('ei-cp-d');
+    const last = btns.length - 1;
+    let cur = 0, auto = !reduced, loop = null;
+    const show = (i, focus) => {
+      cur = i;
+      btns.forEach((b, k) => {
+        b.setAttribute('aria-selected', String(k === i));
+        b.tabIndex = k === i ? 0 : -1;
+        b.classList.toggle('on', k < i);
       });
-      if (focus) btn.focus();
+      fill.style.width = (i / last) * 100 + '%';
+      chip.style.left = `calc(24px + 10% + (100% - 48px - 20%) * ${i / last})`;
+      panel.classList.add('swap');
+      setTimeout(() => {
+        const b = btns[i];
+        pn.textContent = i + 1;
+        pt.textContent = `${b.querySelector('strong').textContent} · ${b.querySelector('small').textContent.toLowerCase()}`;
+        pd.textContent = b.querySelector('.ei-stn__d').textContent;
+        panel.classList.remove('swap');
+      }, 180);
+      if (focus) btns[i].focus();
     };
+    const stop = () => { auto = false; clearInterval(loop); loop = null; };
     btns.forEach((b, i) => {
-      b.addEventListener('click', () => select(b));
+      b.addEventListener('click', () => { stop(); show(i); push('five_corner_click', { corner: i + 1 }); });
       b.addEventListener('keydown', (e) => {
-        const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-        if (d) { e.preventDefault(); select(btns[(i + d + btns.length) % btns.length], true); }
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (d) { e.preventDefault(); stop(); show((i + d + btns.length) % btns.length, true); }
       });
     });
-    return (val) => { const b = btns.find((x) => x.dataset[attr] === val); if (b) select(b); };
-  }
-  const setSetup = tabs('.ei-switch', 'eiTab');
-  tabs('.ei-dl__pick', 'eiDl');
-  document.querySelectorAll('[data-ei-switch]').forEach((a) => a.addEventListener('click', () => {
-    if (setSetup) setSetup(a.dataset.eiSwitch);
-    if (a.dataset.eiSwitch === 'erp') push('erp_integration_enquiry', { cta_location: a.dataset.eiLoc || '' });
+    if (reduced) { jar.forEach((j) => j.classList.add('x')); return; }
+    let struck = false;
+    whenVisible(box.closest('section'), (vis) => {
+      if (vis && !struck) { struck = true; jar.forEach((j, k) => setTimeout(() => j.classList.add('x'), 200 + k * 180)); }
+      if (vis && auto && !loop) { loop = setInterval(() => show(cur === last ? 0 : cur + 1), 2200); }
+      else if (!vis && loop) { clearInterval(loop); loop = null; }
+    }, 0.35);
+  })();
+
+  /* ---------- "Keep it. We'll connect it." -> highlight the ERP card ---------- */
+  document.querySelectorAll('[data-ei-switch="erp"]').forEach((a) => a.addEventListener('click', () => {
+    push('erp_integration_enquiry', { cta_location: a.dataset.eiLoc || '' });
+    const card = document.getElementById('ei-way-erp');
+    if (!card) return;
+    setTimeout(() => { card.classList.add('flash'); setTimeout(() => card.classList.remove('flash'), 1800); }, 500);
   }));
-  const erpTab = document.getElementById('ei-tab-erp');
-  if (erpTab) erpTab.addEventListener('click', () => push('erp_integration_enquiry', { cta_location: 'setup-tab' }));
+
+  /* ---------- Pricing: yearly / monthly toggle + "will it be enough?" estimator ---------- */
+  (() => {
+    const grid = document.querySelector('.ei-pricing');
+    const radios = [...document.querySelectorAll('[data-ei-bill]')];
+    if (!grid || !radios.length) return;
+    const cta = document.getElementById('ei-price-cta');
+    const range = document.getElementById('ei-calc-r'), outV = document.getElementById('ei-calc-v'), out = document.getElementById('ei-calc-out');
+    const bill = () => grid.dataset.bill;
+    const calc = () => {
+      if (!range) return;
+      const n = +range.value, yearly = bill() === 'yearly';
+      outV.textContent = n;
+      range.style.setProperty('--fill', (n / +range.max) * 100 + '%');
+      if (yearly) {
+        const yr = n * 12, spare = 1500 - yr;
+        out.innerHTML = n === 0 ? 'Move the slider to your typical month.'
+          : spare >= 0 ? `<b class="ok">Covered.</b> About ${yr.toLocaleString('en-US')} a year, inside your 1,500${spare >= 300 ? ` with ${spare.toLocaleString('en-US')} to spare` : ''}.`
+          : `<b class="up">You'll need a top-up.</b> About ${yr.toLocaleString('en-US')} a year. We'll size it with you on your call.`;
+      } else {
+        out.innerHTML = n === 0 ? 'Move the slider to your typical month.'
+          : n <= 125 ? `<b class="ok">Covered.</b> ${n} a month, inside your 125.`
+          : `<b class="up">You'll need a top-up.</b> ${n} a month is above 125. We'll size it with you on your call.`;
+      }
+    };
+    const select = (r, focus) => {
+      radios.forEach((x) => { const on = x === r; x.setAttribute('aria-checked', String(on)); x.tabIndex = on ? 0 : -1; });
+      grid.dataset.bill = r.dataset.eiBill;
+      if (cta) cta.dataset.eiLeadType = r.dataset.eiBill === 'yearly' ? 'annual_plan' : 'monthly_plan';
+      const total = grid.querySelector('.ei-receipt__total p');
+      if (total) { total.classList.remove('ei-pop'); void total.offsetWidth; total.classList.add('ei-pop'); }
+      calc();
+      if (focus) r.focus();
+    };
+    radios.forEach((r, i) => {
+      r.addEventListener('click', () => { if (r.getAttribute('aria-checked') !== 'true') { select(r); push('pricing_toggle', { billing_period: r.dataset.eiBill }); } });
+      r.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (d) { e.preventDefault(); const nr = radios[(i + d + radios.length) % radios.length]; select(nr, true); push('pricing_toggle', { billing_period: nr.dataset.eiBill }); }
+      });
+    });
+    if (range) { range.addEventListener('input', calc); calc(); }
+  })();
 
   /* ---------- Mobile sticky bar: step aside while the form itself is on screen ---------- */
   const sticky = document.querySelector('.fs-mobile-cta');
