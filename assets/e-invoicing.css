@@ -62,7 +62,8 @@
 .ei-hero__alt a{color:var(--p);font-weight:600;border-bottom:1px solid rgb(29 78 216/.3)}
 
 /* 5-corner stage */
-.ei-stage{position:relative;justify-self:end;width:100%;max-width:610px;aspect-ratio:560/470}
+.ei-flow{justify-self:end;width:100%;max-width:610px}
+.ei-stage{position:relative;width:100%;aspect-ratio:560/470;transition:opacity .28s ease}
 .ei-net{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .ei-base path{fill:none;stroke:#CBD5E1;stroke-width:2;stroke-dasharray:3 6}
 .ei-lnon{fill:none;stroke:url(#ei-gr);stroke-width:3;stroke-dasharray:var(--len,600);stroke-dashoffset:var(--len,600);transition:stroke-dashoffset var(--d,.7s) cubic-bezier(.6,0,.2,1)}
@@ -368,7 +369,8 @@
   .ei-hero{padding:40px 0 56px}
   .ei-hero__grid,.ei-leadgrid,.ei-pricing,.ei-faqgrid,.ei-ways{grid-template-columns:minmax(0,1fr)}
   .ei-hero__grid{gap:40px}
-  .ei-stage{aspect-ratio:auto;justify-self:stretch;max-width:520px;margin-inline:auto;display:grid;gap:14px;padding-top:12px}
+  .ei-flow{justify-self:stretch;max-width:520px;margin-inline:auto}
+  .ei-stage{aspect-ratio:auto;display:grid;gap:14px;padding-top:12px}
   .ei-net{display:none}
   .ei-inv,.ei-node,#ei-n2,#ei-n3,#ei-n4,#ei-n5{position:relative;left:auto;top:auto;width:auto}
   .ei-node{margin-left:28px}
@@ -423,3 +425,69 @@
 @media (max-width:560px){.ei-app__bar em{display:none}}
 .ei-bill button[aria-checked="true"] span{background:#047857}
 .ei .ei-dlc__tl li.is-past b{color:#64748B}
+
+/* ===== hero: two directions (send to a customer / receive from a supplier) ===== */
+.ei-dir{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:0 0 30px;padding:5px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 8px 24px -14px rgb(2 6 23/.16)}
+.ei-dir__b{position:relative;overflow:hidden;display:flex;align-items:center;gap:11px;min-height:56px;padding:9px 12px;border:0;border-radius:12px;background:transparent;color:var(--soft);text-align:left;cursor:pointer;transition:background .25s,color .25s}
+.ei-dir__b:hover{background:var(--bg)}
+.ei-dir__b b{display:block;font:700 14px Sora,sans-serif;color:var(--ink)}
+.ei-dir__b small{display:block;margin-top:2px;font-size:12px;line-height:1.3}
+.ei-dir__ic{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--bg);color:var(--soft);transition:background .25s,color .25s}
+.ei-dir__ic svg{width:18px;height:18px;stroke-width:2.4}
+.ei-dir__b[aria-pressed="true"]{background:var(--deep);color:#CBD5E1}
+.ei-dir__b[aria-pressed="true"] b{color:#fff}
+.ei-dir__b[aria-pressed="true"] .ei-dir__ic{background:linear-gradient(135deg,var(--p),var(--sky));color:#fff}
+#ei-dir-in[aria-pressed="true"] .ei-dir__ic{background:linear-gradient(135deg,var(--emd),#34D399)}
+.ei-dir__bar{position:absolute;left:12px;right:12px;bottom:5px;height:2px;border-radius:2px;background:rgb(255 255 255/.14);opacity:0}
+.ei-dir__bar::after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--sky);transform:scaleX(0);transform-origin:left}
+.ei-dir.auto .ei-dir__b[aria-pressed="true"] .ei-dir__bar{opacity:1}
+.ei-dir.auto .ei-dir__b[aria-pressed="true"] .ei-dir__bar::after{animation:ei-dirbar var(--cyc,9s) linear forwards}
+#ei-dir-in .ei-dir__bar::after{background:#34D399}
+@keyframes ei-dirbar{to{transform:scaleX(1)}}
+
+/* labels: .dx-o shows when sending, .dx-i when receiving */
+.ei-stage .dx-i{display:none}
+.ei-stage.ei-in .dx-o{display:none}
+.ei-stage.ei-in span.dx-i,.ei-stage.ei-in tspan.dx-i{display:inline}
+.ei-stage.ei-in svg.dx-i{display:block}
+.ei-stage.ei-fade{opacity:0}
+.ei-stage.ei-nt *{transition:none!important}
+
+/* direction chevrons on the Peppol column */
+.ei-chev path{fill:none;stroke:#93C5FD;stroke-width:2.4;transform-box:fill-box;transform-origin:center;transition:transform .4s}
+.ei-in .ei-chev path{transform:rotate(180deg)}
+
+/* receiving: the supplier's invoice arrives blurred, then lands sharp in your books */
+.ei-inv{transition:box-shadow .5s,border-color .5s}
+.ei-inv__doc{transition:filter .55s ease,opacity .55s ease}
+.ei-in:not(.got) .ei-inv__doc{filter:blur(5px);opacity:.4}
+.ei-in .ei-corner{background:var(--emt)}
+.ei-in .ei-inv__tag{color:var(--emt)}
+.ei-in.got .ei-inv{border-color:#A7F3D0}
+.ei-inv.land{animation:ei-land .7s ease}
+@keyframes ei-land{0%{box-shadow:0 0 0 0 rgb(16 185 129/.45),0 36px 80px -28px rgb(29 78 216/.35)}100%{box-shadow:0 0 0 18px rgb(16 185 129/0),0 36px 80px -28px rgb(29 78 216/.35)}}
+.ei-in .ei-cursor{display:none}
+.ei-in .ei-inv__send{background:var(--tint);color:var(--p);font-size:13px}
+.ei-in.s2 .ei-inv__send,.ei-in.s3 .ei-inv__send,.ei-in.s4 .ei-inv__send{background:#FEF3C7;color:#92400E}
+.ei-in.s5 .ei-inv__send{background:var(--emd);color:#fff}
+.ei-in .ei-lnon--x{stroke-dashoffset:calc(var(--len,600) * -1)}
+.ei-in .ei-lnon--x.on{stroke-dashoffset:0}
+.ei-in #ei-p1,.ei-in #ei-p2,.ei-in #ei-p3{stroke:#10B981}
+.ei-in .ei-pkts circle:not(.g){stroke:var(--em);filter:drop-shadow(0 0 6px rgb(16 185 129/.9))}
+
+@media (max-width:960px){
+  .ei-dir{margin-bottom:18px}
+  /* receiving reads top-down too: supplier → their ASP → your ASP → you → FTA */
+  .ei-stage.ei-in #ei-n4{order:1}.ei-stage.ei-in #ei-n3{order:2}.ei-stage.ei-in #ei-n2{order:3}
+  .ei-stage.ei-in .ei-inv{order:4;margin-top:8px}.ei-stage.ei-in #ei-n5{order:5}.ei-stage.ei-in .ei-stage__cap{order:6}
+  .ei-stage.ei-in #ei-n4{margin-left:0}
+  .ei-stage.ei-in #ei-n4::before{display:none}
+}
+@media (max-width:420px){
+  .ei-dir__b{gap:8px;padding:8px}
+  .ei-dir__ic{width:28px;height:28px}
+  .ei-dir__b small{font-size:11px}
+}
+.ei-inv__tag{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:1180px) and (min-width:961px){.ei-dir__b small{display:none}}
+@media (max-width:480px){.ei-dir__b small{display:none}.ei-dir__b{min-height:50px}}

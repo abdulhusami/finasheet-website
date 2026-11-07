@@ -139,7 +139,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="ei-hero__alt">On QuickBooks, Odoo or SAP? <a href="#ei-way-erp" data-ei-switch="erp" data-ei-loc="hero">Keep it. We'll connect it.</a></p>
     </div>
 
-    <div class="ei-stage s0" id="ei-stage" role="img" aria-label="Illustration of the UAE five-corner model: your invoice goes to your ASP, then the buyer's ASP, then the buyer, while both ASPs report tax data to the FTA">
+    <div class="ei-flow">
+      <div class="ei-dir" role="group" aria-label="Choose which e-invoicing flow to watch">
+        <button type="button" class="ei-dir__b" id="ei-dir-out" data-dir="out" aria-pressed="true"><span class="ei-dir__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><span><b>You send</b><small>Sales invoice to a customer</small></span><i class="ei-dir__bar" aria-hidden="true"></i></button>
+        <button type="button" class="ei-dir__b" id="ei-dir-in" data-dir="in" aria-pressed="false"><span class="ei-dir__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 7 7 17M16 17H7V8"/></svg></span><span><b>You receive</b><small>Supplier invoice to you</small></span><i class="ei-dir__bar" aria-hidden="true"></i></button>
+      </div>
+    <div class="ei-stage s0" id="ei-stage" role="img" aria-label="Illustration of the UAE five-corner model in both directions. Sending: your invoice goes to your ASP, then your buyer's ASP, then your buyer. Receiving: your supplier's invoice goes to their ASP, then your ASP, then into your books. In both, the ASPs report tax data to the FTA.">
       <svg class="ei-net" viewBox="0 0 560 470" aria-hidden="true">
         <defs>
           <linearGradient id="ei-gr" gradientUnits="userSpaceOnUse" x1="280" y1="0" x2="560" y2="0"><stop offset="0" stop-color="#1D4ED8"/><stop offset="1" stop-color="#38BDF8"/></linearGradient>
@@ -152,34 +157,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <path d="M350 72 C 322 92, 306 120, 306 170 L 306 380 C 306 402, 292 410, 270 410"/>
           <path d="M336 200 C 322 204, 318 214, 318 238 L 318 388 C 318 410, 300 422, 270 422"/>
         </g>
-        <path id="ei-p1" class="ei-lnon" d="M282 44 C 302 44, 316 40, 334 40"/>
-        <path id="ei-p2" class="ei-lnon" d="M448 74 L 448 160"/>
-        <path id="ei-p3" class="ei-lnon" d="M448 232 L 448 318"/>
+        <path id="ei-p1" class="ei-lnon ei-lnon--x" d="M282 44 C 302 44, 316 40, 334 40"/>
+        <path id="ei-p2" class="ei-lnon ei-lnon--x" d="M448 74 L 448 160"/>
+        <path id="ei-p3" class="ei-lnon ei-lnon--x" d="M448 232 L 448 318"/>
         <path id="ei-p4" class="ei-lnon ei-lnon--fta" d="M350 72 C 322 92, 306 120, 306 170 L 306 380 C 306 402, 292 410, 270 410"/>
         <path id="ei-p5" class="ei-lnon ei-lnon--fta" d="M336 200 C 322 204, 318 214, 318 238 L 318 388 C 318 410, 300 422, 270 422"/>
-        <text class="ei-net__lbl" x="458" y="121">Peppol</text>
-        <text class="ei-net__lbl" x="458" y="279">delivers</text>
+        <g class="ei-chev" aria-hidden="true"><path d="M442 112 l6 7 6-7"/><path d="M442 270 l6 7 6-7"/></g>
+        <text class="ei-net__lbl" x="460" y="121">Peppol</text>
+        <text class="ei-net__lbl" x="460" y="279"><tspan class="dx-o">delivers</tspan><tspan class="dx-i">sends</tspan></text>
         <text class="ei-net__lbl ei-net__lbl--fta" x="300" y="300" transform="rotate(-90 300 300)">tax data</text>
         <g class="ei-pkts">
           <circle id="ei-k1" r="5"/><circle id="ei-k2" r="5"/><circle id="ei-k3" r="5"/><circle id="ei-k4" r="4.5" class="g"/><circle id="ei-k5" r="4.5" class="g"/>
         </g>
       </svg>
-      <div class="ei-inv" aria-hidden="true">
-        <span class="ei-corner">1 · You, the seller</span>
-        <div class="ei-inv__top"><span class="ei-inv__tag">Tax invoice · INV-0148</span><span class="ei-inv__st"><i></i><span id="ei-st">Draft</span></span></div>
-        <p class="ei-inv__amt">AED 8,400.00</p>
-        <p class="ei-inv__to">To: ABC Trading LLC · B2B</p>
-        <div class="ei-inv__rows"><div><span>Office fit-out services</span><b>8,000.00</b></div><div><span>VAT 5%</span><b>400.00</b></div></div>
-        <div class="ei-inv__send"><span class="t1">Send ▸</span><span class="t2">Sending…</span><span class="t3">✓ Delivered &amp; reported</span></div>
+      <div class="ei-inv" id="ei-inv" aria-hidden="true">
+        <span class="ei-corner"><span class="dx-o">1 · You, the seller</span><span class="dx-i">4 · You, the buyer</span></span>
+        <div class="ei-inv__top"><span class="ei-inv__tag"><span class="dx-o">Tax invoice · INV-0148</span><span class="dx-i">Tax invoice · XYZ-0917</span></span><span class="ei-inv__st"><i></i><span id="ei-st">Draft</span></span></div>
+        <div class="ei-inv__doc">
+          <p class="ei-inv__amt"><span class="dx-o">AED 8,400.00</span><span class="dx-i">AED 3,150.00</span></p>
+          <p class="ei-inv__to"><span class="dx-o">To: ABC Trading LLC · B2B</span><span class="dx-i">From: XYZ Supplies LLC · B2B</span></p>
+          <div class="ei-inv__rows">
+            <div><span><span class="dx-o">Office fit-out services</span><span class="dx-i">Printer paper &amp; toner</span></span><b><span class="dx-o">8,000.00</span><span class="dx-i">3,000.00</span></b></div>
+            <div><span>VAT 5%</span><b><span class="dx-o">400.00</span><span class="dx-i">150.00</span></b></div>
+          </div>
+        </div>
+        <div class="ei-inv__send"><span class="t1"><span class="dx-o">Send ▸</span><span class="dx-i">Waiting for your supplier…</span></span><span class="t2"><span class="dx-o">Sending…</span><span class="dx-i">On its way to you…</span></span><span class="t3"><span class="dx-o">✓ Delivered &amp; reported</span><span class="dx-i">✓ Received · added to your bills</span></span></div>
         <p class="ei-inv__use">E-invoices used <b id="ei-cnt">312</b> / 1,500</p>
         <svg class="ei-cursor" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#020617" stroke="#fff" stroke-width="1.5"/></svg>
       </div>
-      <div class="ei-node" id="ei-n2" aria-hidden="true"><span class="ei-node__ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><i>2</i></span><div><strong>Your ASP</strong><span class="w">Waiting…</span><span class="k">Validated · sent on Peppol</span></div></div>
-      <div class="ei-node" id="ei-n3" aria-hidden="true"><span class="ei-node__ic"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/><path d="m9 12 2 2 4-4"/></svg><i>3</i></span><div><strong>Buyer's ASP</strong><span class="w">Waiting…</span><span class="k">Received · validated</span></div></div>
-      <div class="ei-node" id="ei-n4" aria-hidden="true"><span class="ei-node__ic"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg><i>4</i></span><div><strong>Your buyer</strong><span class="w">Waiting…</span><span class="k">E-invoice received</span></div></div>
+      <div class="ei-node" id="ei-n2" aria-hidden="true"><span class="ei-node__ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><i><span class="dx-o">2</span><span class="dx-i">3</span></i></span><div><strong>Your ASP</strong><span class="w">Waiting…</span><span class="k"><span class="dx-o">Validated · sent on Peppol</span><span class="dx-i">Received · validated</span></span></div></div>
+      <div class="ei-node" id="ei-n3" aria-hidden="true"><span class="ei-node__ic"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/><path d="m9 12 2 2 4-4"/></svg><i><span class="dx-o">3</span><span class="dx-i">2</span></i></span><div><strong><span class="dx-o">Buyer's ASP</span><span class="dx-i">Supplier's ASP</span></strong><span class="w">Waiting…</span><span class="k"><span class="dx-o">Received · validated</span><span class="dx-i">Validated · sent on Peppol</span></span></div></div>
+      <div class="ei-node" id="ei-n4" aria-hidden="true"><span class="ei-node__ic"><svg class="dx-o" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg><svg class="dx-i" viewBox="0 0 24 24"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><i><span class="dx-o">4</span><span class="dx-i">1</span></i></span><div><strong><span class="dx-o">Your buyer</span><span class="dx-i">Your supplier</span></strong><span class="w">Waiting…</span><span class="k"><span class="dx-o">E-invoice received</span><span class="dx-i">Raises an e-invoice</span></span></div></div>
       <div class="ei-node ei-node--fta" id="ei-n5" aria-hidden="true"><span class="ei-node__ic"><svg viewBox="0 0 24 24"><path d="M3 21h18M4 10h16M12 3l9 7H3zM6 10v11M10 10v11M14 10v11M18 10v11"/></svg><i>5</i></span><div><strong>FTA</strong><span class="w">Waiting…</span><span class="k">Tax data, near real time</span></div></div>
       <p class="ei-stage__cap">The UAE 5-corner model · illustration, not a live screen</p>
       <!-- [CONFIRM BEFORE PUBLISHING: ADD AN APPROVED REAL SCREENSHOT OF THE FINASHEET E-INVOICING DASHBOARD WHEN AVAILABLE] -->
+    </div>
     </div>
   </div>
 </section>
