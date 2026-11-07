@@ -29,7 +29,7 @@ OUT_W = 800
 # slug -> (face centre x, eye line y) measured in the original
 FACE = {
     "buhari-anshif": (555, 271),
-    "sradha-santhosh": (575, 277),
+    "sradha-santhosh": (535, 240),
     "moiz-fakhruddin": (398, 292),
 }
 
