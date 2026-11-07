@@ -455,7 +455,6 @@
 
 /* direction chevrons on the Peppol column */
 .ei-chev path{fill:none;stroke:#93C5FD;stroke-width:2.4;transform-box:fill-box;transform-origin:center;transition:transform .4s}
-.ei-in .ei-chev path{transform:rotate(180deg)}
 
 /* receiving: the supplier's invoice arrives blurred, then lands sharp in your books */
 .ei-inv{transition:box-shadow .5s,border-color .5s}
@@ -491,3 +490,11 @@
 .ei-inv__tag{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media (max-width:1180px) and (min-width:961px){.ei-dir__b small{display:none}}
 @media (max-width:480px){.ei-dir__b small{display:none}.ei-dir__b{min-height:50px}}
+/* receive mode, desktop: mirror the stage — supplier → their ASP → your ASP down the left, invoice lands bottom-right, FTA top-right */
+@media (min-width:961px){
+  .ei-stage.ei-in .ei-inv{left:50%;top:auto;bottom:2%}
+  .ei-stage.ei-in #ei-n2,.ei-stage.ei-in #ei-n3,.ei-stage.ei-in #ei-n4{left:0;top:auto}
+  .ei-stage.ei-in #ei-n2{bottom:1%}.ei-stage.ei-in #ei-n3{bottom:35%}.ei-stage.ei-in #ei-n4{bottom:69%}
+  .ei-stage.ei-in #ei-n5{left:53%;top:auto;bottom:82%}
+  .ei-stage.ei-in .ei-stage__cap{right:auto;left:0}
+}

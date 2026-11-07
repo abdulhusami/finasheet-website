@@ -125,9 +125,21 @@
       };
       raf(tick);
     };
+    // receive mode mirrors the network (supplier column on the left, invoice bottom-right): swap path geometry
+    const geo = [...st.querySelectorAll('.ei-net [data-in]')].map((el) => {
+      const isText = el.tagName.toLowerCase() === 'text';
+      return { el, isText, out: isText ? [el.getAttribute('x'), el.getAttribute('y'), el.getAttribute('transform')] : el.getAttribute('d'), inn: el.getAttribute('data-in') };
+    });
+    const setGeo = (d) => geo.forEach((g) => {
+      if (!g.isText) { g.el.setAttribute('d', d === 'in' ? g.inn : g.out); return; }
+      const [x, y] = d === 'in' ? g.inn.split(' ') : g.out;
+      g.el.setAttribute('x', x); g.el.setAttribute('y', y);
+      if (g.out[2]) g.el.setAttribute('transform', `rotate(-90 ${x} ${y})`);
+    });
     const paintDir = () => {
       // switch labels/direction without letting the line-draw transitions play backwards
       st.classList.add('ei-nt');
+      setGeo(dir);
       st.classList.toggle('ei-in', dir === 'in');
       void st.offsetWidth;
       st.classList.remove('ei-nt');
