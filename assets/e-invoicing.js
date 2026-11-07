@@ -88,19 +88,29 @@
   };
   const raf = window.requestAnimationFrame || ((f) => setTimeout(() => f(Date.now()), 16));
 
-  /* ---------- Hero: the 5-corner model, played as a live sequence ---------- */
+  /* ---------- Hero: the 5-corner model, played in both directions ----------
+     "out" = you send a sales invoice to a customer (corner 1 -> 2 -> 3 -> 4, both ASPs report to 5).
+     "in"  = a supplier sends you an e-invoice (supplier 1 -> their ASP 2 -> your ASP 3 -> you 4, both report to 5).
+     The same five cards are reused; only the labels and the direction of travel change. */
   (() => {
     const st = document.getElementById('ei-stage');
     if (!st) return;
     const P = [1, 2, 3, 4, 5].map((i) => document.getElementById('ei-p' + i));
     const K = [1, 2, 3, 4, 5].map((i) => document.getElementById('ei-k' + i));
     const N = { 2: 'ei-n2', 3: 'ei-n3', 4: 'ei-n4', 5: 'ei-n5' };
+    const inv = document.getElementById('ei-inv');
     const label = document.getElementById('ei-st'), cnt = document.getElementById('ei-cnt');
+    const dirBox = document.querySelector('.ei-dir');
+    const dirBtns = dirBox ? [...dirBox.querySelectorAll('.ei-dir__b')] : [];
+    const CYCLE = 9000, FADE = 280;
+    let dir = 'out', auto = true;
+    if (dirBox) dirBox.style.setProperty('--cyc', CYCLE / 1000 + 's');
     P.forEach((p) => { try { p.style.setProperty('--len', Math.ceil(p.getTotalLength())); } catch (e) { /* ignore */ } });
     const set = (n) => { st.classList.remove('s0', 's1', 's2', 's3', 's4', 's5'); st.classList.add('s' + n); };
     const node = (n, v) => { const el = document.getElementById(N[n]); el.classList.toggle('on', v); if (v) { el.classList.remove('ping'); void el.offsetWidth; el.classList.add('ping'); } };
-    // draw a path and move a glowing packet along it
-    const travel = (i, ms) => {
+    const land = () => { st.classList.add('got'); inv.classList.remove('land'); void inv.offsetWidth; inv.classList.add('land'); };
+    // draw a path and move a glowing packet along it (rev = from the end of the path back to its start)
+    const travel = (i, ms, rev) => {
       const p = P[i], k = K[i];
       p.style.setProperty('--d', ms / 1000 + 's');
       p.classList.add('on');
@@ -109,17 +119,37 @@
       k.style.opacity = 1;
       const tick = (now) => {
         const t = Math.min(1, (now - t0) / ms), e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-        const pt = p.getPointAtLength(e * len);
+        const pt = p.getPointAtLength((rev ? 1 - e : e) * len);
         k.setAttribute('cx', pt.x); k.setAttribute('cy', pt.y);
         if (t < 1) raf(tick); else setTimeout(() => { k.style.opacity = 0; }, 120);
       };
       raf(tick);
     };
-    const reset = () => { set(0); label.textContent = 'Draft'; cnt.textContent = '312'; P.forEach((p) => p.classList.remove('on')); K.forEach((k) => { k.style.opacity = 0; }); [2, 3, 4, 5].forEach((n) => node(n, false)); };
-    const final = () => { set(5); label.textContent = 'Delivered'; cnt.textContent = '313'; P.forEach((p) => p.classList.add('on')); [2, 3, 4, 5].forEach((n) => document.getElementById(N[n]).classList.add('on')); };
-    if (reduced) { final(); return; }
-    const steps = [
-      [0, reset],
+    const paintDir = () => {
+      // switch labels/direction without letting the line-draw transitions play backwards
+      st.classList.add('ei-nt');
+      st.classList.toggle('ei-in', dir === 'in');
+      void st.offsetWidth;
+      st.classList.remove('ei-nt');
+      dirBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.dir === dir)));
+      if (dirBox) {
+        // restart the progress bar on the active button
+        dirBox.classList.remove('auto'); void dirBox.offsetWidth; if (auto && !reduced) dirBox.classList.add('auto');
+      }
+    };
+    const reset = () => {
+      st.classList.add('ei-nt');
+      set(0); st.classList.remove('got'); inv.classList.remove('land');
+      label.textContent = dir === 'in' ? 'Awaiting' : 'Draft'; cnt.textContent = '312';
+      P.forEach((p) => p.classList.remove('on')); K.forEach((k) => { k.style.opacity = 0; });
+      [2, 3, 4, 5].forEach((n) => document.getElementById(N[n]).classList.remove('on', 'ping'));
+      void st.offsetWidth; st.classList.remove('ei-nt');
+    };
+    const final = () => {
+      set(5); st.classList.add('got'); label.textContent = dir === 'in' ? 'Received' : 'Delivered'; cnt.textContent = '313';
+      P.forEach((p) => p.classList.add('on')); [2, 3, 4, 5].forEach((n) => document.getElementById(N[n]).classList.add('on'));
+    };
+    const OUT = [
       [700, () => { set(1); label.textContent = 'Validating'; }],
       [1000, () => { set(2); label.textContent = 'Sending'; travel(0, 550); }],
       [1600, () => node(2, true)],
@@ -130,12 +160,40 @@
       [3800, () => { travel(3, 1000); travel(4, 1000); }],
       [4850, () => { node(5, true); set(5); label.textContent = 'Delivered'; cnt.textContent = '313'; }],
     ];
-    let timers = [], loop = null;
-    const run = () => { timers.forEach(clearTimeout); timers = steps.map(([t, f]) => setTimeout(f, t)); };
-    whenVisible(st, (vis) => {
-      if (vis && !loop) { run(); loop = setInterval(run, 9000); }
-      else if (!vis && loop) { clearInterval(loop); loop = null; timers.forEach(clearTimeout); final(); }
-    }, 0.2);
+    const IN = [
+      [500, () => node(4, true)],
+      [800, () => { set(2); label.textContent = 'Incoming'; travel(2, 750, true); }],
+      [1600, () => node(3, true)],
+      [1800, () => { set(3); travel(1, 750, true); }],
+      [2600, () => { node(2, true); label.textContent = 'Validated'; }],
+      [2800, () => { set(4); travel(0, 550, true); }],
+      [3380, () => { land(); label.textContent = 'Reporting'; }],
+      [3600, () => { travel(3, 1000); travel(4, 1000); }],
+      [4650, () => { node(5, true); set(5); label.textContent = 'Received'; cnt.textContent = '313'; }],
+    ];
+    let timers = [], loop = null, playing = false, first = true;
+    const clear = () => { timers.forEach(clearTimeout); timers = []; };
+    const play = () => {
+      clear();
+      const go = () => { paintDir(); reset(); timers.push(...(dir === 'in' ? IN : OUT).map(([t, f]) => setTimeout(f, t))); };
+      if (first) { first = false; go(); return; }
+      st.classList.add('ei-fade');
+      timers.push(setTimeout(() => { go(); st.classList.remove('ei-fade'); }, FADE));
+    };
+    const cycle = () => { if (auto) dir = dir === 'out' ? 'in' : 'out'; play(); };
+    const start = () => { if (loop) clearInterval(loop); play(); loop = setInterval(cycle, CYCLE); playing = true; };
+    const stop = () => { if (loop) clearInterval(loop); loop = null; clear(); st.classList.remove('ei-fade'); paintDir(); final(); playing = false; };
+
+    dirBtns.forEach((b) => b.addEventListener('click', () => {
+      // once someone picks a direction, stop alternating and replay their choice
+      auto = false; dir = b.dataset.dir;
+      push('hero_flow_toggle', { direction: dir === 'in' ? 'receive' : 'send' });
+      if (reduced) { paintDir(); reset(); final(); return; }
+      start();
+    }));
+
+    if (reduced) { auto = false; paintDir(); final(); return; }
+    whenVisible(st, (vis) => { if (vis && !playing) start(); else if (!vis && playing) stop(); }, 0.2);
   })();
 
   /* ---------- Dark section: strike the jargon, then walk the five corners (click to explore) ---------- */
