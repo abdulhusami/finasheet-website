@@ -8,17 +8,19 @@
  *   4. Emails the sales inbox (Shraddha) so she can call the prospect.
  *   5. Returns {ok:true, lead_id} so the page only fires `lead_form_success` for accepted leads.
  *
- * Setup (about 10 minutes, see the strategy doc for screenshots-free steps)
- *   - Create a Google Sheet, e.g. "Finasheet – E-invoicing leads". Extensions > Apps Script. Paste this file.
- *   - Project Settings > Script properties:
- *       SALES_EMAILS  = comma-separated recipients (e.g. Shraddha's work email, Abdul's email)
- *       SHEET_NAME    = Leads   (optional; defaults to "Leads")
+ * Setup (about 3 minutes)
+ *   - Open the "Finasheet – E-invoicing leads" sheet > Extensions > Apps Script. Replace the code with this file. Save.
+ *   - Optional: Project Settings > Script properties > SALES_EMAILS = comma-separated recipients
+ *     (e.g. Shraddha's email). Without it, lead emails go to the Google account that deploys the script.
  *   - Deploy > New deployment > Web app. Execute as: Me. Who has access: Anyone.
  *   - Copy the /exec URL into data-endpoint on <form id="ei-form"> in _pages/e-invoicing-uae.html, rebuild, publish.
  *   - Each time you change this code: Deploy > Manage deployments > Edit > New version (the URL stays the same).
  *
  * Privacy: no credentials live in the website. The sheet is private to your Google account.
  */
+
+// The Google Sheet that stores leads ("Finasheet – E-invoicing leads").
+const SHEET_ID = '1LqlgNesyxd2w8PLLBAgJrWQdv1Uq7bQUbyxwA-oNQCU';
 
 const HEADERS = [
   'lead_id', 'received_at', 'status', 'lead_type', 'full_name', 'company', 'phone', 'email',
@@ -76,7 +78,7 @@ function doGet() {
 function sheet_() {
   const props = PropertiesService.getScriptProperties();
   const name = props.getProperty('SHEET_NAME') || 'Leads';
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
   let sh = ss.getSheetByName(name);
   if (!sh) sh = ss.insertSheet(name);
   if (sh.getLastRow() === 0) {
@@ -87,7 +89,8 @@ function sheet_() {
 }
 
 function notify_(lead) {
-  const to = (PropertiesService.getScriptProperties().getProperty('SALES_EMAILS') || '').trim();
+  // Recipients: Script property SALES_EMAILS (comma-separated), otherwise the account that deployed the script.
+  const to = (PropertiesService.getScriptProperties().getProperty('SALES_EMAILS') || Session.getEffectiveUser().getEmail() || '').trim();
   if (!to) return;
   const labels = {
     readiness_check: 'Readiness check', annual_plan: 'Readiness check (annual plan)',
