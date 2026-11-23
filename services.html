@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -174,6 +176,7 @@ src="https://www.facebook.com/tr?id=1313660467555616&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/services.css">
+{% include site-head.html %}
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -182,97 +185,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <!-- ===================== HEADER ===================== -->
-<header class="header" id="header">
-  <div class="wrap nav">
-    <a href="/" class="logo" aria-label="Finasheet Services">
-      <img class="logo-img" src="fina-logo-transparent.png" alt="Finasheet Services">
-      <span class="logo-div"></span>
-      <span class="logo-tag">Services</span>
-    </a>
-    <nav>
-      <ul class="nav-links">
-        <li class="nav-service-dropdown">
-  <button class="nav-service-btn" type="button">
-    Services <span>⌄</span>
-  </button>
-
-  <div class="nav-service-menu">
-    <a href="/">
-      All Services
-      <small>Accounting, VAT & Corporate Tax support</small>
-    </a>
-
-    <a href="accounting-bookkeeping-uae">
-      Accounting & Bookkeeping
-      <small>Monthly books, reconciliation & reports</small>
-    </a>
-    <a href="accounting-cleanup-uae">
-      Accounting Cleanup
-      <small>Fix delayed, messy records</small>
-    </a>
-    <a href="annual-audit-report-uae">
-      Annual Audit Report Support
-      <small>Year-end and audit preparation</small>
-    </a>
-
-    <a href="vat-registration-uae">
-      VAT Registration
-      <small>Eligibility, documents & TRN support</small>
-    </a>
-
-    <a href="vat-filing-uae">
-      VAT Filing
-      <small>Input VAT, output VAT & return filing</small>
-    </a>
-
-    <a href="corporate-tax-registration-uae">
-      Corporate Tax Registration
-      <small>Registration and document preparation</small>
-    </a>
-
-    <a href="corporate-tax-filing-uae">
-      Corporate Tax Filing
-      <small>Clean records and tax return support</small>
-    </a>
-  </div>
-</li>
-        <li><a href="/software">Software</a></li>
-        <li><a href="#why">Why Finasheet</a></li>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#packages">Packages</a></li>
-        <li><a href="#faq">FAQs</a></li>
-      </ul>
-    </nav>
-    <div class="nav-cta">
-      <a href="https://cal.com/finasheet/demo" class="btn btn-ghost btn-sm">Book a Call</a>
-      <a href="https://wa.me/971522015270?text=Hi%20Finasheet%20Services%2C%20I%27d%20like%20to%20talk%20about%20my%20accounting%20%2F%20VAT%20%2F%20corporate%20tax." target="_blank" rel="noopener" class="btn btn-wa btn-sm">
-        <svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.13c-.24.68-1.42 1.31-1.95 1.36-.5.05-1.13.07-1.83-.11-.42-.13-.96-.31-1.66-.61-2.92-1.26-4.83-4.2-4.98-4.39-.15-.2-1.19-1.58-1.19-3.01s.75-2.13 1.02-2.42c.27-.29.58-.36.78-.36l.56.01c.18.01.42-.07.66.5.24.59.83 2.02.9 2.17.07.15.12.32.02.51-.09.2-.14.32-.28.49l-.42.49c-.14.14-.28.29-.12.57.16.27.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.27.14.43.12.59-.07.16-.2.68-.79.86-1.06.18-.27.36-.22.61-.13.25.09 1.6.75 1.87.89.27.14.45.2.52.32.07.11.07.65-.17 1.33z"/></svg>
-        WhatsApp
-      </a>
-    </div>
-    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
-  </div>
-  <div class="mobile-menu">
-    <ul>
-      <li><a href="/">All Services</a></li>
-<li><a href="accounting-bookkeeping-uae">Accounting & Bookkeeping</a></li>
-<li><a href="accounting-cleanup-uae">Accounting Cleanup</a></li>
-<li><a href="annual-audit-report-uae">Annual Audit Report Support</a></li>
-<li><a href="vat-registration-uae">VAT Registration</a></li>
-<li><a href="vat-filing-uae">VAT Filing</a></li>
-<li><a href="corporate-tax-registration-uae">Corporate Tax Registration</a></li>
-<li><a href="corporate-tax-filing-uae">Corporate Tax Filing</a></li>
-      <li><a href="/software">Software</a></li>
-      <li><a href="#why">Why Finasheet</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#packages">Packages</a></li>
-      <li><a href="#faq">FAQs</a></li>
-    </ul>
-    <div class="wrap" style="padding-bottom:20px">
-      <a href="https://cal.com/finasheet/demo" class="btn btn-primary">Book a Call</a>
-    </div>
-  </div>
-</header>
+{% include site-header.html %}
 
 <!-- ===================== HERO ===================== -->
 <section class="hero">
@@ -879,41 +792,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- ===================== FOOTER ===================== -->
-<footer class="footer">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <a href="/" class="logo" aria-label="Finasheet Services"><img class="logo-img" src="assets/fina-logo.webp" alt="Finasheet Services" width="320" height="96" loading="lazy" decoding="async"><span class="logo-div"></span><span class="logo-tag">Services</span></a>
-        <p class="foot-tagline">Accounting, VAT &amp; Corporate Tax Services for UAE Businesses</p>
-        <p class="foot-desc">We help UAE business owners keep their books clean, VAT filings organized, corporate tax responsibilities clear, and monthly numbers easier to understand.</p>
-      </div>
-      <div>
-        <h5>Quick Links</h5>
-        <ul class="foot-links">
-          <li><a href="#services">Services</a></li>
-          <li><a href="#why">Why Finasheet</a></li>
-          <li><a href="#process">Process</a></li>
-          <li><a href="#packages">Packages</a></li>
-          <li><a href="#faq">FAQs</a></li>
-              <li><a href="/our-team">Meet the team</a></li>
-          <li><a href="https://cal.com/finasheet/demo">Book a Call</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Contact</h5>
-        <ul class="foot-contact">
-          <li><svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg><a href="https://wa.me/971522015270" target="_blank" rel="noopener">WhatsApp: +971 52 201 5270</a></li>
-          <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a href="mailto:support@finasheet.com">support@finasheet.com</a></li>
-          <li><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Service Area: United Arab Emirates</li>
-        </ul>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <p class="disclaimer">Finasheet Services provides accounting and tax support based on the information and documents shared by the client. For specialized legal, statutory audit, tax-agent, or licensed audit matters, appropriate qualified professionals may be involved where required.</p>
-      <p class="copyright">© <span id="yr"></span> Finasheet Services</p>
-    </div>
-  </div>
-</footer>
+{% include site-footer.html %}
 
 <!-- ===================== STICKY CTAs ===================== -->
 <a class="wa-float" href="https://wa.me/971522015270?text=Hi%20Finasheet%20Services%2C%20I%27d%20like%20some%20help%20with%20my%20accounting%20%2F%20VAT%20%2F%20corporate%20tax." target="_blank" rel="noopener" aria-label="WhatsApp">
@@ -927,21 +806,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script>
-// Year
-document.getElementById('yr').textContent = new Date().getFullYear();
-
-// Header shadow on scroll
-const header = document.getElementById('header');
-window.addEventListener('scroll', () => {
-  header.classList.toggle('scrolled', window.scrollY > 12);
-}, {passive:true});
-
-// Mobile menu
-const burger = document.getElementById('burger');
-burger.addEventListener('click', () => header.classList.toggle('menu-open'));
-document.querySelectorAll('.mobile-menu a').forEach(a =>
-  a.addEventListener('click', () => header.classList.remove('menu-open')));
-
 // FAQ accordion
 document.querySelectorAll('.faq-q').forEach(btn => {
   btn.addEventListener('click', () => {

@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -179,6 +181,7 @@ src="https://www.facebook.com/tr?id=1313660467555616&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 
+{% include site-head.html %}
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -187,98 +190,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <!-- NAV -->
-<nav class="nav" id="nav">
-  <div class="container nav-inner">
-    <a href="/" class="logo">
-     <img src="assets/fina-logo-small.webp" alt="Finasheet" width="180" height="54" decoding="async" fetchpriority="high">
-    </a>
-    <div class="nav-links">
-      <a href="#product">Product</a>
-     <div class="nav-service-dropdown">
-  <a class="nav-service-btn" href="/">
-    Services <span>⌄</span>
-  </a>
+{% include site-header.html %}
 
-  <div class="nav-service-menu">
-    <a href="/">
-      All Services
-      <small>Accounting, VAT & Corporate Tax support</small>
-    </a>
 
-    <a href="accounting-bookkeeping-uae">
-      Accounting & Bookkeeping
-      <small>Monthly books, reconciliation & reports</small>
-    </a>
-    <a href="accounting-cleanup-uae">
-      Accounting Cleanup
-      <small>Fix delayed, messy records</small>
-    </a>
-    <a href="annual-audit-report-uae">
-      Annual Audit Report Support
-      <small>Year-end and audit preparation</small>
-    </a>
-
-    <a href="vat-registration-uae">
-      VAT Registration
-      <small>Eligibility, documents & TRN support</small>
-    </a>
-
-    <a href="vat-filing-uae">
-      VAT Filing
-      <small>Input VAT, output VAT & return filing</small>
-    </a>
-
-    <a href="corporate-tax-registration-uae">
-      Corporate Tax Registration
-      <small>Registration and document preparation</small>
-    </a>
-
-    <a href="corporate-tax-filing-uae">
-      Corporate Tax Filing
-      <small>Clean records and tax return support</small>
-    </a>
-  </div>
-</div>
-      <a href="#pricing">Pricing</a>
-      <a href="#founder">Why Finasheet</a>
-      <a href="#faq">FAQs</a>
-    </div>
-    <div class="nav-cta">
-      <a href="https://sheets.finasheet.com/" class="nav-login">Log in</a>
-      <a href="https://wa.me/message/ATD3LTBDZBEND1" class="btn btn-primary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.8 11.8 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.17 1.6 5.98L0 24l6.2-1.62A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22c-1.88 0-3.72-.5-5.33-1.46l-.38-.22-3.67.96.98-3.58-.25-.37A9.98 9.98 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm5.49-7.45c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01s-.52.07-.8.37c-.27.3-1.05 1.02-1.05 2.5s1.07 2.9 1.22 3.1c.15.2 2.11 3.22 5.12 4.52.72.31 1.28.5 1.72.63.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg>
-        Talk to our team
-      </a>
-      <button class="mobile-toggle" aria-label="Menu">
-        <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-    </div>
-  </div>
-</nav>
-
-<div class="homepage-mobile-menu" id="homepage-mobile-menu">
-  <a href="#product">Product <span>→</span></a>
-
-  <div class="mobile-menu-label">Services</div>
-  <div class="mobile-service-links">
-    <a href="/">All Services</a>
-    <a href="accounting-bookkeeping-uae">Accounting & Bookkeeping</a>
-    <a href="accounting-cleanup-uae">Accounting Cleanup</a>
-    <a href="annual-audit-report-uae">Annual Audit Report Support</a>
-    <a href="vat-registration-uae">VAT Registration</a>
-    <a href="vat-filing-uae">VAT Filing</a>
-    <a href="corporate-tax-registration-uae">Corporate Tax Registration</a>
-    <a href="corporate-tax-filing-uae">Corporate Tax Filing</a>
-  </div>
-
-  <a href="#pricing">Pricing <span>→</span></a>
-  <a href="#founder">Why Finasheet <span>→</span></a>
-  <a href="#faq">FAQs <span>→</span></a>
-  <div class="mobile-cta-row">
-    <a href="https://sheets.finasheet.com/" class="mobile-cta mobile-cta-ghost">Log in</a>
-    <a href="https://wa.me/message/ATD3LTBDZBEND1" class="mobile-cta">Talk to our team</a>
-  </div>
-</div>
 
 <!-- HERO -->
 
@@ -1780,83 +1694,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="logo">
-          <img src="assets/fina-logo-small.webp" alt="Finasheet" width="180" height="54" loading="lazy" decoding="async">
-        </div>
-        <p class="footer-about">Accountant-built UAE e-invoicing and tax-ready accounting software for business owners. Built on 10+ years of real UAE finance experience.</p>
-        <a href="https://wa.me/message/ATD3LTBDZBEND1" class="btn btn-whatsapp">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.8 11.8 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.17 1.6 5.98L0 24l6.2-1.62A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52z"/></svg>
-          Talk to our team
-        </a>
-      </div>
-      <div class="footer-col">
-        <h5>Product</h5>
-        <ul>
-          <li><a href="#product">Features</a></li>
-          <li><a href="/">Accounting Services</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Company</h5>
-        <ul>
-          <li><a href="#founder">Why Finasheet</a></li>
-          <li><a href="#who">Who it's for</a></li>
-              <li><a href="/our-team">Meet the team</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Resources</h5>
-        <ul>
-          <li><a href="/pricing">Pricing</a></li>
-            <li><a href="#faq">FAQs</a></li>
-          <li><a href="https://wa.me/971522015270?text=Hi%20Finasheet%2C%20I%20need%20help%20with%20my%20Finasheet%20account.">Contact support</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Finasheet. Built for UAE businesses.</span>
-      <span>
-        <a href="privacy-policy">Privacy</a>
-        <a href="terms-of-service">Terms</a>
-        <a href="privacy-policy#cookies">Cookies</a>
-      </span>
-    </div>
-  </div>
-</footer>
+{% include site-footer.html %}
 
 <script>
-  // Sticky nav border + sticky announcement
-  const nav = document.getElementById('nav');
-  // Homepage mobile menu
-const mobileToggle = document.querySelector('.mobile-toggle');
-const homepageMobileMenu = document.getElementById('homepage-mobile-menu');
-
-if (mobileToggle && homepageMobileMenu) {
-  mobileToggle.setAttribute('aria-expanded', 'false');
-
-  mobileToggle.addEventListener('click', () => {
-    const isOpen = homepageMobileMenu.classList.toggle('open');
-    mobileToggle.classList.toggle('active', isOpen);
-    mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-  });
-
-  homepageMobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      homepageMobileMenu.classList.remove('open');
-      mobileToggle.classList.remove('active');
-      mobileToggle.setAttribute('aria-expanded', 'false');
-    });
-  });
-}
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-      });
 
   // FAQ accordion
   document.querySelectorAll('.faq-item').forEach(item => {
