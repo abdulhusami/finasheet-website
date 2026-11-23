@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,6 +92,7 @@ src="https://www.facebook.com/tr?id=1313660467555616&ev=PageView&noscript=1"
   ]
 }
 </script>
+{% include site-head.html %}
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -97,24 +100,7 @@ src="https://www.facebook.com/tr?id=1313660467555616&ev=PageView&noscript=1"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<nav class="nav">
-  <div class="container nav-inner">
-    <a href="/" class="logo">
-      <img src="fina-logo-transparent.png" alt="Finasheet logo">
-    </a>
-    <div class="nav-links">
-      <a href="/software#product">Product</a>
-      <a href="/software#who">Who it's for</a>
-      <a href="/software#pricing">Pricing</a>
-      <a href="/software#founder">Why Finasheet</a>
-      <a href="/software#faq">FAQs</a>
-    </div>
-    <a href="https://book.finasheet.com/calendar" class="btn btn-primary">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      Book A Demo
-    </a>
-  </div>
-</nav>
+{% include site-header.html %}
 
 <section class="legal-hero legal-hero--terms">
   <div class="container">
@@ -214,19 +200,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<footer>
-  <div class="container">
-    <div class="footer-bottom">
-      <span>© 2026 Finasheet. Built for UAE businesses.</span>
-      <span>
-        <a href="/our-team">Team</a>
-            <a href="privacy-policy">Privacy</a>
-        <a href="terms-of-service" style="font-weight:600;color:var(--primary)">Terms</a>
-        <a href="privacy-policy#cookies">Cookies</a>
-      </span>
-    </div>
-  </div>
-</footer>
+{% include site-footer.html %}
 
 </body>
 </html>

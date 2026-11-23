@@ -3,14 +3,7 @@
   var WA = 'https://wa.me/971522015270?text=';
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
-  /* menus */
-  var mb = document.getElementById('menu-btn'), mp = document.getElementById('m-panel');
-  function closeM(){ mp.hidden = true; mb.setAttribute('aria-expanded','false'); mb.setAttribute('aria-label','Open menu'); }
-  mb.addEventListener('click', function(){ if (mp.hidden){ mp.hidden = false; mb.setAttribute('aria-expanded','true'); mb.setAttribute('aria-label','Close menu'); } else closeM(); });
-  mp.addEventListener('click', function(e){ if (e.target.tagName === 'A') closeM(); });
-  var dd = document.getElementById('svc-dd');
-  document.addEventListener('click', function(e){ if (dd.open && !dd.contains(e.target)) dd.open = false; });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && dd.open){ dd.open = false; dd.querySelector('summary').focus(); } });
+  /* header menus now live in /assets/site-chrome.js */
 
   /* hero: before / after comparison */
   var cmp = document.getElementById('cmp'), cmpBtns = cmp.querySelectorAll('.cmp-switch button'), hint = document.getElementById('cmp-hint');

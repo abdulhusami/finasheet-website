@@ -1,0 +1,116 @@
+/* ==========================================================================
+   Shared site header (.sh) and footer (.sf)
+   Used on every page via _includes/site-header.html and site-footer.html.
+   All class names start with sh- / sf- so page stylesheets don't clash.
+   ========================================================================== */
+
+.sh, .sh-m-panel, .sf {
+  --sc-blue:#1D4ED8; --sc-blue-dark:#1E3A8A;
+  --sc-deep:#0B1F3A;
+  --sc-ink:#020617; --sc-text:#0F172A; --sc-muted:#64748B;
+  --sc-line:#E2E8F0; --sc-line-soft:#EEF2F6; --sc-line-dark:rgba(203,213,225,.16);
+  --sc-bg:#FFFFFF; --sc-bg-soft:#F8FAFC;
+  --sc-on-dark:#CBD5E1; --sc-on-dark-2:#94A3B8;
+  --sc-font-display:"Sora",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --sc-font-body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+.sh *, .sh *::before, .sh *::after,
+.sf *, .sf *::before, .sf *::after { box-sizing:border-box }
+
+.sh-wrap, .sf-wrap { max-width:1280px; margin:0 auto; padding:0 24px; width:100% }
+
+/* ---------- Buttons ---------- */
+.sh .sh-btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  font:600 14.5px/1.2 var(--sc-font-body); letter-spacing:0;
+  padding:11px 20px; min-height:46px; border-radius:12px; border:1px solid transparent;
+  cursor:pointer; text-decoration:none; white-space:nowrap;
+  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, color .22s ease;
+}
+.sh .sh-btn svg { flex:none }
+.sh .sh-btn-primary {
+  background:linear-gradient(135deg,var(--sc-blue) 0%,var(--sc-blue-dark) 100%); color:#fff;
+  box-shadow:0 6px 16px -4px rgba(29,78,216,.45), inset 0 1px 0 rgba(255,255,255,.15);
+}
+.sh .sh-btn-primary:hover { transform:translateY(-1px); box-shadow:0 10px 22px -4px rgba(29,78,216,.55); color:#fff }
+.sh .sh-btn-secondary { background:var(--sc-bg); color:var(--sc-text); border-color:var(--sc-line) }
+.sh .sh-btn-secondary:hover { border-color:#94A3B8; transform:translateY(-1px); color:var(--sc-ink) }
+
+/* ---------- Header ---------- */
+header.sh {
+  position:sticky; top:0; z-index:1000; margin:0; padding:0;
+  background:rgba(255,255,255,.92); border-bottom:1px solid var(--sc-line);
+  -webkit-backdrop-filter:saturate(180%) blur(10px); backdrop-filter:saturate(180%) blur(10px);
+  font:400 16px/1.6 var(--sc-font-body); color:var(--sc-text); box-shadow:none;
+}
+.sh .sh-row { height:72px; display:flex; align-items:center; justify-content:space-between; gap:20px }
+.sh .sh-logo { display:block; flex:none; line-height:0 }
+.sh .sh-logo img { width:150px; height:45px; max-width:none; display:block }
+
+.sh .sh-nav { display:flex; align-items:center; gap:28px; font-size:15px; font-weight:500; margin:0; padding:0; background:none }
+.sh .sh-nav > a, .sh .sh-nav summary { color:var(--sc-text); text-decoration:none; cursor:pointer; padding:0; background:none }
+.sh .sh-nav > a:hover, .sh .sh-nav summary:hover { color:var(--sc-blue) }
+
+.sh .sh-dd { position:relative }
+.sh .sh-dd summary { list-style:none; display:inline-flex; align-items:center; gap:4px }
+.sh .sh-dd summary::-webkit-details-marker { display:none }
+.sh .sh-dd summary svg { transition:transform .2s ease }
+.sh .sh-dd[open] summary svg { transform:rotate(180deg) }
+.sh .sh-dd-panel {
+  position:absolute; top:calc(100% + 14px); left:-16px; width:320px; padding:8px;
+  background:var(--sc-bg); border:1px solid var(--sc-line); border-radius:14px;
+  box-shadow:0 18px 45px rgba(23,37,84,.15); display:grid; gap:2px; z-index:5;
+}
+.sh .sh-dd-panel a { display:block; padding:10px 12px; border-radius:10px; text-decoration:none; color:var(--sc-text); font-weight:500; line-height:1.4 }
+.sh .sh-dd-panel a:hover { background:var(--sc-bg-soft); color:var(--sc-blue) }
+.sh .sh-dd-panel small { display:block; color:var(--sc-muted); font-size:13px; font-weight:400 }
+
+.sh .sh-cta { display:flex; align-items:center; gap:10px }
+.sh .sh-menu-btn {
+  display:none; width:46px; height:46px; padding:0; margin:0;
+  border:1px solid var(--sc-line); border-radius:12px; background:var(--sc-bg);
+  align-items:center; justify-content:center; cursor:pointer; color:var(--sc-text);
+}
+
+/* Mobile menu panel */
+.sh .sh-m-panel { border-top:1px solid var(--sc-line); background:var(--sc-bg); padding:12px 0 20px; max-height:calc(100vh - 72px); overflow-y:auto }
+.sh .sh-m-panel[hidden] { display:none }
+.sh .sh-m-panel nav { display:grid }
+.sh .sh-m-panel nav a { display:block; padding:12px 4px; color:var(--sc-text); text-decoration:none; font-weight:500; border-bottom:1px solid var(--sc-line-soft) }
+.sh .sh-m-label { padding:14px 4px 4px; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--sc-muted) }
+.sh .sh-m-cta { display:grid; gap:10px; margin-top:18px }
+
+/* ---------- Footer ---------- */
+footer.sf {
+  display:block; position:relative; overflow:visible; margin:0; border:0;
+  background:var(--sc-deep); color:var(--sc-on-dark);
+  padding:64px 0 32px; font:400 14.5px/1.6 var(--sc-font-body); text-align:left;
+}
+footer.sf::before, footer.sf::after { content:none; display:none }
+.sf .sf-grid { display:grid; grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr)); gap:36px }
+.sf .sf-col { display:grid; gap:10px; align-content:start; margin:0; padding:0 }
+.sf .sf-col img { width:140px; height:42px; max-width:none; margin:0 0 16px; display:block }
+.sf .sf-col p { margin:0; color:var(--sc-on-dark); font-size:inherit; line-height:1.6 }
+.sf h3 { font:600 15px/1.3 var(--sc-font-display); color:#fff; margin:0 0 12px; letter-spacing:0; text-transform:none }
+.sf a { color:var(--sc-on-dark); text-decoration:none; padding:0; display:inline; font-size:inherit }
+.sf .sf-col > a { display:block }
+.sf a:hover { color:#fff }
+.sf .sf-muted, .sf .sf-col .sf-muted { color:var(--sc-on-dark-2); font-size:13px; line-height:1.55 }
+.sf .sf-base {
+  margin-top:48px; padding-top:24px; border-top:1px solid var(--sc-line-dark);
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;
+  font-size:13px; color:var(--sc-on-dark-2);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1100px) {
+  .sh .sh-nav, .sh .sh-cta .sh-btn-secondary { display:none }
+  .sh .sh-menu-btn { display:inline-flex }
+  .sf .sf-grid { grid-template-columns:repeat(2,minmax(0,1fr)) }
+}
+@media (max-width:720px) {
+  .sh-wrap, .sf-wrap { padding:0 16px }
+  .sh .sh-cta .sh-btn-primary { display:none }
+  .sh .sh-m-cta .sh-btn-primary { display:inline-flex }
+  .sf .sf-grid { grid-template-columns:minmax(0,1fr) }
+}

@@ -1,3 +1,7 @@
+> **Update:** the header and footer now come from `_includes/site-header.html` and
+> `_includes/site-footer.html` on every page. `_partials/header.html` and `footer.html`
+> just include those files. See `_includes/README.md`.
+
 # Phase 1 shared chrome
 
 The `_partials/` directory contains internal templates for future page
