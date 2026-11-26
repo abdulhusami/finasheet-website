@@ -19,7 +19,7 @@
         } else closeM();
       });
       mp.addEventListener('click', function (e) { if (e.target.closest('a')) closeM(); });
-      window.addEventListener('resize', function () { if (window.innerWidth > 1100 && !mp.hidden) closeM(); });
+      window.addEventListener('resize', function () { if (window.innerWidth > 1240 && !mp.hidden) closeM(); });
     }
 
     if (dd) {
